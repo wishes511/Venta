@@ -56,8 +56,9 @@
         <link rel='stylesheet' type="text/css" href="../css/responsive.css">
         <link rel='stylesheet' type="text/css" href="../css/opcional.css">
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
+        <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/userscrip.js"></script>
         <script type="text/javascript">
             function valida_nom() {
                 var texto = document.form1.names.value;
@@ -87,16 +88,7 @@
             }
         </script>
         <script>
-            function averdato() {
 
-                var total = document.getElementsByTagName("td").length;
-                for (var i = 0; i < total; i++) {
-                    var variable = document.getElementsByTagName("td")[i].innerHTML;
-                    alert(variable);
-                }
-
-
-            }
         </script>
     </head>
     <body>
@@ -172,7 +164,7 @@
                     <div class="col-lg-8 col-lg-offset-2" id="get_catalogo" align="center" style="padding: 2%">
                 <div class="row espas-search-prods">
                     <div class="col-sm-4">
-                        <input type="text" id="catalogo" placeholder="Busqueda de productos" class="form-control" onkeypress="to_searchprod()"> 
+                        <input type="text" id="catalogo" placeholder="Busqueda de productos" class="form-control" onchange="to_searchprod()"> 
                     </div> 
                 </div>
                         </div>
@@ -192,13 +184,13 @@
                 </div>
 
             </div>
-                <div class="row" >
-                    <div class="col-md-4" style="padding-top: 2%" align="center">
+                <div class="row" id="distribucion">
+           <!-- <div class="col-md-4" style="padding-top: 2%" align="center">
                         <div class="row"><label class="prodbusqeuda">Estilo</label><label class="prodbusqeuda">Combinacion</label><label class="prodbusqeuda">Corrida</label></div>
                         <div class="row"><label class="prodbusqeuda">5454</label><label class="prodbusqeuda">HONTING - KOTOTE</label><label class="prodbusqeuda">25/30</label></div>
                     </div>
                 <div class=" col-md-offset-4"  id="get_catalogo" align="center" style="padding-top: 2%">
-                <div style=" overflow: auto"  class="col-md-12" style="background-color: blueviolet" align="center" id="distribucion">
+                <div style=" overflow: auto"  class="col-md-12" align="center" >
                     <table border="1" width="5" class="table table-bordered table-condensed table-hover table-striped" style="overflow: auto" align="center">
                         <thead align="center" >
                         <th width="10">25</th>
@@ -231,22 +223,11 @@
                         </tr>
                     </table>
                 </div>
-                </div>
+                </div> -->         
                 </div>
         </div>
         <script>
-            function to_searchprod() {
-                var catalogo = $('#catalogo').val();
-                var uso = "buscar";
-                $.ajax({
-                    type: 'post',
-                    data: {p: catalogo, uso: uso},
-                    url: '../Productos',
-                    success: function (result) {
-                        $('#get_catalogo').html(result);
-                    }
-                });
-            }
+            
             function carrito(id)
             {
                 window.location.href = "?total=" + id;

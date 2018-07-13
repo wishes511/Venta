@@ -6,6 +6,7 @@
 package persistencia;
 
 
+import Modelo.Corrida;
 import Modelo.Producto;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,18 +22,14 @@ import java.util.logging.Logger;
  *
  * @author mich
  */
-public class VS extends conBD {
+public class VS_Corrida extends conBD {
 
 
     // Busquedas--------------
-        public Producto buscarprodID(int clave) throws ClassNotFoundException, SQLException {
-        Producto p = new Producto();
-        String query = "select p.estilo as 'estilo',(m.Descripcion+' - '+col.Descripcion) as 'combinacion',c.Descripcion as 'corrida' from Productos p \n" +
-"join Corridas c on p.Corrida=c.Corrida\n" +
-"join Combinaciones com on p.Combinacion=com.Combinacion\n" +
-"join Materiales m on m.Material=com.Material1\n" +
-"join Colores col on com.Color1=col.Color\n" +
-" where producto="+clave+"";
+        public Corrida buscarCorID(int clave) throws ClassNotFoundException, SQLException {
+        Corrida p = new Corrida();
+        String query = "select PuntoInicial,PuntoFinal,Descripcion from Corridas"
+                + " where Corrida="+clave+"";
         Statement smt;
         ResultSet df;
         abrir();
@@ -40,11 +37,11 @@ public class VS extends conBD {
         smt = conect.createStatement();
         df = smt.executeQuery(query);
         while (df.next()) {
-            p.setEstilo(df.getInt("estilo"));
-            p.setCombinacionchar(df.getString("combinacion"));
-            p.setCorridachar(df.getString("corrida"));
+            p.setCorrida(clave);
+            p.setPi(df.getInt("PuntoInicial"));
+            p.setPf(df.getInt("PuntoFinal"));
+            p.setDesc(df.getString("Descripcion"));
         }
-        System.out.println(query+"\n "+p.getCombinacionchar()+" "+p.getCorridachar());
         df.close();
         smt.close();
         return p;

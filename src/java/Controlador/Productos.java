@@ -5,7 +5,9 @@
  */
 package Controlador;
 
+import DAO.DAO_Corrida;
 import DAO.DAO_Producto;
+import Modelo.Corrida;
 import Modelo.Producto;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -79,10 +81,31 @@ public class Productos extends HttpServlet {
         try{
         String uso = (String)request.getParameter("uso");
         if(uso.equals("buscar")){
+            PrintWriter out = response.getWriter();
             String clave = (String)request.getParameter("p");
             DAO_Producto dprod = new DAO_Producto();
+            DAO_Corrida dcor = new DAO_Corrida();
             Producto p = new Producto();
             p=dprod.getprodwithID(Integer.parseInt(clave));
+            Corrida c = new Corrida();
+            c=dcor.getcorridawithID(Integer.parseInt(clave));
+            //
+            out.print("<div class=\"col-md-4\" style=\"padding-top: 2%\" align=\"center\">\n" +
+"                        <div class=\"row\"><label class=\"prodbusqeuda\">Estilo</label><label class=\"prodbusqeuda\">Combinacion</label><label class=\"prodbusqeuda\">Corrida</label></div>\n" +
+"                        <div class=\"row\"><label class=\"prodbusqeuda\">"+p.getEstilo()+"</label><label class=\"prodbusqeuda\">"+p.getCombinacionchar()+"</label><label class=\"prodbusqeuda\">"+p.getCorridachar()+"</label></div>\n" +
+"                    </div>"+
+"            <div class=\" col-md-offset-4\"  id=\"get_catalogo\" align=\"center\" style=\"padding-top: 2%\">\n" +
+"                <div style=\" overflow: auto\"  class=\"col-md-12\" align=\"center\" >\n" +
+"                    <table border=\"1\" width=\"5\" class=\"table table-bordered table-condensed table-hover table-striped\" style=\"overflow: auto\" align=\"center\">\n" +
+"                        <thead align=\"center\" >");
+            int i = c.getPi();
+            int z = c.getPf()+1;
+            while(i<z){
+                out.print("<th width=\"10\">"+i+"</th>");
+                System.out.println(i);
+                i+=0.50;
+            }
+            out.print("</thead>");
         
         }
         
