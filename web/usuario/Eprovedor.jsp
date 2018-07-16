@@ -124,7 +124,7 @@
             <hr> <br>
             <div class="row" >
                 
-                <div class=" col-md-offset-6"  id="get_catalogo" align="center">
+            <!--    <div class=" col-md-offset-6"  id="get_catalogo" align="center">
                 <div style=" overflow: auto"  class="col-md-12" style="background-color: blueviolet" align="center">
                     <table border="1" width="5" class="table table-bordered table-condensed table-hover table-striped" style="overflow: auto" align="center">
                         <thead align="center" >
@@ -158,7 +158,7 @@
                         </tr>
                     </table>
                 </div>
-                </div>
+                </div> -->
                 </div>
                 <div class="row" >
                     <div class="col-lg-8 col-lg-offset-2" id="get_catalogo" align="center" style="padding: 2%">

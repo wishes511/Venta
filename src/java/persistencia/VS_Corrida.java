@@ -28,8 +28,8 @@ public class VS_Corrida extends conBD {
     // Busquedas--------------
         public Corrida buscarCorID(int clave) throws ClassNotFoundException, SQLException {
         Corrida p = new Corrida();
-        String query = "select PuntoInicial,PuntoFinal,Descripcion from Corridas"
-                + " where Corrida="+clave+"";
+        String query = "select PuntoInicial,PuntoFinal,c.Descripcion as Descripcion from Corridas c join Productos p on p.Corrida =c.Corrida"
+                + " where p.producto="+clave+"";
         Statement smt;
         ResultSet df;
         abrir();

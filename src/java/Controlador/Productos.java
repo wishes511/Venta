@@ -98,15 +98,24 @@ public class Productos extends HttpServlet {
 "                <div style=\" overflow: auto\"  class=\"col-md-12\" align=\"center\" >\n" +
 "                    <table border=\"1\" width=\"5\" class=\"table table-bordered table-condensed table-hover table-striped\" style=\"overflow: auto\" align=\"center\">\n" +
 "                        <thead align=\"center\" >");
-            int i = c.getPi();
-            int z = c.getPf()+1;
+            float i = c.getPi();
+            float z = c.getPf()+1;
             while(i<z){
                 out.print("<th width=\"10\">"+i+"</th>");
-                System.out.println(i);
                 i+=0.50;
             }
-            out.print("</thead>");
-        
+           i = c.getPi();
+           z = c.getPf()+1;
+            out.print("</thead><tr align=\"center\" contenteditable=\"true\">");
+             while(i<z){
+                 if(c.getPf()+0.5==i){
+                 out.print("<td width=\"10\" onclick=\"averdato()\"></td>");
+                 }else{
+                 out.print("<td width=\"10\"></td>");
+                 }
+                i+=0.50;
+            }
+             out.print("<td  width=\"5\"><img class=\"imagentabla\" src=\"../images/ok.png\" alt=\"\"></td></tr>");
         }
         
         }catch (Exception e) {
