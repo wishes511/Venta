@@ -90,13 +90,13 @@ public class Productos extends HttpServlet {
             Corrida c = new Corrida();
             c=dcor.getcorridawithID(Integer.parseInt(clave));
             //
-            out.print("<div class=\"col-md-4\" style=\"padding-top: 2%\" align=\"center\">\n" +
+            out.print("<div class=\"container-fluid\"><div class=\"col-md-4\" style=\"padding-top: 2%\" align=\"center\">\n" +
 "                        <div class=\"row\"><label class=\"prodbusqeuda\">Estilo</label><label class=\"prodbusqeuda\">Combinacion</label><label class=\"prodbusqeuda\">Corrida</label></div>\n" +
 "                        <div class=\"row\"><label class=\"prodbusqeuda\">"+p.getEstilo()+"</label><label class=\"prodbusqeuda\">"+p.getCombinacionchar()+"</label><label class=\"prodbusqeuda\">"+p.getCorridachar()+"</label></div>\n" +
 "                    </div>"+
 "            <div class=\" col-md-offset-4\"  id=\"get_catalogo\" align=\"center\" style=\"padding-top: 2%\">\n" +
 "                <div style=\" overflow: auto\"  class=\"col-md-12\" align=\"center\" >\n" +
-"                    <table border=\"1\" width=\"5\" class=\"table table-bordered table-condensed table-hover table-striped\" style=\"overflow: auto\" align=\"center\">\n" +
+"                    <table border=\"1\" width=\"5\" class=\"table table-bordered table-condensed\" style=\"overflow: auto\" align=\"center\">\n" +
 "                        <thead align=\"center\" >");
             float i = c.getPi();
             float z = c.getPf()+1;
@@ -109,13 +109,16 @@ public class Productos extends HttpServlet {
             out.print("</thead><tr align=\"center\" contenteditable=\"true\">");
              while(i<z){
                  if(c.getPf()+0.5==i){
-                 out.print("<td width=\"10\" onclick=\"averdato()\"></td>");
+                 out.print("<td width=\"10\" ></td>");
                  }else{
                  out.print("<td width=\"10\"></td>");
                  }
                 i+=0.50;
             }
-             out.print("<td  width=\"5\"><img class=\"imagentabla\" src=\"../images/ok.png\" alt=\"\"></td></tr>");
+             out.print("</tr></table></div></div>");
+             out.print("<div class=\"row\"><div class=\"col-md-offset-6\">"
+                     + "<a class=\"btn\"><img onclick=\"averdato()\" class=\"imagentabla\" src=\"../images/ok.png\" alt=\"\"></a>"
+                     + "</div></div></div>");
         }
         
         }catch (Exception e) {

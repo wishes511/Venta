@@ -107,21 +107,23 @@
                             Venta
                         </a>
                     </li>
+                    <li><a href="../Cierresesion">Salir</a></li>
+                </ul>
+<div id="" class="nav nav-pills" style="float:right">
                     <%
                         }
                         if (!dis.isEmpty()) {
-                            out.print("<li style='background-color:red'><a style='color:white' href=Utilidades_Donacionest.jsp>Nueva Compra Interna</a></li>");
-                        } else {
-                            out.print("<li><a href=Utilidades_Donacionest.jsp>Nueva Compra Interna</a></li>");
+                            out.print("<li  id=\"carrosid\" style='background-color:red'><a style='color:white' href=Utilidades_Donacionest.jsp>Nueva Compra Interna "+" ("+dis.size()+")</a></li>");
+                          for(int i =0;i<dis.size();i++){
+                           System.out.println(dis.get(i));
+                        }                       
+                         } else {
+                            out.print("<li  id=\"carrosid\"><a href=Utilidades_Donacionest.jsp>Nueva Compra Interna</a></li>");
+
                         }
                     %>
-                    <li class="">
-
-                    <li><a href="../Cierresesion">Salir</a></li>
-                </ul>
-
+                    </div>
             </nav>
-            <hr> <br>
             <div class="row" >
                 
             <!--    <div class=" col-md-offset-6"  id="get_catalogo" align="center">
@@ -166,6 +168,7 @@
                     <div class="col-sm-4">
                         <input type="text" id="catalogo" placeholder="Busqueda de productos" class="form-control" onchange="to_searchprod()"> 
                     </div> 
+                    <button style="float:right" class="btn btn-danger" onclick="vaciar()">Vaciar</button>
                 </div>
                         </div>
                 <div class="espacio1"> <!-- Cliente -->
