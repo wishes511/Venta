@@ -8,6 +8,7 @@ package DAO;
 import Modelo.Int_producto;
 import Modelo.Producto;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistencia.VS;
@@ -46,6 +47,20 @@ public class DAO_Producto extends VS implements Int_producto{
     @Override
     public boolean nuevoprod(Producto p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    @Override
+        public Producto getprodwithID_nochar(int clave) {
+        Producto p=new Producto();
+        try {
+            abrir();
+            p=buscarprodID_nochar(clave);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return p;
     }
     
 }

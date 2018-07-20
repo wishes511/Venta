@@ -49,5 +49,37 @@ public class VS extends conBD {
         smt.close();
         return p;
     }
+        public Producto buscarprodID_nochar(int clave) throws ClassNotFoundException, SQLException {
+        ArrayList<Producto> arr= new ArrayList<>();
+        Producto p = new Producto();
+        String query = "select p.corrida as 'corrida',p.estilo as 'estilo',p.Producto as 'producto',p.combinacion as 'combinacion',p.linea as 'linea',p.descripcion as 'desc',p.costo as 'costo', "
+                + "c.descripcion as 'corridac',m.descripcion 'material',col.descripcion as 'color' from Productos p \n" +
+"join Corridas c on p.Corrida=c.Corrida \n" +
+"join Combinaciones com on p.Combinacion=com.Combinacion \n" +
+"join Materiales m on m.Material=com.Material1 \n" +
+"join Colores col on com.Color1=col.Color where producto="+clave+"";
+        System.out.println(query);
+        Statement smt;
+        ResultSet df;
+        abrir();
+        Connection conect=getConexion();
+        smt = conect.createStatement();
+        df = smt.executeQuery(query);
+        while (df.next()) {
+            p.setClave_corrida(df.getInt("corrida"));
+            p.setEstilo(df.getInt("estilo"));
+            p.setProducto(df.getInt("producto"));
+            p.setClave_combinacion(df.getInt("combinacion"));
+            p.setClave_linea(df.getInt("linea"));
+            p.setTipo(df.getString("desc"));
+            p.setCorridachar(df.getString("corridac"));
+            p.setCombinacionchar(df.getString("material")+"-"+df.getString("color"));
+            p.setCostof(df.getFloat("costo"));
+           
+        }
+        df.close();
+        smt.close();
+        return p;
+    }
 
 }

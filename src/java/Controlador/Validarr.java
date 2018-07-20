@@ -5,6 +5,8 @@
  */
 package Controlador;
 
+import Modelo.Corrida;
+import Modelo.Producto;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -110,11 +112,14 @@ public class Validarr extends HttpServlet {
                             //usuario administrador
                       //      case "ADMIN":
                       ArrayList<String> arr=new ArrayList<>();
+                      ArrayList<Producto>arr1 = new ArrayList<>();
+                      ArrayList<Corrida>arr2 = new ArrayList<>();
                                 objSesion.setMaxInactiveInterval(interv + 100000);
                                 objSesion.setAttribute("usuario", nombre);
                                 objSesion.setAttribute("tipo","ADMIN");
                                 objSesion.setAttribute("distribucion", arr);
-                                objSesion.setAttribute("corrida", arr);
+                                objSesion.setAttribute("producto", arr1);
+                                objSesion.setAttribute("corrida", arr2);
                                 response.sendRedirect("usuario/Eprovedor.jsp");
                                 
                        /*/         break;

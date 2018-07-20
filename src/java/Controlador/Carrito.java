@@ -5,6 +5,10 @@
  */
 package Controlador;
 
+import DAO.DAO_Corrida;
+import DAO.DAO_Producto;
+import Modelo.Corrida;
+import Modelo.Producto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -34,11 +38,12 @@ public class Carrito extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         HttpSession objSesion = request.getSession(false);
+        HttpSession objSesion = request.getSession(false);
         String usuario = (String) objSesion.getAttribute("usuario");
         String tipos = (String) objSesion.getAttribute("tipo");
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
-        ArrayList<String> cor = (ArrayList<String>) objSesion.getAttribute("corrida");
+        ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
+        ArrayList<Corrida> corrida = (ArrayList<Corrida>) objSesion.getAttribute("corrida");
         if (usuario != null && tipos != null && (tipos.equals("ADMIN"))) {
 
         } else {
@@ -46,24 +51,45 @@ public class Carrito extends HttpServlet {
         }
         PrintWriter out = response.getWriter();
         String uso = (String) request.getParameter("uso");
-        if(uso.equals("anadir")){
+        if (uso.equals("anadir")) {
             String dato = (String) request.getParameter("p");
-            String dator="";
-            for(int i =0;i<dato.length();i++){
-                System.out.println("dato s "+dato);
-            int var =dato.charAt(0);
-                if(var >=46 || var <=57 ){
-                dator+=(char)var+"";
-                }
-            }
-        dis.add(dator);
-        objSesion.setAttribute("distribucion", dis);
-        out.print(dato);
-        }if(uso.equals("vaciar")){
-        dis.clear();
-        objSesion.setAttribute("distibucion", dis);
+            String prod = (String) request.getParameter("prod");
+            DAO_Producto dprod = new DAO_Producto();
+            DAO_Corrida dcor = new DAO_Corrida();
+            Producto p = new Producto();
+            Corrida c = new Corrida();
+            cor.add(dprod.getprodwithID_nochar(Integer.parseInt(prod)));
+            corrida.add(dcor.getcorridawithID(Integer.parseInt(prod)));
+            System.out.println(cor.get(0).getEstilo());
+            objSesion.setAttribute("distribucion", getdis(dato, dis));
+            objSesion.setAttribute("producto", cor);
+            objSesion.setAttribute("corrida", corrida);
+            out.print(cor.size());
         }
-        
+        if (uso.equals("vaciar")) {
+            dis.clear();
+            cor.clear();
+            corrida.clear();
+            objSesion.setAttribute("distibucion", dis);
+            objSesion.setAttribute("producto", cor);
+            objSesion.setAttribute("corrida", corrida);
+        }
+
+    }
+
+    private ArrayList<String> getdis(String dato, ArrayList<String> arr) {
+        String aux = "";
+        for (int i = 0; i < dato.length(); i++) {
+            int var = dato.charAt(i);
+            System.out.println("dato s " + var);
+            if (var >= 46 || var <= 57) {
+                aux = var + "";
+            } else {
+                arr.add(aux);
+                aux = "";
+            }
+        }
+        return arr;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

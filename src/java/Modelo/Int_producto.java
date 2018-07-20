@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author gateway1
@@ -14,4 +16,5 @@ public interface Int_producto {
     public boolean Eliminar(int clave);
     public boolean Modificar(Producto p);
     public boolean nuevoprod(Producto p);
+    public Producto getprodwithID_nochar(int clave);
 }

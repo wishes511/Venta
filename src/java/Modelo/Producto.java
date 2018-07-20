@@ -5,11 +5,13 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gateway1
  */
-public class Producto {
+public class Producto implements Serializable{
     private int producto, clave_combinacion,clave_corrida,clave_linea,clave_clasificacion,estilo;
 
     public int getEstilo() {

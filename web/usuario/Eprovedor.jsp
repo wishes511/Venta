@@ -2,6 +2,8 @@
     Created on : 12/04/2018, 11:17:46 AM
     Author     : mich
 --%>
+<%@page import="Modelo.Corrida"%>
+<%@page import="Modelo.Producto"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="java.util.ArrayList"%>
@@ -18,7 +20,8 @@
         String usuario = (String) objSesion.getAttribute("usuario");
         String tipos = (String) objSesion.getAttribute("tipo");
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
-        ArrayList<String> cor = (ArrayList<String>) objSesion.getAttribute("corrida");
+        ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
+        ArrayList<Corrida> corrida = (ArrayList<Corrida>) objSesion.getAttribute("corrida");
         System.out.println(usuario + " " + tipos);
         if (usuario != null && tipos != null && (tipos.equals("ADMIN"))) {
 
@@ -51,7 +54,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Catalogo de Productos</title>
-        <link rel="shortcut icon" type="image/x-icon" href="../supp.ico" />
+        <link rel="icon" sizes="32x32" href="../images/aff.png" />
         <link rel='stylesheet' type="text/css" href="../css/bootstrap.min.css">
         <link rel='stylesheet' type="text/css" href="../css/responsive.css">
         <link rel='stylesheet' type="text/css" href="../css/opcional.css">
@@ -60,6 +63,9 @@
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/userscrip.js"></script>
         <script type="text/javascript">
+            $(document).ready(function () {
+                document.getElementById('catalogo').focus();
+            });
             function valida_nom() {
                 var texto = document.form1.names.value;
                 if (!(/^([A-Z\a-z]+)$/i.test(texto))) {
@@ -94,7 +100,7 @@
     <body>
         <div class="container-fluid">
             <!--<button onclick="nuevomostrar()">lolo</button>--> 
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default navbar-inverse">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="../index.jsp"><img src="../images/home.png" class="" width="25"></a>
                 </div>
@@ -109,16 +115,16 @@
                     </li>
                     <li><a href="../Cierresesion">Salir</a></li>
                 </ul>
-<div id="" class="nav nav-pills" style="float:right">
+<div id="" class="nav navbar-nav" style="float:right">
                     <%
                         }
-                        if (!dis.isEmpty()) {
-                            out.print("<li  id=\"carrosid\" style='background-color:red'><a style='color:white' href=Utilidades_Donacionest.jsp>Nueva Compra Interna "+" ("+dis.size()+")</a></li>");
-                          for(int i =0;i<dis.size();i++){
-                           System.out.println(dis.get(i));
+                        if (!cor.isEmpty()) {
+                            out.print("<li  id=\"carrosid\" s><a style='color:white' href=><img class=\"imagencesta\" src=\"../images/cesta.png\"> "+" ("+cor.size()+")</a></li>");
+                          for(int i =0;i<cor.size();i++){
+                           System.out.println(i+" "+cor.get(i).getProducto());
                         }                       
                          } else {
-                            out.print("<li  id=\"carrosid\"><a href=Utilidades_Donacionest.jsp>Nueva Compra Interna</a></li>");
+                            out.print("<li  id=\"carrosid\"><a href=><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
 
                         }
                     %>
@@ -126,7 +132,7 @@
             </nav>
             <div class="row" >
                 
-            <!--    <div class=" col-md-offset-6"  id="get_catalogo" align="center">
+            <!--   <div class=" col-md-offset-6"  id="get_catalogo" align="center">
                 <div style=" overflow: auto"  class="col-md-12" style="background-color: blueviolet" align="center">
                     <table border="1" width="5" class="table table-bordered table-condensed table-hover table-striped" style="overflow: auto" align="center">
                         <thead align="center" >
@@ -144,8 +150,8 @@
                         <th width="10">30.5</th>
                         </thead>
                         <tr align="center" contenteditable="true">
-                            <td ></td>
-                            <td width="10"></td>
+                            <td width="10">0</td>
+                            <td width="10">1</td>
                             <td  width="10"></td>
                             <td  width="10"></td>
                             <td  width="10"></td>
@@ -160,31 +166,18 @@
                         </tr>
                     </table>
                 </div>
-                </div> -->
+                </div> --> 
                 </div>
                 <div class="row" >
                     <div class="col-lg-8 col-lg-offset-2" id="get_catalogo" align="center" style="padding: 2%">
                 <div class="row espas-search-prods">
                     <div class="col-sm-4">
                         <input type="text" id="catalogo" placeholder="Busqueda de productos" class="form-control" onchange="to_searchprod()"> 
-                    </div> 
-                    <button style="float:right" class="btn btn-danger" onclick="vaciar()">Vaciar</button>
+                    </div><div class="container-fluid"><button style="float:right" class="btn btn-danger" onclick="vaciar()">Vaciar</button></div> 
+                    
                 </div>
                         </div>
-                <div class="espacio1"> <!-- Cliente -->
-                    <div class="col-lg-8 espas col-lg-offset-2" id="get_catalogo" align="center">
-                        <div class="col-md-offset-2">
-                            <div class="col-md-3" align="center"><label class="">Cliente:</label><select class="form-control" id="cliente"><option value="1" class="form-control">Mostrador</option></select></div>
-                            <div class="col-md-3"><label>Fecha Pedido :</label><div class=""><input class="form-control" type="text" id="fp" value="<%=fechac%>"></div></div>
-                            <div class="col-md-3"><label>Fecha Entrega:</label><div class=""><input class="form-control" type="text" id="fe" value="<%=fechac%>"></div></div>
-                        </div>
-                        <div class="" style="padding-top: 10%">
-                            <div class="col-md-4"><label>Nombre Cliente :</label><div class=""><input class="form-control" type="text" id="nc" ></div></div>
-                            <div class="col-md-5"><label>Direccion:</label><div class=""><input class="form-control" type="text" id="dir" ></div></div>
-                            <div class="col-md-3"><label>RFC:</label><div class=""><input class="form-control" type="text" id="rfc" ></div></div>
-                        </div>
-                    </div> 
-                </div>
+
 
             </div>
                 <div class="row" id="distribucion">
@@ -228,58 +221,26 @@
                 </div>
                 </div> -->         
                 </div>
-        </div>
+                        <div class="row espaciobtn">
+                            <div align="center">
+                                <button style=" " class="btn btn-warning" onclick="mostrarVentanas()">Continuar</button>
+                            </div>
+                        </div>
+        
         <script>
-            
-            function carrito(id)
+            function mostrarVentanas()
             {
-                window.location.href = "?total=" + id;
-            }
-            function mostrarVentanas(id)
-            {
-                document.getElementById("benviar0").value = id;
-                document.getElementById("cant1").value = id;
                 var ventana = document.getElementById("miVentana");
                 ventana.style.marginTop = "100px";
                 //ventana.style.left = ((document.body.clientWidth) / 2) +  "px";
                 ventana.style.display = "block";
-                ventana.style.left = 40 + "%";
+                ventana.style.left = 15 + "%";
                 document.getElementById("cantis").focus();
             }
             function ocultarVentanas()
             {
                 var ventana = document.getElementById("miVentana");
                 ventana.style.display = "none";
-            }
-            function nuevomostrar() {
-                document.getElementById("valorr").value = "lij";
-                var ventana = document.getElementById("ress");
-                ventana.style.marginTop = "100px";
-                ventana.style.display = "block";
-                ventana.style.left = 40 + "%";
-                $('#ress').fadeOut(3000);
-            }
-            function mostrar()
-            {
-                var ventana = document.getElementById("miVen");
-                ventana.style.marginTop = "10%";
-                //ventana.style.left = ((document.body.clientWidth) / 2) +  "px";
-                ventana.style.display = "block";
-                ventana.style.left = 35 + "%";
-                document.getElementById("tipos").focus();
-            }
-            function ocultars() {
-                var vent = document.getElementById("miVen");
-                vent.style.display = "none";
-            }
-            function resultado(total)
-            {
-                var pago = $("#cobro").val();
-                var totaltotal = total - pago;
-                if (totaltotal < 0) {
-                    totaltotal = totaltotal * (-1);
-                }
-                document.getElementById("cambio").value = totaltotal;
             }
             function ru() {
                 var pro = $('#tipos').val();
@@ -334,45 +295,30 @@
 
         </script>
         <!-- modal de cuantos productos al hacer clic -->
-        <div id="miVentana" style="position: fixed; width: 25%; height: 30%; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; background-color: #FAFAFA; color: white; display:none;">
+        <div id="miVentana" style="position: fixed; width: 70%; height: 30%; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; background-color: #FAFAFA; color: white; display:none;">
             <div class="row " style="background-color: #616185;padding-left: 2%;padding-right: 2%;border-radius: 10px;">
                 <a class="btn" onclick="ocultarVentanas()"><img src="../images/right.png" width="50" height="50"></a>
-                <form action="../Vent" method="get" name="formas">
-                    <div class=" modal fade modal-content"></div>
-                    <h5 class="h5" align="center">ID del producto</h5>
-                    <input type=text name=ids id="cant1" class="form-control input-sm chat-input" placeholder="Id del producto" disabled="disabled"> <br>
-                    <h5 class="h5" align="center">Cantidad a comprar</h5>
-                    <input type=text name=cant id="cantis"  class="form-control input-sm chat-input" placeholder=Cantidad onchange="tomaralcarro()" required> <br><br>
-                    <div align="center" >
-                        <a class="btn" name="envio" onclick="tomaralcarro()" id="benviar0"><img   class="img-responsive"  src="../images/ok.png" width=75 height=75></a>
+                <div class="espacio1"> <!-- Cliente -->
+                    <div class="col-md-10 espas col-md-offset-1" id="get_catalogo" align="center">
+                        <div class="col-md-offset-2">
+                            <div class="col-md-3" align="center"><label class="">Cliente:</label><select class="form-control" id="cliente"><option value="1" class="form-control">Mostrador</option></select></div>
+                            <div class="col-md-3"><label>Fecha Pedido :</label><div class=""><input class="form-control" type="text" id="fp" value="<%=fechac%>"></div></div>
+                            <div class="col-md-3"><label>Fecha Entrega:</label><div class=""><input class="form-control" type="text" id="fe" value="<%=fechac%>"></div></div>
+                        </div>
+                        <div class="" style="padding-top: 10%">
+                            <div class="col-md-4"><label>Nombre Cliente :</label><div class=""><input class="form-control" type="text" id="nc" ></div></div>
+                            <div class="col-md-5"><label>Direccion:</label><div class=""><input class="form-control" type="text" id="dir" ></div></div>
+                            <div class="col-md-3"><label>RFC:</label><div class=""><input class="form-control" type="text" id="rfc" ></div></div>
+                        </div>
+                        <div style="padding-top: 10%">
+                            <button class="btn btn-danger">Realizar Venta</button>
+                        </div>
+                        
                     </div> 
-                </form>
+                </div>
             </div>
         </div>
-        <div id="miVen" class="modal-header" style="position: fixed; width: 35%; height: 30%; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal;color:white; display:none;">
-            <div class="row " style="background-color: #616185;padding-left: 1%;padding-right: 1%;border-radius: 10px;">
-                <a class="btn" onclick="ocultars()"><img src="../images/right.png" width="50" height="50"></a>
-                <form action="../Nuevavtat_prov" method="post" name="form">
-                    <div class=" modal fade modal-content"></div>
-                    <h5 class="h5" align="center">Clave de proveedor</h5>
-                    <input type=text name=idu id="idu" class="form-control input-sm chat-input" placeholder="Id del Usuario" required> <br>
-                    Proveedor: <select class=" text-capitalize" name="tipos" id="tipos" style="color:black" onchange="ru2()">
-                        <%
-                            try {
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        %>
-                    </select><br>
-                    <h5 class="h5" align="center">Referencia</h5>
-                    <input type=text name=ref id="ref" class="form-control input-sm chat-input" placeholder="Referencia" required> <br>
-                    <div align="center" >
-                        <br><br><input type="submit" class="btn btn-success" name="" value="Completar"><br><br><h4></h4>
-                    </div>
-                </form>
-            </div>
-        </div>
+ 
         <div id="ress" class="modal-header" style="position: fixed; width: 25%; height: 30%; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; background-color: #FAFAFA; color: white; display:none;">
             <div style="background-color: #616185;padding-left: 2%;padding-right: 2%;border-radius: 10px;">
                 <LABEL id="valorr"><big>completo</big></LABEL>

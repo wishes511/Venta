@@ -71,7 +71,7 @@ public class Productos extends HttpServlet {
         String usuario = (String) objSesion.getAttribute("usuario");
         String tipos = (String) objSesion.getAttribute("tipo");
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
-        ArrayList<String> cor = (ArrayList<String>) objSesion.getAttribute("corrida");
+        ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("corrida");
         System.out.println(usuario + " " + tipos);
         if (usuario != null && tipos != null && (tipos.equals("ADMIN"))) {
 
@@ -109,9 +109,9 @@ public class Productos extends HttpServlet {
             out.print("</thead><tr align=\"center\" contenteditable=\"true\">");
              while(i<z){
                  if(c.getPf()+0.5==i){
-                 out.print("<td width=\"10\" ></td>");
+                 out.print("<td width=\"10\" >0</td>");
                  }else{
-                 out.print("<td width=\"10\"></td>");
+                 out.print("<td width=\"10\">0</td>");
                  }
                 i+=0.50;
             }
