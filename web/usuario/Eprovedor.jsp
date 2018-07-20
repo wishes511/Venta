@@ -121,7 +121,7 @@
                         if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=><img class=\"imagencesta\" src=\"../images/cesta.png\"> "+" ("+cor.size()+")</a></li>");
                           for(int i =0;i<cor.size();i++){
-                           System.out.println(i+" "+cor.get(i).getProducto());
+                           System.out.println(cor.size()+" -"+i+" "+cor.get(i).getProducto());
                         }                       
                          } else {
                             out.print("<li  id=\"carrosid\"><a href=><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");

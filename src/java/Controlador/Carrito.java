@@ -56,8 +56,6 @@ public class Carrito extends HttpServlet {
             String prod = (String) request.getParameter("prod");
             DAO_Producto dprod = new DAO_Producto();
             DAO_Corrida dcor = new DAO_Corrida();
-            Producto p = new Producto();
-            Corrida c = new Corrida();
             cor.add(dprod.getprodwithID_nochar(Integer.parseInt(prod)));
             corrida.add(dcor.getcorridawithID(Integer.parseInt(prod)));
             System.out.println(cor.get(0).getEstilo());
