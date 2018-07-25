@@ -29,12 +29,12 @@ function averdato() {
             data: {p: cadena, uso: uso,prod:prod},
             url: '../Carrito',
             success: function (result) {
-                $('#carrosid').html("<div class='container-fluid'><ul class=nav navbar-nav><li ><a style='color:white' href=><img class=\"imagencesta\" src=\"../images/cesta.png\">("+result+")</a></li></ul></div>");
+                $('#carrosid').html("<div class='container-fluid'><ul class=nav navbar-nav><li ><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\">("+result+")</a></li></ul></div>");
             }
         });
-    
-    alert(cadena);
-    $('#distribucion').html("<div class=\"container-fluid\"><div class=\"col-md-offset-5\"><label>Estilo Agregado al pedido exitosamente</label></div></div>");
+        location="index.jsp";
+    document.location.reload();
+   // $('#distribucion').html("<div class=\"container-fluid\"><div class=\"col-md-offset-5\"><label>Estilo Agregado al pedido exitosamente</label></div></div>");
 }
 function vaciar() {
     var uso = "vaciar";
@@ -46,9 +46,10 @@ function vaciar() {
             //
         }
     });
-
-    document.getElementById("carrosid").innerHTML = "<div class='container-fluid'><li style='background-color:none'><a href=Utilidades_Donacionest.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li></div></nav>";
-    $('#distribucion').html("<div class=\"container-fluid\"><div class=\"col-md-offset-5\"><label>Vaciado de pedido completo</label></div></div>");
+    document.location.reload();
+  //  document.getElementById("carrosid").innerHTML = "<div class='container-fluid'><li style='background-color:none'><a href=Utilidades_Donacionest.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li></div></nav>";
+  //  $('#distribucion').html("<div class=\"container-fluid\"><div class=\"col-md-offset-5\"><label>Vaciado de pedido completo</label></div></div>");
+  //  $('#desc-ped').html("");
 }
 
 

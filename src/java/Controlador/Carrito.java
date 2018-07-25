@@ -63,14 +63,15 @@ public class Carrito extends HttpServlet {
             objSesion.setAttribute("producto", cor);
             objSesion.setAttribute("corrida", corrida);
             out.print(cor.size());
-        }
-        if (uso.equals("vaciar")) {
+        }else if (uso.equals("vaciar")) {
             dis.clear();
             cor.clear();
             corrida.clear();
             objSesion.setAttribute("distibucion", dis);
             objSesion.setAttribute("producto", cor);
             objSesion.setAttribute("corrida", corrida);
+        }else if(uso.equals("returnpedido")){
+        
         }
 
     }
@@ -79,12 +80,15 @@ public class Carrito extends HttpServlet {
         String aux = "";
         for (int i = 0; i < dato.length(); i++) {
             int var = dato.charAt(i);
-            System.out.println("dato s " + var);
-            if (var >= 46 || var <= 57) {
-                aux = var + "";
+            if (var >= 46 && var <= 57) {
+                aux += (char)var + "";
             } else {
+                if(var>=60 && var <=63 || var==98 || var ==114){
+                }else{
+               // System.out.println(i+" "+aux);
                 arr.add(aux);
                 aux = "";
+                }
             }
         }
         return arr;

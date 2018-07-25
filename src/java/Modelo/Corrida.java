@@ -5,11 +5,13 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gateway1
  */
-public class Corrida {
+public class Corrida implements Serializable{
     int corrida,pi,pf;
     String desc;
 

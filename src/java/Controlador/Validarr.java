@@ -120,7 +120,7 @@ public class Validarr extends HttpServlet {
                                 objSesion.setAttribute("distribucion", arr);
                                 objSesion.setAttribute("producto", arr1);
                                 objSesion.setAttribute("corrida", arr2);
-                                response.sendRedirect("usuario/Eprovedor.jsp");
+                                response.sendRedirect("usuario/index.jsp");
                                 
                        /*/         break;
                             case "USUARIO":

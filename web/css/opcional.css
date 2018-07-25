@@ -35,8 +35,27 @@ height: 35px;
 .prodbusqeuda{
 padding-left: 15%
 }
+.prodbusqeuda{
+padding-left: 15%
+}
+.prodvta{
+padding-left: 10%
+}
 .espaciobtn{
     padding: 5%
+}
+/* para cesta con distribucion*/
+.espacioparavta{
+    padding: 3%
+}
+.letraparavta{
+    font-size: 11px
+}
+.paresparavta{
+    float: left
+}
+.letratotal{
+    font-size: 25px
 }
  @media screen and (max-width: 720px) {
 
