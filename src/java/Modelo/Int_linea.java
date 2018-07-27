@@ -11,10 +11,10 @@ import java.util.ArrayList;
  *
  * @author gateway1
  */
-public interface Int_corrida {
-    public Corrida getcorridawithID(int clave);
+public interface Int_linea {
+    public Linea getcorridawithID(int clave);
     public boolean Eliminar(int clave);
-    public boolean Modificar(Corrida p);
-    public boolean nuevoprod(Corrida p);
-    public ArrayList<Corrida> getall();
+    public boolean Modificar(Linea p);
+    public boolean nuevoprod(Linea p);
+    public ArrayList<Linea> getall();
 }

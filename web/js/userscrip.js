@@ -53,3 +53,18 @@ function vaciar() {
 }
 
 
+//Combinaciones
+function getcombi(){
+    document.getElementById("combinacion").value=$('#selectcom').val();
+    document.getElementById("selectcor").focus();
+}
+function getcorri(){
+    document.getElementById("corrida").value=$('#selectcor').val();
+    document.getElementById("selectlin").focus();
+}
+function getlinea(){
+    document.getElementById("linea").value=$('#selectlin').val();
+    document.getElementById("costo").focus();
+}
+
+

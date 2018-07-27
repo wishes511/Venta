@@ -103,7 +103,7 @@
             <!--<button onclick="nuevomostrar()">lolo</button>--> 
             <nav class="navbar navbar-default navbar-inverse">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="../index.jsp"><img src="../images/home.png" class="" width="25"></a>
+                    <a class="navbar-brand" href="index.jsp"><img src="../images/home.png" class="" width="25"></a>
                 </div>
                 <ul class="nav navbar-nav">
                     <%                        if (tipos.equals("ADMIN") || tipos.equals("AMECANICA")) {
@@ -111,6 +111,11 @@
                     <li class="active">
                         <a  class="" >
                             Venta
+                        </a>
+                    </li>
+                    <li class="">
+                        <a  class="" href="productos.jsp">
+                            Productos
                         </a>
                     </li>
                     <li><a href="../Cierresesion">Salir</a></li>

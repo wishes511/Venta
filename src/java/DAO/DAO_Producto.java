@@ -7,6 +7,7 @@ package DAO;
 
 import Modelo.Int_producto;
 import Modelo.Producto;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -44,10 +45,7 @@ public class DAO_Producto extends VS implements Int_producto{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public boolean nuevoprod(Producto p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     @Override
         public Producto getprodwithID_nochar(int clave) {
         Producto p=new Producto();
@@ -61,6 +59,59 @@ public class DAO_Producto extends VS implements Int_producto{
         }
         
         return p;
+    }
+
+    @Override
+    public ArrayList<Producto> getall() {
+    ArrayList<Producto> arr= new ArrayList<>();
+        try {
+            abrirs();
+            arr=buscarall();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arr;
+    }
+
+    @Override
+    public String nuevoprod(Producto p) {
+        String msj="";
+        try {
+            msj= nuevoproducto(p);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return msj;
+    }
+
+    @Override
+    public boolean isexist(int estilo, int combinacion, int corrida) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Connection conexionbd() {
+        try {
+            abrirs();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return getConexions();
+    }
+
+    @Override
+    public void closebd() {
+        try {
+            cerrars();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

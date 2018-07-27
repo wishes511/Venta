@@ -15,6 +15,7 @@ import java.sql.SQLException;
  */
 public class conBD {
     private String url = "jdbc:sqlserver://192.168.6.75\\SQLEXPRESS:9205;databaseName=RCPT;";
+    private String selfurl = "jdbc:sqlserver://192.168.6.75\\SQLEXPRESS:9205;databaseName=Venta;";
 //   private String url ="jdbc:sqlserver://192.168.6.8\\datos65:9205;databaseName=CES;";
     private String drive = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     protected Connection conexion = null;
@@ -32,5 +33,22 @@ public class conBD {
     }
     public void cerrar() throws SQLException {
         conexion.close();
+    }
+    // BD fuera de RCPT
+    protected Connection conexions = null;
+    public Connection getConexions() {
+        return this.conexions;
+    }
+    public void setConexions(Connection conexions) {
+        this.conexions = conexions;
+    }
+    public void abrirs() throws ClassNotFoundException, SQLException {
+        Class.forName(drive);
+        conexions = DriverManager.getConnection(selfurl, "mich", "mich");
+        //System.out.println();
+//        conexion = DriverManager.getConnection(url, "sa", "Prok2001");
+    }
+    public void cerrars() throws SQLException {
+        conexions.close();
     }
 }

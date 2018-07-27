@@ -5,32 +5,23 @@
  */
 package DAO;
 
-import Modelo.Corrida;
-import Modelo.Int_corrida;
+import Modelo.Int_linea;
+import Modelo.Linea;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import persistencia.VS_Corrida;
+import persistencia.VS_Linea;
 
 /**
  *
  * @author gateway1
  */
-public class DAO_Corrida extends VS_Corrida implements Int_corrida {
+public class DAO_Linea extends VS_Linea implements Int_linea {
 
     @Override
-    public Corrida getcorridawithID(int clave) {
-    Corrida c = new Corrida();
-        try {
-            c=buscarCorID(clave);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAO_Corrida.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO_Corrida.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
-        return c;//To change body of generated methods, choose Tools | Templates.
+    public Linea getcorridawithID(int clave) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -39,24 +30,24 @@ public class DAO_Corrida extends VS_Corrida implements Int_corrida {
     }
 
     @Override
-    public boolean Modificar(Corrida p) {
+    public boolean Modificar(Linea p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean nuevoprod(Corrida p) {
+    public boolean nuevoprod(Linea p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Corrida> getall() {
-        ArrayList<Corrida> arr= new ArrayList<Corrida>();
+    public ArrayList<Linea> getall() {
+        ArrayList<Linea> arr= new ArrayList<Linea>();
         try {
             arr=buscarall();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAO_Corrida.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO_Linea.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DAO_Corrida.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO_Linea.class.getName()).log(Level.SEVERE, null, ex);
         }
         return arr;
     }

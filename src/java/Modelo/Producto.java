@@ -86,7 +86,31 @@ public class Producto implements Serializable{
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    private String tipo,combinacionchar,corridachar;
+    private String tipo,combinacionchar,corridachar,lineachar,status,marca;
+
+    public String getMarca() {
+        return this.marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getLineachar() {
+        return this.lineachar;
+    }
+
+    public void setLineachar(String lineachar) {
+        this.lineachar = lineachar;
+    }
 
     public String getCorridachar() {
         return this.corridachar;

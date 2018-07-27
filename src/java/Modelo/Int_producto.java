@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +16,10 @@ public interface Int_producto {
     public Producto getprodwithID(int clave);
     public boolean Eliminar(int clave);
     public boolean Modificar(Producto p);
-    public boolean nuevoprod(Producto p);
+    public String nuevoprod(Producto p);
     public Producto getprodwithID_nochar(int clave);
+    public ArrayList<Producto> getall();
+    public boolean isexist(int estilo, int combinacion, int corrida);
+    public Connection conexionbd();
+    public void closebd();
 }

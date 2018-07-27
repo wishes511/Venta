@@ -80,8 +80,9 @@ public class Productos extends HttpServlet {
         }
         try{
         String uso = (String)request.getParameter("uso");
+        System.out.println(uso);
+        PrintWriter out = response.getWriter();
         if(uso.equals("buscar")){
-            PrintWriter out = response.getWriter();
             String clave = (String)request.getParameter("p");
             DAO_Producto dprod = new DAO_Producto();
             DAO_Corrida dcor = new DAO_Corrida();
@@ -119,6 +120,28 @@ public class Productos extends HttpServlet {
              out.print("<div class=\"row\"><div class=\"col-md-offset-6\">"
                      + "<a class=\"btn\"><img onclick=\"averdato()\" class=\"imagentabla\" src=\"../images/ok.png\" alt=\"\"></a>"
                      + "</div></div></div>");
+        }if(uso.equals("nuevo")){
+            int estilo =Integer.parseInt((String)request.getParameter("estilo"));
+            String combinacion =((String)request.getParameter("combinacion").toUpperCase());
+            int corrida =Integer.parseInt((String)request.getParameter("corrida"));
+            String linea =(String)request.getParameter("linea").toUpperCase();
+            float costo =Float.parseFloat((String)request.getParameter("costo"));
+            String tipo =((String)request.getParameter("tipo").toUpperCase());
+            String marca =((String)request.getParameter("marca").toUpperCase());
+            Producto p = new Producto();
+            p.setEstilo(estilo);
+            p.setCombinacionchar(combinacion);
+            p.setClave_corrida(corrida);
+            p.setLineachar(linea);
+            p.setCostof(costo);
+            p.setTipo(tipo);
+            p.setStatus("A");
+            p.setMarca(marca);
+            DAO_Producto prod= new DAO_Producto();
+            prod.nuevoprod(p);
+            //out.print("<script>alert('"+prod.nuevoprod(p)+"');location='usuario/productos.jsp';</script>");
+           out.print("<script>location='usuario/productos.jsp';</script>");
+            //response.sendRedirect("usuario/productos.jsp");
         }
         
         }catch (Exception e) {

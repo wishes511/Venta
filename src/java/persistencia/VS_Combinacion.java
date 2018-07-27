@@ -7,8 +7,6 @@ package persistencia;
 
 
 import Modelo.Combinacion;
-import Modelo.Corrida;
-import Modelo.Producto;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,12 +21,12 @@ import java.util.logging.Logger;
  *
  * @author mich
  */
-public class VS_Corrida extends conBD {
+public class VS_Combinacion extends conBD {
 
 
     // Busquedas--------------
-        public Corrida buscarCorID(int clave) throws ClassNotFoundException, SQLException {
-        Corrida p = new Corrida();
+        public Combinacion buscarCorID(int clave) throws ClassNotFoundException, SQLException {
+        Combinacion p = new Combinacion();
         String query = "select PuntoInicial,PuntoFinal,c.Descripcion as Descripcion from Corridas c join Productos p on p.Corrida =c.Corrida"
                 + " where p.producto="+clave+"";
         Statement smt;
@@ -38,19 +36,15 @@ public class VS_Corrida extends conBD {
         smt = conect.createStatement();
         df = smt.executeQuery(query);
         while (df.next()) {
-            p.setCorrida(clave);
-            p.setPi(df.getInt("PuntoInicial"));
-            p.setPf(df.getInt("PuntoFinal"));
-            p.setDesc(df.getString("Descripcion"));
         }
         df.close();
         smt.close();
         return p;
     }
-        public ArrayList<Corrida> buscarall() throws ClassNotFoundException, SQLException {
-        ArrayList<Corrida> arr = new ArrayList<Corrida>();
+            public ArrayList<Combinacion> buscarall() throws ClassNotFoundException, SQLException {
+        ArrayList<Combinacion> arr = new ArrayList<Combinacion>();
         
-        String query = "select corrida,descripcion from Corridas";
+        String query = "select distinct descripcion,combinacion from Combinaciones";
         Statement smt;
         ResultSet df;
         abrirs();
@@ -58,9 +52,9 @@ public class VS_Corrida extends conBD {
         smt = conect.createStatement();
         df = smt.executeQuery(query);
         while (df.next()) {
-            Corrida c = new Corrida();
-            c.setCorrida(df.getInt("corrida"));
-            c.setDesc(df.getString("descripcion"));
+            Combinacion c = new Combinacion();
+            c.setClave(df.getInt("Combinacion"));
+            c.setDescripcion(df.getString("descripcion"));
             arr.add(c);
         }
         df.close();

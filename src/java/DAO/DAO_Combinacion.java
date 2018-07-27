@@ -5,32 +5,23 @@
  */
 package DAO;
 
-import Modelo.Corrida;
-import Modelo.Int_corrida;
+import Modelo.Combinacion;
+import Modelo.Int_combinacion;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import persistencia.VS_Corrida;
+import persistencia.VS_Combinacion;
 
 /**
  *
  * @author gateway1
  */
-public class DAO_Corrida extends VS_Corrida implements Int_corrida {
+public class DAO_Combinacion extends VS_Combinacion implements Int_combinacion{
 
     @Override
-    public Corrida getcorridawithID(int clave) {
-    Corrida c = new Corrida();
-        try {
-            c=buscarCorID(clave);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAO_Corrida.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO_Corrida.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
-        return c;//To change body of generated methods, choose Tools | Templates.
+    public Combinacion getprodwithID(int clave) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -39,27 +30,31 @@ public class DAO_Corrida extends VS_Corrida implements Int_corrida {
     }
 
     @Override
-    public boolean Modificar(Corrida p) {
+    public boolean Modificar(Combinacion p) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean nuevoprod(Corrida p) {
+    public Combinacion getprodwithID_nochar(int clave) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ArrayList<Corrida> getall() {
-        ArrayList<Corrida> arr= new ArrayList<Corrida>();
+    public ArrayList<Combinacion> getall() {
+        ArrayList<Combinacion> arr = new ArrayList<Combinacion>();
         try {
             arr=buscarall();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAO_Corrida.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO_Combinacion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DAO_Corrida.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO_Combinacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return arr;
+        return arr;    
     }
 
-    
+    @Override
+    public String nuevocamb(Combinacion p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
