@@ -33,8 +33,8 @@ public class VS_Corrida extends conBD {
                 + " where p.producto="+clave+"";
         Statement smt;
         ResultSet df;
-        abrir();
-        Connection conect=getConexion();
+        abrirs();
+        Connection conect=getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
         while (df.next()) {

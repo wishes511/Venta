@@ -24,7 +24,7 @@ public class DAO_Producto extends VS implements Int_producto{
     public Producto getprodwithID(int clave) {
         Producto p =new Producto();
         try {
-            abrir();
+            abrirs();
             p=buscarprodID(clave);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);

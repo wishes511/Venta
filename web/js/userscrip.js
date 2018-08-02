@@ -15,6 +15,18 @@ function to_searchprod() {
         }
     });
 }
+function to_searchprod_cata() {
+    var catalogo = $('#catalogo').val();
+                var uso = "searchprod_cata";
+                $.ajax({
+                    type: 'post',
+                    data: {p: catalogo, uso: uso},
+                    url: '../Productos',
+                    success: function (result) {
+                        $('#tabla-prods').html(result);
+                    }
+                });
+}
 function averdato() {
     var total = document.getElementsByTagName("td").length;
     var prod=$('#catalogo').val();
@@ -29,11 +41,11 @@ function averdato() {
             data: {p: cadena, uso: uso,prod:prod},
             url: '../Carrito',
             success: function (result) {
-                $('#carrosid').html("<div class='container-fluid'><ul class=nav navbar-nav><li ><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\">("+result+")</a></li></ul></div>");
+                document.location.reload();                                                 
+                //$('#carrosid').html("<div class='container-fluid'><ul class=nav navbar-nav><li ><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\">("+result+")</a></li></ul></div>");
             }
         });
-        location="index.jsp";
-    document.location.reload();
+    
    // $('#distribucion').html("<div class=\"container-fluid\"><div class=\"col-md-offset-5\"><label>Estilo Agregado al pedido exitosamente</label></div></div>");
 }
 function vaciar() {

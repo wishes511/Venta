@@ -23,7 +23,7 @@
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
         ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
         ArrayList<Corrida> corrida = (ArrayList<Corrida>) objSesion.getAttribute("corrida");
-        System.out.println(usuario + " " + tipos);
+        //System.out.println(usuario + " " + tipos);
         if (usuario != null && tipos != null && (tipos.equals("ADMIN"))) {
 
         } else {
@@ -146,7 +146,7 @@
                         </a>
                         <ul class="dropdown-menu" id="#90" role="menu">
                             <li class="active"><a href="">Productos Generales</a></li>
-                            <li><a href="etiquetas.jsp">Etiquetas</a></li>
+                            <li><a class="btn" onclick="etiquetas()">Etiquetas</a></li>
                         </ul>
                     </li>
                     <li><a href="../Cierresesion">Salir</a></li>
@@ -235,7 +235,7 @@
                     <h3 class="h3" align="center">Vista general de productos</h3>
                     <div class="row espas-search-prods">
                         <div class="col-sm-4">
-                            <input type="text" id="catalogo" placeholder="Busqueda de productos" class="form-control" onkeypress="to_searchprod()"> 
+                            <input type="text" id="catalogo" placeholder="Busqueda de productos" class="form-control" onkeypress="to_searchprod_cata()"> 
                         </div>                    
                     </div>
                     <div class="col-sm-offset-1z esp1"  style="overflow: auto" >
@@ -275,6 +275,11 @@
                 </div>
             </div>
             <script>
+                function etiquetas() {
+                    var estilo = $('#catalogo').val();
+                    location="etiquetas.jsp?catalogo="+estilo;
+                    
+                }
                 function to_searchprod() {
                     var catalogo = $('#catalogo').val();
                     var uso = "catalago_general";

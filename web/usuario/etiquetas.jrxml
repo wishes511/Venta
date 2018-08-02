@@ -3,9 +3,13 @@
 	<property name="ireport.zoom" value="1.3310000000000004"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="param" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select p.producto,p.estilo,c.descripcion from productos p 
 join Combinaciones c on p.combinacion=c.combinacion
+where p.estilo like '%$P!{param}%'
 order by p.estilo]]>
 	</queryString>
 	<field name="producto" class="java.lang.Integer"/>

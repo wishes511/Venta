@@ -80,7 +80,7 @@ public class Productos extends HttpServlet {
         }
         try{
         String uso = (String)request.getParameter("uso");
-        System.out.println(uso);
+        //System.out.println(uso);
         PrintWriter out = response.getWriter();
         if(uso.equals("buscar")){
             String clave = (String)request.getParameter("p");
@@ -142,6 +142,35 @@ public class Productos extends HttpServlet {
             //out.print("<script>alert('"+prod.nuevoprod(p)+"');location='usuario/productos.jsp';</script>");
            out.print("<script>location='usuario/productos.jsp';</script>");
             //response.sendRedirect("usuario/productos.jsp");
+        }else if(uso.equals("searchprod_cata")){
+        String estilo = (String)request.getParameter("p");
+        DAO_Producto dp = new DAO_Producto();
+        ArrayList<Producto> lista = new ArrayList<Producto>();
+        lista= dp.buscarcataprod(estilo);
+        out.print("<table class=\"table table-responsive mapa\" id=\"tabla-prods\">\n" +
+"                            <tr>\n" +
+"                                <td>Estilo</td>\n" +
+"                                <td>Combinacion</td>\n" +
+"                                <td>Corrida</td>\n" +
+"                                <td>Linea</td>\n" +
+"                                <td>Costo</td>\n" +
+"                                <td>Tipo</td>\n" +
+"                                <td>Submarca</td>\n" +
+"                            </tr>");
+        if(!lista.isEmpty()){
+            for(int i =0;i<lista.size();i++){
+                    out.print("<tr>"
+                            + "<td>"+lista.get(i).getEstilo()+"</td>"
+                            + "<td>"+lista.get(i).getCombinacionchar()+"</td>"
+                            + "<td>"+lista.get(i).getCorridachar()+"</td>"
+                            + "<td>"+lista.get(i).getLineachar()+"</td>"
+                            + "<td>"+lista.get(i).getCostof()+"</td>"
+                            + "<td>"+lista.get(i).getTipo()+"</td>"
+                            + "<td>"+lista.get(i).getMarca()+"</td>"
+                            + "</tr>");
+            }
+        }
+        out.print("</table>");
         }
         
         }catch (Exception e) {

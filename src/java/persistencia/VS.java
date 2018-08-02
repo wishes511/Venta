@@ -25,16 +25,14 @@ public class VS extends conBD {
     // Busquedas--------------
     public Producto buscarprodID(int clave) throws ClassNotFoundException, SQLException {
         Producto p = new Producto();
-        String query = "select p.estilo as 'estilo',(m.Descripcion+' - '+col.Descripcion) as 'combinacion',c.Descripcion as 'corrida' from Productos p \n"
+        String query = "select p.estilo as 'estilo',com.descripcion as 'combinacion',c.Descripcion as 'corrida' from Productos p \n"
                 + "join Corridas c on p.Corrida=c.Corrida\n"
                 + "join Combinaciones com on p.Combinacion=com.Combinacion\n"
-                + "join Materiales m on m.Material=com.Material1\n"
-                + "join Colores col on com.Color1=col.Color\n"
                 + " where producto=" + clave + "";
         Statement smt;
         ResultSet df;
-        abrir();
-        Connection conect = getConexion();
+        abrirs();
+        Connection conect = getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
         while (df.next()) {
@@ -51,17 +49,16 @@ public class VS extends conBD {
     public Producto buscarprodID_nochar(int clave) throws ClassNotFoundException, SQLException {
         ArrayList<Producto> arr = new ArrayList<>();
         Producto p = new Producto();
-        String query = "select p.corrida as 'corrida',p.estilo as 'estilo',p.Producto as 'producto',p.combinacion as 'combinacion',p.linea as 'linea',p.descripcion as 'desc',p.costo as 'costo', "
-                + "c.descripcion as 'corridac',m.descripcion 'material',col.descripcion as 'color' from Productos p \n"
+        String query = "select p.corrida as 'corrida',p.estilo as 'estilo',p.Producto as 'producto',p.combinacion as 'combinacion',p.linea as 'linea',p.tipo as 'desc',p.costo as 'costo', "
+                + "c.descripcion as 'corridac',com.descripcion as 'combinacionchar' from Productos p \n"
                 + "join Corridas c on p.Corrida=c.Corrida \n"
                 + "join Combinaciones com on p.Combinacion=com.Combinacion \n"
-                + "join Materiales m on m.Material=com.Material1 \n"
-                + "join Colores col on com.Color1=col.Color where producto=" + clave + "";
+                +" where producto=" + clave + "";
         System.out.println(query);
         Statement smt;
         ResultSet df;
-        abrir();
-        Connection conect = getConexion();
+        abrirs();
+        Connection conect = getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
         while (df.next()) {
@@ -72,9 +69,8 @@ public class VS extends conBD {
             p.setClave_linea(df.getInt("linea"));
             p.setTipo(df.getString("desc"));
             p.setCorridachar(df.getString("corridac"));
-            p.setCombinacionchar(df.getString("material") + "-" + df.getString("color"));
+            p.setCombinacionchar(df.getString("combinacionchar"));
             p.setCostof(df.getFloat("costo"));
-
         }
         df.close();
         smt.close();
@@ -115,6 +111,38 @@ public class VS extends conBD {
         return arr;
     }
 
+        public ArrayList<Producto> buscarcataprod(String estilo) throws ClassNotFoundException, SQLException {
+        ArrayList<Producto> arr = new ArrayList<Producto>();
+        
+        String query = "select p.producto as 'producto', p.estilo as 'estilo',c.descripcion as 'corrida',com.descripcion as 'combinacion',l.descripcion as 'linea',p.tipo as 'tipo',p.costo as 'costo', p.submarca as 'submarca' "
+                + "from Productos p \n"
+                + "join Corridas c on p.Corrida=c.Corrida \n"
+                + "join Lineas l on p.linea=l.linea \n"
+                + "join Combinaciones com on p.Combinacion=com.Combinacion where p.statue='A' and (p.estilo like '%"+estilo+"%' OR com.descripcion like '%"+estilo+"%' OR p.submarca like '%"+estilo+"%')";
+        //System.out.println("busca x cata "+query);
+        Statement smt;
+        ResultSet df;
+        abrirs();
+        Connection conect = getConexions();
+        smt = conect.createStatement();
+        df = smt.executeQuery(query);
+        while (df.next()) {
+            Producto p = new Producto();
+            p.setEstilo(df.getInt("estilo"));
+            p.setProducto(df.getInt("producto"));
+            p.setLineachar(df.getString("linea"));
+            p.setTipo(df.getString("tipo"));
+            p.setCorridachar(df.getString("corrida"));
+            p.setCombinacionchar(df.getString("combinacion"));
+            p.setCostof(df.getFloat("costo"));
+            p.setMarca(df.getString("submarca"));
+            arr.add(p);
+        }
+        df.close();
+        smt.close();
+        return arr;
+    }
+    
     public String nuevoproducto(Producto p) throws ClassNotFoundException, SQLException{
         String mensaje="";
         int linea =0;
@@ -141,12 +169,12 @@ public class VS extends conBD {
             String s="";
             if(buscacomb==0){
             s = "insert into Combinaciones values("+comb+",'"+p.getCombinacionchar()+"')";
-            System.out.println(s);
+            //System.out.println(s);
             st = getConexions().prepareStatement(s);
             st.executeUpdate();
             }
             s = "insert into Productos values("+clave+","+p.getEstilo()+","+p.getClave_corrida()+","+comb+","+linea+",'"+p.getTipo()+"',"+p.getCostof()+",'"+p.getStatus()+"',"+p.getClave_clasificacion()+",'"+p.getMarca()+"')";
-            System.out.println(s);
+            //System.out.println(s);
             st = getConexions().prepareStatement(s);
             st.executeUpdate();
             
@@ -161,22 +189,32 @@ public class VS extends conBD {
 //        }
 //         try {
             abrir();// BD RCPT
+            abrircpt();
             getConexion().setAutoCommit(false);
+            getConexioncpt().setAutoCommit(false);
             if(buscacomb==0){
-                 s = "insert into Combinaciones(Combinacion,Material1,Color1) values("+comb+",1,1)";
-            System.out.println(s);
+            s = "insert into Combinaciones(Combinacion,Material1,Color1) values("+comb+",1,1)";
+            //System.out.println(s);
             st = getConexion().prepareStatement(s);
             st.executeUpdate();
             st.close();
+            s = "insert into Combinaciones(Combinacion,Material1,Color1) values("+comb+",1,1)";
+            //System.out.println(s);
+            st = getConexioncpt().prepareStatement(s);
+            st.executeUpdate();
+            st.close();
             }
-           
             s = "insert into Productos(Producto,Estilo,Corrida,Combinacion,Linea) values("+clave+","+p.getEstilo()+","+p.getClave_corrida()+","+comb+",99)";
-            System.out.println(s);
             st = getConexion().prepareStatement(s);
+            st.executeUpdate();
+            st.close();
+            s = "insert into Productos(Producto,Estilo,Corrida,Combinacion,Linea) values("+clave+","+p.getEstilo()+","+p.getClave_corrida()+","+comb+",99)";
+            st = getConexioncpt().prepareStatement(s);
             st.executeUpdate();
             st.close();
             getConexion().commit();
             getConexions().commit();
+            getConexioncpt().commit();
             mensaje="Estilo Completo";
         } catch (Exception e) {
             mensaje=e+"";
@@ -184,12 +222,13 @@ public class VS extends conBD {
             try {
                 getConexions().rollback();
                 getConexion().rollback();
+                getConexioncpt().rollback();
             } catch (Exception o) {
                 System.out.println(o.getMessage());
             }   
     }
             }
-            System.out.println(mensaje);
+            //System.out.println(mensaje);
      return mensaje;
     }
     private int getlastprod() throws ClassNotFoundException, SQLException{

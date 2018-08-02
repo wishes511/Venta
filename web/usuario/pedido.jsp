@@ -109,7 +109,7 @@
                     <%                        if (tipos.equals("ADMIN") || tipos.equals("AMECANICA")) {
                     %>
                     <li class="">
-                        <a  class="" >
+                        <a  class="" href="index.jsp">
                             Venta
                         </a>
                     </li>
@@ -203,7 +203,7 @@
                                         +"</div>");
                                 pares = 0;
                             }
-                        }
+                        }else out.print("<div class=\"letrapedidofalso\"><label class=letratotal>El Pedido esta vacio!</label></div>");
                     %>
                 </div>
                 <%
@@ -229,60 +229,19 @@
 
             <div class="row" >
                 <div class="col-lg-8 col-lg-offset-2" id="get_catalogo" align="center" style="padding: 2%">
-                    <div class="row espas-search-prods">
+                   <!--<div class="row espas-search-prods">
                         <div class="col-sm-4">
                             <input type="text" id="catalogo" placeholder="Busqueda de productos" class="form-control" onchange="to_searchprod()"> 
                         </div>
-                        <%if (!dis.isEmpty()) { %>
+                        <%//if (!dis.isEmpty()) { %>
                         <div class="container-fluid">
                             <button style="float:right" class="btn btn-danger" onclick="vaciar()">Vaciar</button>
                         </div> 
-                        <% }%>
-                    </div>
+                        <% //}%>
+                    </div>--> 
                 </div>
 
 
-            </div>
-            <div class="row" id="distribucion">
-                <!-- <div class="col-md-4" style="padding-top: 2%" align="center">
-                             <div class="row"><label class="prodbusqeuda">Estilo</label><label class="prodbusqeuda">Combinacion</label><label class="prodbusqeuda">Corrida</label></div>
-                             <div class="row"><label class="prodbusqeuda">5454</label><label class="prodbusqeuda">HONTING - KOTOTE</label><label class="prodbusqeuda">25/30</label></div>
-                         </div>
-                     <div class=" col-md-offset-4"  id="get_catalogo" align="center" style="padding-top: 2%">
-                     <div style=" overflow: auto"  class="col-md-12" align="center" >
-                         <table border="1" width="5" class="table table-bordered table-condensed table-hover table-striped" style="overflow: auto" align="center">
-                             <thead align="center" >
-                             <th width="10">25</th>
-                             <th width="10">25.5</th>
-                             <th  width="10">26</th>
-                             <th  width="10">26.5</th>
-                             <th  width="10">27</th>
-                             <th  width="10">27.5</th>
-                             <th  width="10">28</th>
-                             <th  width="10">28.5</th>
-                             <th  width="10">29</th>
-                             <th  width="10">29.5</th>
-                             <th  width="10">30</th>
-                             <th width="10">30.5</th>
-                             </thead>
-                             <tr align="center" contenteditable="true">
-                                 <td ></td>
-                                 <td width="10"></td>
-                                 <td  width="10"></td>
-                                 <td  width="10"></td>
-                                 <td  width="10"></td>
-                                 <td  width="10"></td>
-                                 <td  width="10"></td>
-                                 <td  width="10"></td>
-                                 <td  width="10"></td>
-                                 <td  width="10"></td>
-                                 <td  width="10"></td>
-                                 <td width="10" onclick="averdato()"></td>
-                                 <td  width="10"><img class="imagentabla" src="../images/ok.png" alt=""></td>
-                             </tr>
-                         </table>
-                     </div>
-                     </div> -->         
             </div>
             <div class="row espaciobtn">
                 <%if (!dis.isEmpty()) { %>

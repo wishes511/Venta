@@ -57,6 +57,11 @@ padding-left: 10%
 .letratotal{
     font-size: 25px
 }
+.letrapedidofalso{
+    font-size: 35px;
+    padding-top: 20%
+}
+
  @media screen and (max-width: 720px) {
 
      hr{

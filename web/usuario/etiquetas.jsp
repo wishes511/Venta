@@ -32,41 +32,33 @@
             } else {
                 response.sendRedirect("../index.jsp");
             }
-            //String f1 = request.getParameter("estilo");
-            String f1="123";
+            String f1 = (String)request.getParameter("catalogo");
             String patt = "\\d{0,7}";
-            Pattern pat = Pattern.compile(patt);
-            Matcher match = pat.matcher(f1);
-            if (match.matches()) {
-                   DAO_Producto prod = new DAO_Producto();
-                   
-               try { 
-              // reporte detallado de un progama
-                 File reportfile = new File(application.getRealPath("usuario/etiquetas.jasper"));
-                    Map para = new HashMap();
-                    para.put("estilo", new String(f1));
-                    byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), para, prod.conexionbd());
-                    response.setContentType("application/pdf");
-                    response.setContentLength(bytes.length);
-                    ServletOutputStream outputstream = response.getOutputStream();
-                    outputstream.write(bytes, 0, bytes.length);
-                    outputstream.flush();
-                    outputstream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    
-                  //  response.sendRedirect("verpares.jsp");
-                    
-                } finally {
-                    if (prod.conexionbd() != null) {
-                        prod.closebd();
-                       // response.sendRedirect("verpares.jsp");
-                    }
+            DAO_Producto prod = new DAO_Producto();
+
+            try {
+                // reporte de etiquetas
+                File reportfile = new File(application.getRealPath("usuario/etiquetas.jasper"));
+                Map para = new HashMap();
+                para.put("param", new String(f1));
+                byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), para, prod.conexionbd());
+                response.setContentType("application/pdf");
+                response.setContentLength(bytes.length);
+                ServletOutputStream outputstream = response.getOutputStream();
+                outputstream.write(bytes, 0, bytes.length);
+                outputstream.flush();
+                outputstream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                //  response.sendRedirect("verpares.jsp");
+            } finally {
+                if (prod.conexionbd() != null) {
+                    prod.closebd();
+                    // response.sendRedirect("verpares.jsp");
                 }
-            } else {
-                System.out.println("NO ES FECHA");
-               // response.sendRedirect("index.jsp");
             }
+
 
         %>
     </body>
