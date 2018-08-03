@@ -191,7 +191,7 @@
                                 float pi = corrida.get(i).getPi();
                                 float pf = corrida.get(i).getPf()+1;
                                 while (pi < pf) {
-                                    System.out.println(dis.get(cont) +"-"+pi+"-"+pf);
+                                    //System.out.println(dis.get(cont) +"-"+pi+"-"+pf);
                                     pares += Integer.parseInt(dis.get(cont));
                                     totalpares+=Integer.parseInt(dis.get(cont));
                                     pi += 0.5;
@@ -362,8 +362,12 @@
                                 <div class="col-md-5"><label>Direccion:</label><div class=""><input class="form-control" type="text" id="dir" ></div></div>
                                 <div class="col-md-3"><label>RFC:</label><div class=""><input class="form-control" type="text" id="rfc" ></div></div>
                             </div>
+                            <div class="" style="padding-top: 10%">
+                                <div class="col-md-4"><label>Telefono</label><div class=""><input class="form-control" type="text" id="tel" ></div></div>
+                                <div class="col-md-8"><label>Email</label><div class=""><input class="form-control" type="text" id="email" ></div></div>
+                            </div>
                             <div style="padding-top: 10%">
-                                <button class="btn btn-danger">Realizar Venta</button>
+                                <button class="btn btn-danger" onclick="dopedido()">Realizar Venta</button>
                             </div>
 
                         </div> 

@@ -7,6 +7,7 @@ package Controlador;
 
 import DAO.DAO_Corrida;
 import DAO.DAO_Producto;
+import Modelo.Borrarcarro;
 import Modelo.Corrida;
 import Modelo.Producto;
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class Carrito extends HttpServlet {
             DAO_Corrida dcor = new DAO_Corrida();
             cor.add(dprod.getprodwithID_nochar(Integer.parseInt(prod)));
             corrida.add(dcor.getcorridawithID(Integer.parseInt(prod)));
-            System.out.println(cor.get(0).getEstilo());
+            //System.out.println(cor.get(0).getEstilo());
             objSesion.setAttribute("distribucion", getdis(dato, dis));
             objSesion.setAttribute("producto", cor);
             objSesion.setAttribute("corrida", corrida);
@@ -70,8 +71,73 @@ public class Carrito extends HttpServlet {
             objSesion.setAttribute("distibucion", dis);
             objSesion.setAttribute("producto", cor);
             objSesion.setAttribute("corrida", corrida);
-        }else if(uso.equals("returnpedido")){
-        
+        } else if(uso.equals("deleterow")){
+            ArrayList<String> arraux= new ArrayList<>();
+            String producto = (String) request.getParameter("prod");
+            int tamano = corrida.size();
+            int cont=0;
+            int indice=0;
+            int li =0;
+            int lp=0;
+            System.out.println("tamaño "+tamano+" "+dis.size());
+            for(int i =0;i<tamano;i++){
+                 double pi = corrida.get(i).getPi();
+                 double pf = corrida.get(i).getPf()+1;
+                if(cor.get(i).getProducto()!=Integer.parseInt(producto)){
+                   
+                    while(pi<pf){
+                        System.out.println("cont:"+cont+" "+dis.get(cont));
+                        arraux.add(dis.get(cont));
+                        pi+=0.5;
+                        cont++;
+                    }
+                    
+                }else{
+                    System.out.println("Seleccion "+producto);
+                    li=cont;
+                    while(pi<pf){
+                        System.out.println("Seleccion "+producto);
+                        pi+=0.5;
+                        //dis.remove(cont);
+                        cont++;
+                    }
+                    lp=cont;
+                    tamano=tamano -lp;
+                     indice=i;
+                       
+                }
+            }
+            System.out.println("Tamaño en ciclo1 "+arraux.size());
+            //dis.clear();
+            cor.remove(indice);
+            corrida.remove(indice);
+            Borrarcarro bc = new Borrarcarro();
+            //dis=arraux;
+            dis=bc.borraritem(arraux,dis);
+            objSesion.setAttribute("producto", cor);
+            objSesion.setAttribute("corrida", corrida);
+            objSesion.setAttribute("distibucion", dis);
+             System.out.println("Tamaño final "+corrida.size()+" "+dis.isEmpty());
+
+            if(corrida.isEmpty()){
+                System.out.println("Sin tamaño ");
+                dis.clear();
+                cor.clear();
+                corrida.clear();
+                objSesion.setAttribute("distibucion", dis);
+                objSesion.setAttribute("producto", cor);
+                objSesion.setAttribute("corrida", corrida);
+            }
+           
+                
+         }else if(uso.equals("nuevopedido")){
+            String fp = (String) request.getParameter("fp");
+            String fe = (String) request.getParameter("fe");
+            String nc = (String) request.getParameter("nc");
+            String dir = (String) request.getParameter("dir");
+            String rfc = (String) request.getParameter("rfc");
+            String tel = (String) request.getParameter("tel");
+            String email = (String) request.getParameter("email");
         }
 
     }

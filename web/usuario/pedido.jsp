@@ -188,7 +188,7 @@
                                 float pi = corrida.get(i).getPi();
                                 float pf = corrida.get(i).getPf()+1;
                                 while (pi < pf) {
-                                    System.out.println(dis.get(cont) +"-"+pi+"-"+pf);
+                                    //System.out.println(dis.get(cont) +"-"+pi+"-"+pf);
                                     pares += Integer.parseInt(dis.get(cont));
                                     totalpares+=Integer.parseInt(dis.get(cont));
                                     pi += 0.5;
@@ -206,7 +206,7 @@
                         }else out.print("<div class=\"letrapedidofalso\"><label class=letratotal>El Pedido esta vacio!</label></div>");
                     %>
                 </div>
-                <%
+                <%if (!dis.isEmpty()) { 
                   out.print("<div class=\" col-md-offset-5\"  id=\"get_catalogo\" align=\"center\" style=\"padding-top: 2%\">\n" +
 "                <div style=\" overflow: auto\"  class=\"col-md-12\" align=\"center\" >\n" +
 "                    <table border=\"1\" width=\"5\" class=\"table table-bordered table-condensed table-hover\" style=\"overflow: auto\" align=\"center\">");
@@ -223,6 +223,7 @@
                                 out.println("</tr>");
                             }
                             out.print("</table></div></div>");
+                }
                 %>
                 </div>
                 

@@ -7,14 +7,16 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select p.producto,p.estilo,c.descripcion from productos p 
+		<![CDATA[select p.producto,p.estilo,c.descripcion,cor.descripcion as 'corrida' from productos p 
 join Combinaciones c on p.combinacion=c.combinacion
+join Corridas cor on p.corrida=cor.corrida
 where p.estilo like '%$P!{param}%'
 order by p.estilo]]>
 	</queryString>
 	<field name="producto" class="java.lang.Integer"/>
 	<field name="estilo" class="java.lang.Integer"/>
 	<field name="descripcion" class="java.lang.String"/>
+	<field name="corrida" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -59,6 +61,13 @@ order by p.estilo]]>
 			<ellipse>
 				<reportElement x="162" y="11" width="13" height="10" uuid="8bc6cb4f-d8da-44b9-a36f-2fd65b561836"/>
 			</ellipse>
+			<textField>
+				<reportElement x="127" y="11" width="35" height="20" uuid="9da79d1e-1797-44d7-ab03-142ec1fb63d9"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{corrida}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<pageFooter>

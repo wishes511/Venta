@@ -64,6 +64,40 @@ function vaciar() {
   //  $('#desc-ped').html("");
 }
 
+function borrar(prod){
+    var uso = "deleterow";
+    alert(prod);
+    $.ajax({
+        type: 'post',
+        data: {uso: uso,prod:prod},
+        url: '../Carrito',
+        success: function (result) {
+            document.location.reload();
+        }
+    });
+    
+    
+}
+function dopedido(){
+    var fp=$('#fp').val();
+    var fe=$('#fe').val();
+    var nc=$('#nc').val();
+    var dir=$('#dir').val();
+    var rfc=$('#rfc').val();
+    var tel=$('#tel').val();
+    var email=$('#email').val();
+    var uso = "nuevopedido";
+    $.ajax({
+        type: 'post',
+        data: {uso: uso,fp:fp,fe:fe,nc:nc,dir:dir,rfc:rfc,tel:tel,email:email},
+        url: '../Carrito',
+        success: function (result) {
+            //
+        }
+    });
+    document.location.reload();
+}
+
 
 //Combinaciones
 function getcombi(){

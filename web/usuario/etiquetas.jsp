@@ -33,7 +33,6 @@
                 response.sendRedirect("../index.jsp");
             }
             String f1 = (String)request.getParameter("catalogo");
-            String patt = "\\d{0,7}";
             DAO_Producto prod = new DAO_Producto();
 
             try {
@@ -44,10 +43,12 @@
                 byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), para, prod.conexionbd());
                 response.setContentType("application/pdf");
                 response.setContentLength(bytes.length);
+                
                 ServletOutputStream outputstream = response.getOutputStream();
                 outputstream.write(bytes, 0, bytes.length);
                 outputstream.flush();
                 outputstream.close();
+                
             } catch (Exception e) {
                 e.printStackTrace();
 

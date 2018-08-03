@@ -2,6 +2,31 @@
     Document   : Log
     Author     : mich
 --%>
+<%@page import="Modelo.Corrida"%>
+<%@page import="Modelo.Producto"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
+<%int id_produc = 0;
+    String usuarios = "";
+    HttpSession objSesion = request.getSession(false);
+    boolean estado;
+    try {
+
+        String usuario = (String) objSesion.getAttribute("usuario");
+        String tipos = (String) objSesion.getAttribute("tipo");
+        ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
+        ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
+        ArrayList<Corrida> corrida = (ArrayList<Corrida>) objSesion.getAttribute("corrida");
+        //System.out.println(usuario + " " + tipos);
+        if (usuario != null && tipos != null && (tipos.equals("ADMIN"))) {
+                response.sendRedirect("usuario/index.jsp");
+        } else {
+            
+        }
+    }catch(Exception e){
+    
+    }
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

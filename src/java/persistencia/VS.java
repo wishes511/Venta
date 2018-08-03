@@ -103,9 +103,6 @@ public class VS extends conBD {
             p.setMarca(df.getString("submarca"));
             arr.add(p);
         }
-        for(int i =0;i<arr.size();i++){
-            System.out.println(arr.get(i).getEstilo());
-        }
         df.close();
         smt.close();
         return arr;
@@ -199,7 +196,7 @@ public class VS extends conBD {
             st.executeUpdate();
             st.close();
             s = "insert into Combinaciones(Combinacion,Material1,Color1) values("+comb+",1,1)";
-            //System.out.println(s);
+           // System.out.println(s);
             st = getConexioncpt().prepareStatement(s);
             st.executeUpdate();
             st.close();
@@ -243,7 +240,7 @@ public class VS extends conBD {
         while (df.next()) {
             prod=df.getInt("producto");
         }
-        System.out.println(prod);
+        //System.out.println(prod);
         df.close();
         smt.close();
         return prod;

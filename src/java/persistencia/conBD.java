@@ -14,10 +14,12 @@ import java.sql.SQLException;
  * @author gateway1
  */
 public class conBD {
-    private String url = "jdbc:sqlserver://192.168.6.75\\SQLEXPRESS:9205;databaseName=RCPT;";
-    private String urlcpt = "jdbc:sqlserver://192.168.6.75\\SQLEXPRESS:9205;databaseName=CPT;";
-    private String selfurl = "jdbc:sqlserver://192.168.6.75\\SQLEXPRESS:9205;databaseName=Venta;";
-//   private String url ="jdbc:sqlserver://192.168.6.8\\datos65:9205;databaseName=CES;";
+//    private String url = "jdbc:sqlserver://192.168.6.75\\SQLEXPRESS:9205;databaseName=RCPT;";
+//    private String urlcpt = "jdbc:sqlserver://192.168.6.75\\SQLEXPRESS:9205;databaseName=CPT;";
+//    private String selfurl = "jdbc:sqlserver://192.168.6.75\\SQLEXPRESS:9205;databaseName=Venta;";
+    private String url ="jdbc:sqlserver://192.168.6.8\\datos65:9205;databaseName=RCPT;";
+    private String urlcpt ="jdbc:sqlserver://192.168.6.8\\datos65:9205;databaseName=CPT;";
+    private String selfurl ="jdbc:sqlserver://192.168.6.8\\datos65:9205;databaseName=Venta;";
     private String drive = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     protected Connection conexion = null;
     public Connection getConexion() {
@@ -28,9 +30,9 @@ public class conBD {
     }
     public void abrir() throws ClassNotFoundException, SQLException {
         Class.forName(drive);
-        conexion = DriverManager.getConnection(url, "mich", "mich");
+//        conexion = DriverManager.getConnection(url, "mich", "mich");
         //System.out.println();
-//        conexion = DriverManager.getConnection(url, "sa", "Prok2001");
+        conexion = DriverManager.getConnection(url, "sa", "Prok2001");
     }
     public void cerrar() throws SQLException {
         conexion.close();
@@ -45,9 +47,9 @@ public class conBD {
     }
     public void abrirs() throws ClassNotFoundException, SQLException {
         Class.forName(drive);
-        conexions = DriverManager.getConnection(selfurl, "mich", "mich");
+//        conexions = DriverManager.getConnection(selfurl, "mich", "mich");
         //System.out.println();
-//        conexion = DriverManager.getConnection(url, "sa", "Prok2001");
+        conexions = DriverManager.getConnection(selfurl, "sa", "Prok2001");
     }
     public void cerrars() throws SQLException {
         conexions.close();
@@ -62,9 +64,9 @@ public class conBD {
     }
     public void abrircpt() throws ClassNotFoundException, SQLException {
         Class.forName(drive);
-        conexioncpt = DriverManager.getConnection(urlcpt, "mich", "mich");
+//        conexioncpt = DriverManager.getConnection(urlcpt, "mich", "mich");
         //System.out.println();
-//        conexion = DriverManager.getConnection(url, "sa", "Prok2001");
+        conexioncpt = DriverManager.getConnection(urlcpt, "sa", "Prok2001");
     }
     public void cerrarcpt() throws SQLException {
         conexioncpt.close();
