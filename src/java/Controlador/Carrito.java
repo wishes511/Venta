@@ -7,7 +7,6 @@ package Controlador;
 
 import DAO.DAO_Corrida;
 import DAO.DAO_Producto;
-import Modelo.Borrarcarro;
 import Modelo.Corrida;
 import Modelo.Producto;
 import java.io.IOException;
@@ -68,7 +67,7 @@ public class Carrito extends HttpServlet {
             dis.clear();
             cor.clear();
             corrida.clear();
-            objSesion.setAttribute("distibucion", dis);
+            objSesion.setAttribute("distribucion", dis);
             objSesion.setAttribute("producto", cor);
             objSesion.setAttribute("corrida", corrida);
         } else if(uso.equals("deleterow")){
@@ -93,41 +92,36 @@ public class Carrito extends HttpServlet {
                     }
                     
                 }else{
-                    System.out.println("Seleccion "+producto);
                     li=cont;
                     while(pi<pf){
-                        System.out.println("Seleccion "+producto);
                         pi+=0.5;
-                        //dis.remove(cont);
                         cont++;
                     }
                     lp=cont;
-                    tamano=tamano -lp;
                      indice=i;
                        
                 }
             }
             System.out.println("Tamaño en ciclo1 "+arraux.size());
-            //dis.clear();
-            cor.remove(indice);
-            corrida.remove(indice);
-            Borrarcarro bc = new Borrarcarro();
-            //dis=arraux;
-            dis=bc.borraritem(arraux,dis);
-            objSesion.setAttribute("producto", cor);
-            objSesion.setAttribute("corrida", corrida);
-            objSesion.setAttribute("distibucion", dis);
-             System.out.println("Tamaño final "+corrida.size()+" "+dis.isEmpty());
-
             if(corrida.isEmpty()){
                 System.out.println("Sin tamaño ");
                 dis.clear();
                 cor.clear();
                 corrida.clear();
-                objSesion.setAttribute("distibucion", dis);
+                objSesion.setAttribute("distribucion", dis);
                 objSesion.setAttribute("producto", cor);
                 objSesion.setAttribute("corrida", corrida);
+            }else{
+            dis.clear();
+            cor.remove(indice);
+            corrida.remove(indice);
+            dis=arraux;
+            objSesion.setAttribute("producto", cor);
+            objSesion.setAttribute("corrida", corrida);
+            objSesion.setAttribute("distribucion", dis);
+             System.out.println("Tamaño final "+corrida.size()+" "+dis.isEmpty());
             }
+            
            
                 
          }else if(uso.equals("nuevopedido")){
@@ -138,6 +132,11 @@ public class Carrito extends HttpServlet {
             String rfc = (String) request.getParameter("rfc");
             String tel = (String) request.getParameter("tel");
             String email = (String) request.getParameter("email");
+            int cont =0;
+            int cant=1;
+            for(int i =0;i>corrida.size();i++){
+                
+            }
         }
 
     }
