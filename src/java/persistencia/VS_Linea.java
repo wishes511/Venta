@@ -98,5 +98,27 @@ public class VS_Linea extends conBD {
         smt.close();
         return arr;
     }
+        public ArrayList<Linea> buscarall_consulta(String tipo) throws ClassNotFoundException, SQLException {
+        ArrayList<Linea> arr = new ArrayList<Linea>();
+        String query="";
+        
+        query = "select distinct l.descripcion as 'descripcion' from DPedidos p join Lineas l on p.linea=l.linea\n" +
+        "group by descripcion\n" +
+        "order by descripcion";
+        Statement smt;
+        ResultSet df;
+        abrirs();
+        Connection conect = getConexions();
+        smt = conect.createStatement();
+        df = smt.executeQuery(query);
+        while (df.next()) {
+            Linea l = new Linea();
+            l.setDescripcion(df.getString("descripcion"));
+            arr.add(l);
+        }
+        df.close();
+        smt.close();
+        return arr;
+    }
 
 }

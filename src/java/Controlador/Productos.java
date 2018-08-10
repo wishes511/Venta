@@ -97,7 +97,7 @@ public class Productos extends HttpServlet {
 "                    </div>"+
 "            <div class=\" col-md-offset-4\"  id=\"get_catalogo\" align=\"center\" style=\"padding-top: 2%\">\n" +
 "                <div style=\" overflow: auto\"  class=\"col-md-12\" align=\"center\" >\n" +
-"                    <table border=\"1\" width=\"5\" class=\"table table-bordered table-condensed\" style=\"overflow: auto\" align=\"center\">\n" +
+"                    <table  border=\"1\" width=\"5\" class=\"table table-bordered table-condensed\" style=\"overflow: auto\" align=\"center\">\n" +
 "                        <thead align=\"center\" >");
             float i = c.getPi();
             float z = c.getPf()+1;
@@ -107,13 +107,17 @@ public class Productos extends HttpServlet {
             }
            i = c.getPi();
            z = c.getPf()+1;
-            out.print("</thead><tr align=\"center\" contenteditable=\"true\">");
+            out.print("</thead><tr id=tabla align=\"center\" contenteditable=\"true\">");
              while(i<z){
-                 if(c.getPf()+0.5==i){
-                 out.print("<td width=\"10\" >0</td>");
+                if(i==c.getPi()){
+                    out.print("<td id=\"firstcell\" width=\"10\"></td>");
+                }else{
+                if(c.getPf()+0.5==i){
+                 out.print("<td width=\"10\"></td>");
                  }else{
-                 out.print("<td width=\"10\">0</td>");
+                 out.print("<td width=\"10\"></td>");
                  }
+                }
                 i+=0.50;
             }
              out.print("</tr></table></div></div>");

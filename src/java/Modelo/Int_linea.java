@@ -17,4 +17,5 @@ public interface Int_linea {
     public boolean Modificar(Linea p);
     public boolean nuevoprod(Linea p);
     public ArrayList<Linea> getall();
+    public ArrayList<Linea> getLinea(String v);
 }

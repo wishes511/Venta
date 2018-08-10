@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @author gateway1
  */
 public class Pedido implements Serializable{
-    int clavepedido,pedido,telefono,totalpares;
+    int clavepedido,pedido,totalpares;
     float importe,total,iva;
-    String fechapedido,fechaentrega,nombrecliente,rfc,direccion,email,status,usuario;
+    String fechapedido,fechaentrega,nombrecliente,rfc,direccion,email,status,usuario,telefono;
     ArrayList<Producto> arr= new ArrayList<Producto>();
     ArrayList<Corrida> cor= new ArrayList<Corrida>();
     ArrayList<String> dis= new ArrayList<String>();
@@ -36,11 +36,11 @@ public class Pedido implements Serializable{
         this.pedido = pedido;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return this.telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

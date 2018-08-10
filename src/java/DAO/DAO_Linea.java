@@ -52,5 +52,18 @@ public class DAO_Linea extends VS_Linea implements Int_linea {
         return arr;
     }
 
+    @Override
+    public ArrayList<Linea> getLinea(String v) {
+        ArrayList<Linea> arr= new ArrayList<Linea>();
+        try {
+            arr=buscarall_consulta(v);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO_Linea.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Linea.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arr;
+    }
+
     
 }

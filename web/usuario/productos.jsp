@@ -136,9 +136,7 @@
                     <%                        if (tipos.equals("ADMIN") || tipos.equals("AMECANICA")) {
                     %>
                     <li class="">
-                        <a  class="" href="index.jsp">
-                            Venta
-                        </a>
+                        <a  class="" href="index.jsp">Captura Pedidos</a>
                     </li>
                     <li class="dropdown active">
                         <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">

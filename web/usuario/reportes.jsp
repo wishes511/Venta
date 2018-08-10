@@ -32,29 +32,17 @@
         int año = fecha.get(Calendar.YEAR);
         int mes = fecha.get(Calendar.MONTH) + 1;
         int dia = fecha.get(Calendar.DAY_OF_MONTH);
-        String fechac = "";
+        
+        String fechac = dia+"-"+mes+"-"+año;
         String fechaca = "";
-        if (dia < 10) {
-            fechac = "0" + dia;
-            fechaca = "0" + (dia - 1);
-        } else {
-            fechac = dia + "";
-            fechaca = dia + "";
-        }
-        if (mes < 10) {
-            fechac = fechac + "-0" + mes + "-" + año;
-            fechaca = fechaca + "-0" + (mes - 1) + "-" + año;
-        } else {
-            fechac = fechac + "-" + mes + "-" + año;
-            fechaca = fechaca + "-" + (mes - 1) + "-" + año;
-        }
+       
 
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Desc. de pedido</title>
+        <title>Catalogo de Productos</title>
         <link rel="icon" sizes="32x32" href="../images/aff.png" />
         <link rel='stylesheet' type="text/css" href="../css/bootstrap.min.css">
         <link rel='stylesheet' type="text/css" href="../css/responsive.css">
@@ -99,7 +87,7 @@
         </script>
     </head>
     <body>
-        <div class="container-fluid">
+        <div class="container-fluid" style="">
             <!--<button onclick="nuevomostrar()">lolo</button>--> 
             <nav class="navbar navbar-default navbar-inverse">
                 <div class="navbar-header">
@@ -108,8 +96,19 @@
                 <ul class="nav navbar-nav">
                     <%                        if (tipos.equals("ADMIN") || tipos.equals("AMECANICA")) {
                     %>
+                    <li class="active">
+                        <a  class="" >Captura Pedidos</a>
+                    </li>
                     <li class="">
-                        <a  class="" href="index.jsp">Captura pedido</a>
+                        <a  class="" href="productos.jsp">Productos</a>
+                    </li>
+                    <li class="dropdown">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
+                            Pedidos<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="#90" role="menu">
+                            <li class=""><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
+                        </ul>
                     </li>
                     <li><a href="../Cierresesion">Salir</a></li>
                 </ul>
@@ -117,66 +116,31 @@
                     <%
                         }
                         if (!cor.isEmpty()) {
-                            out.print("<li  id=\"carrosid active\" s><a style='color:white' href=><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
+                            out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
                             for (int i = 0; i < cor.size(); i++) {
                                 System.out.println(dis.size()+" "+cor.size() + " -" + i + " " + cor.get(i).getProducto());
                             }
                         } else {
-                            out.print("<li  id=\"carrosid active\"><a href=><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
+                            out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
 
                         }
                     %>
                 </div>
             </nav>
-            <div class="row" >
-
-                <!--   <div class=" col-md-offset-6"  id="get_catalogo" align="center">
-                    <div style=" overflow: auto"  class="col-md-12" style="background-color: blueviolet" align="center">
-                        <table border="1" width="5" class="table table-bordered table-condensed table-hover table-striped" style="overflow: auto" align="center">
-                            <thead align="center" >
-                            <th width="10">25</th>
-                            <th width="10">25.5</th>
-                            <th  width="10">26</th>
-                            <th  width="10">26.5</th>
-                            <th  width="10">27</th>
-                            <th  width="10">27.5</th>
-                            <th  width="10">28</th>
-                            <th  width="10">28.5</th>
-                            <th  width="10">29</th>
-                            <th  width="10">29.5</th>
-                            <th  width="10">30</th>
-                            <th width="10">30.5</th>
-                            </thead>
-                            <tr align="center" contenteditable="true">
-                                <td width="10">0</td>
-                                <td width="10">1</td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td width="10" onclick="averdato()"></td>
-                                <td  width="10"><img class="imagentabla" src="../images/ok.png" alt=""></td>
-                            </tr>
-                        </table>
-                    </div>
-                    </div> --> 
-            </div>
-                <div class="container-fluid" align="center" id="desplieguepedido">
-                <div class="col-md-5" align="center" id="desc-ped">
-                    <%
-                      if (!dis.isEmpty()) { %>
+                <%if (!dis.isEmpty()) { %>
+            <div class="container-fluid" align="center" id="desplieguepedido" style="">
+                
+                <div class="row" align="center">
+                          <label class="letraprod">Productos Ingresados al Pedido</label><hr>
+                </div>
+                <div class="col-md-8 col-md-offset-3" align="center" id="desc-ped">
+                    
+                      
                     <div class="row" align="center">
-                        <div class="col-xs-1"><label >X</label></div>
-                        <div class="col-xs-2"><label >Estilo</label></div>
-                        <div class="col-xs-5"><label >Combinacion</label></div>
-                        <div class="col-xs-2"><label >Corrida</label></div>
-                        <div class="col-xs-2"><label >Pares</label></div>
-                        
+                        <div class="col-xs-2" align="center"><label>Estilo</label></div>
+                        <div class="col-xs-4" align="center"><label>Combinacion</label></div>
+                        <div class="col-xs-2" align="center"><label>Corrida</label></div>
+                        <div class="col-xs-2" align="center"><label>Pares</label></div>
                     </div>
                     <%
                             int cont = 0;
@@ -192,56 +156,39 @@
                                     pi += 0.5;
                                     cont++;
                                 }
-                                out.print("<div class=\"row espacioparavta \" align=\"center\">"
-                                        +"<div class=\"col-xs-1\" align=center><a onclick=borrar("+cor.get(i).getProducto()+")><img src=\"../images/delete.png\" class=\"imagentabla\"></a></div>"
-                                        + "<div class=\"col-xs-2\"><label >" + cor.get(i).getEstilo() + "</label></div>"
-                                        + "<div class=\"col-xs-5 letraparavta\"><label >" + cor.get(i).getCombinacionchar() + "</label></div>"
-                                        + "<div class=\"col-xs-2\"><label >" + cor.get(i).getCorridachar() + "</label></div>"
-                                        + "<div class=\"col-xs-1\" align=\"center\"><label>" + pares + "</label></div>"
-                                        +"</div>");
+                                out.print("<div class=\"row\" align=center>"
+                                        + "<div class=col-xs-2><label>" + cor.get(i).getEstilo() + "</label></div>"
+                                        + "<div class=col-xs-4><label>" + cor.get(i).getCombinacionchar() + "</label></div>"
+                                        + "<div class=col-xs-2><label>" + cor.get(i).getCorridachar() + "</label></div>"
+                                        + "<div class=col-xs-2><label>" + pares + "</label></div>"
+                                        + "</div>");
                                 pares = 0;
                             }
-                        }else out.print("<div class=\"letrapedidofalso\"><label class=letratotal>El Pedido esta vacio!</label></div>");
-                    %>
+                            out.print("<div class=\"row\">"
+                                    + "<div class=col-md-5>"
+                                    + "<label class=letratotal>Total De Pares: "+totalpares+"</label>"
+                                    + "</div>"
+                                    + "</div>");
+                        %>
                 </div>
-                <%if (!dis.isEmpty()) { 
-                  out.print("<div class=\" col-md-offset-5\"  id=\"get_catalogo\" align=\"center\" style=\"padding-top: 2%\">\n" +
-"                <div style=\" overflow: auto\"  class=\"col-md-12\" align=\"center\" >\n" +
-"                    <table border=\"1\" width=\"5\" class=\"table table-bordered table-condensed table-hover\" style=\"overflow: auto\" align=\"center\">");
-                            int cont = 0;
-                            for (int i = 0; i < cor.size(); i++) {
-                                out.println("<tr align=\"center\" >");
-                                float pi = corrida.get(i).getPi();
-                                float pf = corrida.get(i).getPf()+1;
-                                while (pi < pf) {
-                                    out.print("<td width=\"10\"><p class=\"boldtabla\">"+pi+"</p>"+dis.get(cont)+"</td>");
-                                    pi += 0.5;
-                                    cont++;
-                                }
-                                out.println("</tr>");
-                            }
-                            out.print("</table></div></div>");
-                }
-                %>
-                </div>
-                
-
-            <div class="row" >
-                <div class="col-lg-8 col-lg-offset-2" id="get_catalogo" align="center" style="padding: 2%">
-                   <!--<div class="row espas-search-prods">
+            </div>
+                <% }%>
+            <div class="row"  style="">
+                <div class="col-md-8 col-lg-offset-2" id="get_catalogo" align="center" style="padding: 2%">
+                    <div class="row espas-search-prods">
                         <div class="col-sm-4">
-                            <input type="text" id="catalogo" placeholder="Busqueda de productos" class="form-control" onchange="to_searchprod()"> 
+                            <label class="">Ingrese Codigo de Producto:</label>
+                            <input type="password" id="catalogo" placeholder="Busqueda de productos" class="form-control" onchange="to_searchprod()"> 
                         </div>
-                        <%//if (!dis.isEmpty()) { %>
+                        <%if (!dis.isEmpty()) { %>
                         <div class="container-fluid">
                             <button style="float:right" class="btn btn-danger" onclick="vaciar()">Vaciar</button>
                         </div> 
-                        <% //}%>
-                    </div>--> 
+                        <% }%>
+                    </div>
                 </div>
-
-
             </div>
+                    <div id="distribucion"></div>
             <div class="row espaciobtn">
                 <%if (!dis.isEmpty()) { %>
                 <div align="center">
@@ -249,7 +196,7 @@
                 </div>
                 <% }%>
             </div>
-
+                
             <script>
                 function mostrarVentanas()
                 {
@@ -332,7 +279,6 @@
                                 <div class="col-md-4"><label>Nombre Cliente :</label><div class=""><input class="form-control" type="text" id="nc" ></div></div>
                                 <div class="col-md-8"><label>Direccion:</label><div class=""><input class="form-control" type="text" id="dir" ></div></div>
                                 <!--<div class="col-md-3"><label>RFC:</label><div class=""><input class="form-control" type="text" id="rfc" ></div></div>-->
-                            </div>
                             <div class="" style="padding-top: 10%">
                                 <div class="col-md-4"><label>Telefono</label><div class=""><input class="form-control" type="text" id="tel" ></div></div>
                                 <div class="col-md-8"><label>Email</label><div class=""><input class="form-control" type="text" id="email" ></div></div>
@@ -340,17 +286,14 @@
                             <div style="padding-top: 10%">
                                 <button class="btn btn-danger" onclick="dopedido()">Realizar Venta</button>
                             </div>
+
                         </div> 
                     </div>
                 </div>
             </div>
-
-            <div id="ress" class="modal-header" style="position: fixed; width: 25%; height: 30%; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; background-color: #FAFAFA; color: white; display:none;">
-                <div style="background-color: #616185;padding-left: 2%;padding-right: 2%;border-radius: 10px;">
-                    <LABEL id="valorr"><big>completo</big></LABEL>
-                </div>
-            </div>  
-        </div>
+</div>
+        
+                            
     </body>
 </html>
 <%

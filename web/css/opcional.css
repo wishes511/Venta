@@ -46,7 +46,14 @@ padding-left: 10%
 }
 /* para cesta con distribucion*/
 .espacioparavta{
-    padding: 3%
+    padding: 4%
+}
+.letraprod{
+    font-size: 20px
+    
+}
+.espacioparaped{
+    padding: 1%
 }
 .letraparavta{
     font-size: 11px
@@ -61,7 +68,16 @@ padding-left: 10%
     font-size: 35px;
     padding-top: 20%
 }
-
+/* Para ver pedidos */
+.enctabla{
+    color:white;
+    background:black;
+    border-radius: 10px
+}
+.boldtabla{
+    font-style: italic;
+    background-color:cyan
+}
  @media screen and (max-width: 720px) {
 
      hr{

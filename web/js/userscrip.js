@@ -12,6 +12,8 @@ function to_searchprod() {
         url: '../Productos',
         success: function (result) {
             $('#distribucion').html(result);
+            document.getElementById("tabla").focus();
+            
         }
     });
 }
@@ -31,11 +33,20 @@ function averdato() {
     var total = document.getElementsByTagName("td").length;
     var prod=$('#catalogo').val();
     var cadena = "";
+    var flag=0;
+    var pares=0;
     var uso = "anadir";
     for (var i = 0; i < total; i++) {
         var variable = document.getElementsByTagName("td")[i].innerHTML;
-        cadena = cadena + variable + ",";
+        if(variable == "<br>" || variable==" " || variable== "" || variable=="&nbsp;"){
+            cadena = cadena + "0" + ","
+        }
+        else{
+            cadena = cadena + variable + ",";
+        }
+        
     }
+    if(flag==0){
         $.ajax({
             type: 'post',
             data: {p: cadena, uso: uso,prod:prod},
@@ -45,7 +56,8 @@ function averdato() {
                 //$('#carrosid').html("<div class='container-fluid'><ul class=nav navbar-nav><li ><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\">("+result+")</a></li></ul></div>");
             }
         });
-    
+    }
+        
    // $('#distribucion').html("<div class=\"container-fluid\"><div class=\"col-md-offset-5\"><label>Estilo Agregado al pedido exitosamente</label></div></div>");
 }
 function vaciar() {
@@ -66,7 +78,6 @@ function vaciar() {
 
 function borrar(prod){
     var uso = "deleterow";
-    alert(prod);
     $.ajax({
         type: 'post',
         data: {uso: uso,prod:prod},
@@ -92,12 +103,31 @@ function dopedido(){
         data: {uso: uso,fp:fp,fe:fe,nc:nc,dir:dir,rfc:rfc,tel:tel,email:email},
         url: '../Carrito',
         success: function (result) {
-            //
+            alert(result);
+          document.location.reload();
         }
     });
-    document.location.reload();
 }
-
+//consultas
+function getfields(){
+    var report=$('input:radio[name=report]:checked').val();
+    var tipo=$('input:radio[name=tipo]:checked').val();
+    document.getElementById("selectbuscar").focus();
+    var selec= $('#selectbuscar').val();
+    $.ajax({
+        type: 'post',
+        data: {uso: report,tipo:tipo},
+        url: '../Consultas',
+        success: function (result) {
+            $('#getselect').html(result);
+        }
+    });
+    
+}
+function salto(){
+    document.getElementById("gobusca").focus();
+    
+}
 
 //Combinaciones
 function getcombi(){
