@@ -42,7 +42,7 @@
         <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
         <script>
              $(document).ready(function () {
-                document.form.nombrelog.focus();
+                document.getElementById('user').focus();
             });
         </script>
         <script type="text/javascript"> 
@@ -106,7 +106,8 @@
                     <label>Derechos reservados, Athletic Footwear S.A de C.V</label><br>
                     <label class="shiro">01 (476) 743 1552 | 743 0448</label><br>
                     <label class="shiro">Descarga app android</label><br>
-                    <a href="Avances.apk"><img src="images/android.png" width="150" height="50" alt="" class="img-responsive"></a>
+                    <!--<a href="Avances.apk"><img src="images/android.png" width="150" height="50" alt="" class="img-responsive"></a>-->
+                    <br><br><br>
                     <hr style="">
                 </div>
                 <div class="col-sm-3 espacio">
@@ -124,7 +125,7 @@
                     <hr>
                 </div>
                 <div class="col-sm-3 espacio">
-                    <a class="" href="http://192.168.6.75:86/fichast"><label class="shiro titulos" >Fichas Tecnicas</label></a>
+                    <!--<a class="" href="http://192.168.6.75:86/fichast"><label class="shiro titulos" >Fichas Tecnicas</label></a>-->
                     <br><img class="img-responsive jumbismini" src="images/QR.png" width="75px" height="75px"><br>
                     
                 </div>

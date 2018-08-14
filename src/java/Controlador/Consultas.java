@@ -57,6 +57,18 @@ public class Consultas extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        PrintWriter out=  response.getWriter();
+        try {
+            HttpSession objSesion = request.getSession(false);
+            objSesion.invalidate();
+            out.println("<script type=\"text/javascript\">");
+                    out.println("location='index.jsp';");
+                    out.println("</script>");
+        } catch (Exception e) {
+            out.println("<script type=\"text/javascript\">");
+                    out.println("location='index.jsp';");
+                    out.println("</script>");
+        }
     }
 
     /**
@@ -77,8 +89,12 @@ public class Consultas extends HttpServlet {
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
         ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("corrida");
         System.out.println(usuario + " " + tipos);
-        if (usuario != null && tipos != null && (tipos.equals("ADMIN"))) {
-
+        if (usuario != null && tipos != null && (tipos.equals("ADMIN")|| tipos.equals("VENTAS")|| tipos.equals("USUARIO")|| tipos.equals("ALTAS"))) {
+            if(tipos.equals("VENTAS")){
+                response.sendRedirect("usuario/index.jsp");
+            }else if(tipos.equals("ALTAS")){
+                response.sendRedirect("usuario/productos.jsp");
+            }
         } else {
             response.sendRedirect("../index.jsp");
         }
@@ -89,6 +105,8 @@ public class Consultas extends HttpServlet {
         String tipo = (String)request.getParameter("tipo");
             ArrayList<Linea> arrlinea= new ArrayList<Linea>();
             ArrayList<Pedido> arrpedido= new ArrayList<Pedido>();
+            ArrayList<Producto> arrproducto = new ArrayList<Producto>();
+           
             DAO_Linea l=new DAO_Linea();
             DAO_Pedido p = new DAO_Pedido();
             System.out.println(uso+" "+tipo);
@@ -99,8 +117,21 @@ public class Consultas extends HttpServlet {
                 out.print("<option class=\"form-control\" value="+arrlinea.get(i).getDescripcion()+">"+arrlinea.get(i).getDescripcion()+"</option>");
             }
             out.print("</select>");
-        }else {
-            
+        }else if(uso.equals("cliente")) {
+            arrpedido=p.getcliente_consulta();
+            out.print("<label>Clientes:</label><select class=\"form-control\"  id=\"selectbuscar\" onchange=\"salto()\"><option></option>");
+            for(int i = 0;i<arrpedido.size();i++){
+                out.print("<option class=\"form-control\" value="+arrpedido.get(i).getNombrecliente()+">"+arrpedido.get(i).getNombrecliente()+"</option>");
+            }
+            out.print("</select>");
+        }else if(uso.equals("linea")){
+             DAO_Producto prod= new DAO_Producto();
+            arrproducto=prod.getprod_consulta();
+            out.print("<label>Marcas:</label><select class=\"form-control\"  id=\"selectbuscar\" onchange=\"salto()\"><option></option>");
+            for(int i = 0;i<arrproducto.size();i++){
+                out.print("<option class=\"form-control\" value="+arrproducto.get(i).getMarca()+">"+arrproducto.get(i).getMarca()+"</option>");
+            }
+            out.print("</select>");
         }
         
         }catch (Exception e) {

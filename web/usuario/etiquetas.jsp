@@ -27,8 +27,10 @@
             String tipos = (String) objSesion.getAttribute("tipo");
             String ids = String.valueOf(objSesion.getAttribute("i_d"));
 
-            if (usuario != null && tipos != null && (tipos.equals("USUARIO") || tipos.equals("VENTA") || tipos.equals("ADMIN"))) {
-
+            if (usuario != null && tipos != null && (tipos.equals("USUARIO") || tipos.equals("VENTA") || tipos.equals("ADMIN")|| tipos.equals("ALTAS"))) {
+                if(tipos.equals("ALTAS")){
+                response.sendRedirect("productos.jsp");
+                }
             } else {
                 response.sendRedirect("../index.jsp");
             }

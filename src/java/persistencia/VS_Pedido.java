@@ -6,7 +6,6 @@
 package persistencia;
 
 
-import Modelo.Combinacion;
 import Modelo.Corrida;
 import Modelo.Pedido;
 import Modelo.Producto;
@@ -169,5 +168,26 @@ public class VS_Pedido extends conBD {
         df.close();
         smt.close();
         return last_ped+1;
+    }
+                public ArrayList<Pedido> buscarcliente_consultas() throws ClassNotFoundException, SQLException {
+        ArrayList<Pedido> arr = new ArrayList<Pedido>();
+        String query="";
+        query = "select distinct nombrecliente from Pedidos\n" +
+" group by nombrecliente order by nombrecliente";
+        System.out.println(query);
+        Statement smt;
+        ResultSet df;
+        abrirs();
+        Connection conect = getConexions();
+        smt = conect.createStatement();
+        df = smt.executeQuery(query);
+        while (df.next()) {
+            Pedido l = new Pedido();
+            l.setNombrecliente(df.getString("nombrecliente"));
+            arr.add(l);
+        }
+        df.close();
+        smt.close();
+        return arr;
     }
 }

@@ -5,12 +5,16 @@
  */
 package Controlador;
 
+import DAO.DAO_Usuario;
 import Modelo.Corrida;
 import Modelo.Producto;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
@@ -78,96 +82,86 @@ public class Validarr extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         HttpSession objSesion = request.getSession(true);
-       // try {
+        try {
             String nombre = request.getParameter("user");
             String contrasena = request.getParameter("pass");
-            String save = request.getParameter("save");
-            if(save!=null){
-            }else save="no";
             boolean flag = false;
-            int interv = 180;
+            int interv = 1800;
             PrintWriter out = response.getWriter();
             //control de acceso 
-            
                 if (nombre==null || contrasena==null || nombre.equals("") || contrasena.equals("")) {// se regresa al inicio si el usuario o contrasena son vacios
                     out.println("<script type=\"text/javascript\">");
                     out.println("location='index.jsp';");
                     out.println("</script>");
                     flag = true;
-                }
-                 else {
+                }else {
                     // Definir variable de referencia a un objeto de tipo Usuario
-                    //String tipo = "";
                     // Consultar Base de datos
-                    Usuario u = new Usuario();
-                    u.setNombre(nombre);
-                    //u = a.buscaru(nombre, contrasena);// busca elusuario con los datos proporcionados y guarda el tipo de usuario en 'tipo'
-                    if (u.getNombre().equals("n")) {// si no encontro nada
+            String patt = "[a-z1-9A-Z\\s]*";
+            Pattern pat = Pattern.compile(patt);
+            Matcher match = pat.matcher(nombre);
+            Matcher match1 = pat.matcher(contrasena);
+            if(match.matches() && match1.matches()){
+                Usuario u = new Usuario();
+                    u.setUsuario(nombre);
+                    u.setPass(contrasena);
+                    DAO_Usuario du = new DAO_Usuario();// busca elusuario con los datos proporcionados y guarda el tipo de usuario en 'tipo'
+                    u=du.getUsuario(u);
+                    if (u.getTipo()==null) {// si no encontro nada
                         out.println("<script type=\"text/javascript\">");
                         out.println("alert('Usuario o contrasena incorrectos');");
                         out.println("location='index.jsp';");
                         out.println("</script>");
                     } else {
-                     //   switch (u.getTipoUsuario()) {
+                        String redir="";
+                        switch (u.getTipo()) {
                             //usuario administrador
-                      //      case "ADMIN":
-                      ArrayList<String> arr=new ArrayList<>();
-                      ArrayList<Producto>arr1 = new ArrayList<>();
-                      ArrayList<Corrida>arr2 = new ArrayList<>();
-                                objSesion.setMaxInactiveInterval(interv + 100000);
-                                objSesion.setAttribute("usuario", nombre);
-                                objSesion.setAttribute("tipo","ADMIN");
-                                objSesion.setAttribute("distribucion", arr);
-                                objSesion.setAttribute("producto", arr1);
-                                objSesion.setAttribute("corrida", arr2);
-                                response.sendRedirect("usuario/index.jsp");
+                            case "ADMIN":
+                                redir="usuario/index.jsp";
                                 
-                       /*/         break;
-                            case "USUARIO":
-                                //usuario normal
-                                objSesion.setMaxInactiveInterval(interv + 10000);
-                                objSesion.setAttribute("usuario", nombre);
-                                objSesion.setAttribute("tipo", m.getTipo_usuario());
-                                objSesion.setAttribute("empresa", m.getNombre_empresa());
-                                response.sendRedirect("usuario/index.jsp");
                                 break;
-                            case "VIGILANTE":
-                                //posible usuario para inicio de la pagina
-                                objSesion.setMaxInactiveInterval(interv + 150000);
-                                objSesion.setAttribute("usuario", nombre);
-                                objSesion.setAttribute("tipo", m.getTipo_usuario());
-                                objSesion.setAttribute("empresa", m.getNombre_empresa());
-                                response.sendRedirect("usuario/index.jsp");
-                                break;    
+                            case "VENTAS"://usuario normal
+                                 redir="usuario/index.jsp";
+                                break;
+                            case "USUARIO"://usuario normal
+                                 redir="usuario/productos.jsp";
+                                break;
+                            case "ALTAS"://usuario normal
+                                 redir="usuario/productos.jsp";
+                                break;
                             default:// si lo que encontro es diferente a lo antes descrito manda un msj y lo regresa a ala pagina de inicio
                                 out.println("<script type=\"text/javascript\">");
                                 out.println("alert('Usuario o contrasena incorrectos');");
                                 out.println("location='index.jsp';");
                                 out.println("</script>");
                                 break;
-                        }/*/
+                        }
+                                ArrayList<String> arr=new ArrayList<>();
+                                ArrayList<Producto>arr1 = new ArrayList<>();
+                                ArrayList<Corrida>arr2 = new ArrayList<>();
+                                objSesion.setMaxInactiveInterval(interv + 100000);
+                                objSesion.setAttribute("usuario",nombre);
+                                objSesion.setAttribute("tipo",u.getTipo());
+                                objSesion.setAttribute("distribucion", arr);
+                                objSesion.setAttribute("producto", arr1);
+                                objSesion.setAttribute("corrida", arr2);
+                                response.sendRedirect(redir);
                     }
+            }else {
+                out.println("<script type=\"text/javascript\">");
+                out.println("location='index.jsp';alert('Favor de Introducir informacion valida!');");
+                out.println("</script>");
+            }
+                    
                 }
             
-//        } catch (SQLException ex) {
-//            System.out.println("Codigo 1: " + ex);
-//            PrintWriter out = response.getWriter();
-//            out.println("<script type=\"text/javascript\">");
-//            out.println("location='index.jsp';alert('Codigo 1: " + ex + "');");
-//            out.println("</script>");
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(Validarr.class.getName()).log(Level.SEVERE, null, ex);
-//            PrintWriter out = response.getWriter();
-//            out.println("<script type=\"text/javascript\">");
-//            out.println("location='index.jsp';alert('Codigo 1.1: " + ex + "');");
-//            out.println("</script>");
-//        }catch (Exception ex) {
-//            Logger.getLogger(Validarr.class.getName()).log(Level.SEVERE, null, ex);
-//            PrintWriter out = response.getWriter();
-//            out.println("<script type=\"text/javascript\">");
-//            out.println("location='index.jsp';alert('Codigo 1.2: " + ex + "');");
-//            out.println("</script>");
-//        }
+        }catch (Exception ex) {
+            Logger.getLogger(Validarr.class.getName()).log(Level.SEVERE, null, ex);
+            PrintWriter out = response.getWriter();
+            out.println("<script type=\"text/javascript\">");
+            out.println("location='index.jsp';alert('Error al procesar datos de entrada: " + ex + "');");
+            out.println("</script>");
+        }
     }
 
     /**

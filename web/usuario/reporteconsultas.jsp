@@ -27,25 +27,40 @@
             String tipos = (String) objSesion.getAttribute("tipo");
             String ids = String.valueOf(objSesion.getAttribute("i_d"));
 
-            if (usuario != null && tipos != null && (tipos.equals("USUARIO") || tipos.equals("VENTAS") || tipos.equals("ADMIN")|| tipos.equals("ALTAS"))) {
-            if(tipos.equals("ALTAS")){
-                response.sendRedirect("usuario/productos.jsp");
-            }
+            if (usuario != null && tipos != null && (tipos.equals("USUARIO") || tipos.equals("VENTA") || tipos.equals("ADMIN"))) {
+
             } else {
                 response.sendRedirect("../index.jsp");
             }
-            String p = (String)request.getParameter("peds");
-            String f1 = (String)request.getParameter("f1");
-            String f2 = (String)request.getParameter("f2");
+            String tipo = (String)request.getParameter("tipo");
+            String uso = (String)request.getParameter("report");
+            String select = (String)request.getParameter("select");
             DAO_Producto prod = new DAO_Producto();
-
             try {
-                // reporte de etiquetas
-                File reportfile = new File(application.getRealPath("usuario/Ventas.jasper"));
+               String s="" ;
+               if(select==null || select.equals("undefined")){select="";}
+               System.out.println(tipo+" -"+uso+" -"+select);
+            if(uso.equals("clasificacion")){
+                if(tipo.equals("concentrado")){
+                    System.out.println("Aqui debo de ");
+                s="usuario/consultas/clasificacion.jasper";
+                }else s="usuario/consultas/clasificacion_1.jasper";
+            }else if(uso.equals("linea")){
+                if(tipo.equals("concentrado")){
+                s="usuario/consultas/marca.jasper";
+                }else s="usuario/consultas/marca_1.jasper";
+            }else if(uso.equals("cliente")){
+                if(tipo.equals("concentrado")){
+                s="usuario/consultas/cliente.jasper";
+                }else s="usuario/consultas/cliente_1.jasper";
+            }else {
+                out.print("<script>location='../index.jsp';</script>");
+            }
+                File reportfile =new File(application.getRealPath(s));
+                // reporte de consultas
+                //File reportfile = new File(application.getRealPath("usuario/consultas/clasificacion.jasper"));
                 Map para = new HashMap();
-                para.put("search", new String(p));
-                para.put("f1", new String(f1));
-                para.put("f2", new String(f2));
+                para.put("desc", new String(select));
                 byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), para, prod.conexionbd());
                 response.setContentType("application/pdf");
                 response.setContentLength(bytes.length);
@@ -56,10 +71,9 @@
                 outputstream.close();
                 
             } catch (Exception e) {
-                e.printStackTrace();
-
-                //  response.sendRedirect("verpares.jsp");
-            } finally {
+                System.out.println(e);
+                //out.print("<script>location='../index.jsp';</script>");
+                 } finally {
                 if (prod.conexionbd() != null) {
                     prod.closebd();
                     // response.sendRedirect("verpares.jsp");

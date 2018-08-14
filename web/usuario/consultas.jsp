@@ -4,39 +4,25 @@
 --%>
 <%@page import="Modelo.Corrida"%>
 <%@page import="Modelo.Producto"%>
-<%@page import="java.util.Calendar"%>
-<%@page import="java.util.LinkedList"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
-<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%int id_produc = 0;
-    String usuarios = "";
-    HttpSession objSesion = request.getSession(false);
-    boolean estado;
+<%   HttpSession objSesion = request.getSession(false);
     try {
-
         String usuario = (String) objSesion.getAttribute("usuario");
         String tipos = (String) objSesion.getAttribute("tipo");
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
         ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
         ArrayList<Corrida> corrida = (ArrayList<Corrida>) objSesion.getAttribute("corrida");
         System.out.println(usuario + " " + tipos);
-        if (usuario != null && tipos != null && (tipos.equals("ADMIN"))) {
-
+            if (usuario != null && tipos != null && (tipos.equals("USUARIO") || tipos.equals("VENTAS") || tipos.equals("ADMIN")|| tipos.equals("ALTAS"))) {
+            if(tipos.equals("ALTAS")){
+                response.sendRedirect("usuario/productos.jsp");
+            }else if(tipos.equals("VENTAS")){
+                response.sendRedirect("usuario/index.jsp");
+            }
         } else {
             response.sendRedirect("../index.jsp");
         }
-        Calendar fecha = Calendar.getInstance();
-        int año = fecha.get(Calendar.YEAR);
-        int mes = fecha.get(Calendar.MONTH) + 1;
-        int dia = fecha.get(Calendar.DAY_OF_MONTH);
-        
-        String fechac = dia+"-"+mes+"-"+año;
-        String fechaca = "";
-       
-
 %>
 <!DOCTYPE html>
 <html>
@@ -86,7 +72,7 @@
 
         </script>
     </head>
-    <body>
+    <body class="boldtabla_noitalicV2">
         <div class="container-fluid" style="">
             <!--<label class="">Ingrese Codigo de Producto:</label>
                             <input type="password" id="catalogo" placeholder="Busqueda de productos" class="form-control" onchange="to_searchprod()"> --> 
@@ -95,14 +81,13 @@
                     <a class="navbar-brand" href="index.jsp"><img src="../images/home.png" class="" width="25"></a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <%                        if (tipos.equals("ADMIN") || tipos.equals("AMECANICA")) {
-                    %>
-                    <li class="">
-                        <a  class="" href="index.jsp">Captura Pedidos</a>
-                    </li>
-                    <li class="">
-                        <a  class="" href="productos.jsp">Productos</a>
-                    </li>
+                    <%if (tipos.equals("ADMIN")) {%>
+                    <li class=""><a  class="" >Captura Pedidos</a> </li>
+                    <%}%>
+                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")) {%>
+                    <li class=""><a  class="" href="productos.jsp">Productos</a> </li>
+                    <%}%>
+                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")) {%>
                     <li class="dropdown">
                         <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
                             Pedidos<span class="caret"></span>
@@ -111,15 +96,14 @@
                             <li class=""><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
                         </ul>
                     </li>
-                    <li class="active">
-                        <a  class="" >Consultas</a>
-                    </li>
-                    
+                    <%}%>
+                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")){%>
+                    <li class="class"><a  class="" href="consultas.jsp">Consultas</a></li>
+                    <%}%>
                     <li><a href="../Cierresesion">Salir</a></li>
                 </ul>
                 <div id="" class="nav navbar-nav" style="float:right">
-                    <%
-                        }
+             <%if (tipos.equals("ADMIN")) {
                         if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
                             for (int i = 0; i < cor.size(); i++) {
@@ -127,100 +111,57 @@
                             }
                         } else {
                             out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
-
-                        }
+                        }}
                     %>
                 </div>
             </nav>
-
-            <div class="row"  style="" align="center">
-                <div class="col-md-8 col-lg-offset-2 " id="get_catalogo" align="center" style="padding: 2%;background-color:graytext;border-radius: 8px">
-                    <div class="row espas-search-prods">
+                <div class="">
+                <div class="row espacioparavta"  style="" align="center">
+                <div class="col-md-8 col-lg-offset-2 cuadromenu" id="get_catalogo" align="center" style="">
+                    <div class="row espas-search-prods letracuadro_menu">
                         <div class="col-xs-4">
                             <div class="col-xs-8"><label class="">Clasificación</label></div>
                             <div class="col-xs-4"><input type="radio" name="report" id="report" value="clasificacion" checked="checked" onclick="getfields()"/></div>
                         </div>
                         <div class="col-xs-4">
                             <div class="col-xs-4"><label>Linea</label></div>
-                            <div class="col-xs-8"><input type="radio" name="report" id="report" value="linea"  /></div>
-                            
-                            
+                            <div class="col-xs-8"><input type="radio" name="report" id="report" value="linea"  onclick="getfields()"/></div>
                         </div>
                         <div class="col-xs-4">
                             <div class="col-xs-4"><label>Cliente</label></div>
-                            <div class="col-xs-8"><input type="radio" name="report" id="report" value="cliente" /></div>
-                            
-                            
+                            <div class="col-xs-8"><input type="radio" name="report" id="report" value="cliente" onclick="getfields()"/></div>
                         </div>
                     </div>
                 </div>
             </div>
-                <div class="row espacioparaped"  style="" align="center">
-                <div class="col-md-2 col-md-offset-5" id="get_catalogo" align="center" style="padding: 2%;background-color:blueviolet;border-radius: 8px" >
+            <div class="row espacioparaped"  style="" align="center">
+                <div class="col-md-2 col-md-offset-5 cuadromenu" id="get_catalogo" align="center"  >
                     <div class="row espas-search-prods">
                         <div class="col-md-6" align="center">
                             <label>Concentrado</label>
-                            <input type="radio" name="tipo" id="tipo" value="concentrado" checked="checked" />
+                            <input type="radio" name="tipo" id="tipo" value="concentrado" checked="checked" onclick="getfields()"/>
                         </div>
                         <div class="col-md-5"  align="center">
                             <label>Detallado</label>
-                           <input type="radio" name="tipo" id="tipo" value="detallado" />
+                            <input type="radio" name="tipo" id="tipo" value="detallado" onclick="getfields()"/>
                         </div>
                     </div>
                 </div>
             </div>
-                <div class="row" align="center">
-                    
-                    <div class="col-md-2 col-md-offset-5" id="getselect">
-                        <label>Nombre:</label>
-                        <select class="form-control"  id="selectbuscar" onchange="salto()">
-                        <option class="form-control">pruebas</option>.
-                        <option class="form-control">pruebas1</option>
-                        </select>
-                    </div>
-                    
-                    
-                </div>
-                <div class="row espacioparaped" align="center">
-                    <button class="btn btn-success" id="gobusca">Buscar</button>
-                </div>
-                    <div id="distribucion"></div>
+            <div class="row" align="center">
+                <div class="col-md-2 col-md-offset-5" id="getselect"></div>
+            </div>
+            <div class="row espacioparaped" align="center">
+                <button class="btn btn-success" id="gobusca" onclick="getreport()">Generar reporte</button>
+            </div>
+            <div id="distribucion"></div>
+            </div>    
+            
             <div class="row espaciobtn">
             </div>
-                
-            <script>
-                function mostrarVentanas()
-                {
-                    var ventana = document.getElementById("miVentana");
-                    ventana.style.marginTop = "150px";
-                    //ventana.style.left = ((document.body.clientWidth) / 2) +  "px";
-                    ventana.style.display = "block";
-                    ventana.style.left = 15 + "%";
-                    document.getElementById("cantis").focus();
-                }
-                function ocultarVentanas()
-                {
-                    var ventana = document.getElementById("miVentana");
-                    ventana.style.display = "none";
-                }
-                function ru() {
-                    var pro = $('#tipos').val();
-                    $.ajax({
-                        type: 'post',
-                        data: {id: pro},
-                        url: '../CProveedor',
-                        success: function (result) {
-                            document.getElementById("idu").value = result;
-                        }
-                    });
-                }
+        </div>
 
-            </script>
-            <!-- modal de cuantos productos al hacer clic -->
 
-</div>
-        
-                            
     </body>
 </html>
 <%

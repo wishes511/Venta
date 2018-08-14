@@ -12,20 +12,19 @@
 <%@page import="java.sql.Connection"%>
 <%@ page import="java.util.*" %>
 <%@ page import="java.io.*" %>
-<%int id_produc = 0;
-    String usuarios = "";
+<%
     HttpSession objSesion = request.getSession(false);
-    boolean estado;
     try {
-
         String usuario = (String) objSesion.getAttribute("usuario");
         String tipos = (String) objSesion.getAttribute("tipo");
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
         ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
         ArrayList<Corrida> corrida = (ArrayList<Corrida>) objSesion.getAttribute("corrida");
         //System.out.println(usuario + " " + tipos);
-        if (usuario != null && tipos != null && (tipos.equals("ADMIN"))) {
-
+        if (usuario != null && tipos != null && (tipos.equals("ADMIN")|| tipos.equals("VENTAS")|| tipos.equals("USUARIO")|| tipos.equals("ALTAS"))) {
+            if(tipos.equals("VENTAS")){
+                response.sendRedirect("index.jsp");
+            }
         } else {
             response.sendRedirect("../index.jsp");
         }
@@ -133,39 +132,84 @@
                     <a class="navbar-brand" href="index.jsp"><img src="../images/home.png" class="" width="25"></a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <%                        if (tipos.equals("ADMIN") || tipos.equals("AMECANICA")) {
+                    <%if (tipos.equals("ADMIN")) {
                     %>
                     <li class="">
                         <a  class="" href="index.jsp">Captura Pedidos</a>
                     </li>
+                    
                     <li class="dropdown active">
                         <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
                             Productos<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" id="#90" role="menu">
-                            <li class="active"><a href="">Productos Generales</a></li>
+                            <li class="active"><a>Productos Generales</a></li>
                             <li><a class="btn" onclick="etiquetas()">Etiquetas</a></li>
                         </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
+                            Pedidos<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="#90" role="menu">
+                            <li class=""><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a  class="" href="consultas.jsp">Consultas</a>
                     </li>
                     <li><a href="../Cierresesion">Salir</a></li>
                 </ul>
                 <div id="" class="nav navbar-nav" style="float:right">
-                    <%
-                        }
-                        if (!cor.isEmpty()) {
+                    <%  if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
                             for (int i = 0; i < cor.size(); i++) {
                                 System.out.println(dis.size()+" "+cor.size() + " -" + i + " " + cor.get(i).getProducto());
                             }
                         } else {
                             out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
-
-                        }
-                    %>
-                </div>
+                        }}
+                       if (tipos.equals("USUARIO")) {
+                    %>                    
+                    <li class="dropdown active">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
+                            Productos<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="#90" role="menu">
+                            <li class="active"><a>Productos Generales</a></li>
+                            <li><a class="btn" onclick="etiquetas()">Etiquetas</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
+                            Pedidos<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="#90" role="menu">
+                            <li class=""><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a  class="" href="consultas.jsp">Consultas</a>
+                    </li>
+                    <li><a href="../Cierresesion">Salir</a></li>
+                
+                    <%}else if (tipos.equals("ALTAS")){ %>
+                    <li class="dropdown active">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
+                            Productos<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="#90" role="menu">
+                            <li class="active"><a>Productos Generales</a></li>
+                            <li><a class="btn" onclick="etiquetas()">Etiquetas</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="../Cierresesion">Salir</a></li>
+                    <%}%>
             </nav>
             <div class="row">
                 <div class="col-md-4 ">
+                    <%if (!tipos.equals("USUARIO")){%>
                     <h3 class="h3" align="center">Nuevo producto</h3>
                     <form name="form2" action="../Productos" method="post" class="form-login esp1" style="overflow: auto">
                         Estilo<input class="form-control input-sm chat-input" type="text" name="estilo" id="estilo" value="" maxlength="20"  required/><br>
@@ -227,7 +271,7 @@
                         <input type="submit" class="btn btn-success" value="Aceptar" name="benviar" id="benviar" />
                         <br><br>
                         <input style="display: none" class="form-control input-sm chat-input" type="text" name="uso" id="uso" value="nuevo"/><br>
-                    </form>
+                    </form><%}%>
                 </div>
                 <div class="col-md-8">
                     <h3 class="h3" align="center">Vista general de productos</h3>

@@ -112,7 +112,6 @@ function dopedido(){
 function getfields(){
     var report=$('input:radio[name=report]:checked').val();
     var tipo=$('input:radio[name=tipo]:checked').val();
-    document.getElementById("selectbuscar").focus();
     var selec= $('#selectbuscar').val();
     $.ajax({
         type: 'post',
@@ -120,6 +119,7 @@ function getfields(){
         url: '../Consultas',
         success: function (result) {
             $('#getselect').html(result);
+            document.getElementById("selectbuscar").focus();
         }
     });
     
@@ -128,7 +128,13 @@ function salto(){
     document.getElementById("gobusca").focus();
     
 }
-
+function getreport(){
+    var select =$('#selectbuscar').val();
+    var report=$('input:radio[name=report]:checked').val();
+    var tipo=$('input:radio[name=tipo]:checked').val();
+    location = "reporteconsultas.jsp?report="+report+"&tipo="+tipo+"&select="+select;
+    
+}
 //Combinaciones
 function getcombi(){
     document.getElementById("combinacion").value=$('#selectcom').val();

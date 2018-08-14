@@ -42,7 +42,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Catalogo de Productos</title>
+        <title>Vista de Pedidos</title>
         <link rel="icon" sizes="32x32" href="../images/aff.png" />
         <link rel='stylesheet' type="text/css" href="../css/bootstrap.min.css">
         <link rel='stylesheet' type="text/css" href="../css/responsive.css">

@@ -103,8 +103,7 @@ public class VS_Linea extends conBD {
         String query="";
         
         query = "select distinct l.descripcion as 'descripcion' from DPedidos p join Lineas l on p.linea=l.linea\n" +
-        "group by descripcion\n" +
-        "order by descripcion";
+        "group by descripcion";
         Statement smt;
         ResultSet df;
         abrirs();

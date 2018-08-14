@@ -23,8 +23,10 @@
         ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
         ArrayList<Corrida> corrida = (ArrayList<Corrida>) objSesion.getAttribute("corrida");
         System.out.println(usuario + " " + tipos);
-        if (usuario != null && tipos != null && (tipos.equals("ADMIN"))) {
-
+    if (usuario != null && tipos != null && (tipos.equals("ADMIN")|| tipos.equals("VENTAS")|| tipos.equals("USUARIO")|| tipos.equals("ALTAS"))) {
+            if(tipos.equals("ALTAS")){
+                response.sendRedirect("productos.jsp");
+            }
         } else {
             response.sendRedirect("../index.jsp");
         }
@@ -106,27 +108,71 @@
                     <a class="navbar-brand" href="index.jsp"><img src="../images/home.png" class="" width="25"></a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <%                        if (tipos.equals("ADMIN") || tipos.equals("AMECANICA")) {
+                    <%if (tipos.equals("ADMIN")) {
                     %>
                     <li class="">
-                        <a  class="" href="index.jsp">Captura pedido</a>
+                        <a  class="" href="index.jsp">Captura Pedidos</a>
                     </li>
+                    
+                    <li class=""><a href="productos.jsp">Productos</a></li>
+                            <
+                    <li class="dropdown">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
+                            Pedidos<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="#90" role="menu">
+                            <li class="active"><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a  class="" href="consultas.jsp">Consultas</a></li>
                     <li><a href="../Cierresesion">Salir</a></li>
                 </ul>
                 <div id="" class="nav navbar-nav" style="float:right">
                     <%
-                        }
+                       
                         if (!cor.isEmpty()) {
-                            out.print("<li  id=\"carrosid active\" s><a style='color:white' href=><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
-                            for (int i = 0; i < cor.size(); i++) {
-                                System.out.println(dis.size()+" "+cor.size() + " -" + i + " " + cor.get(i).getProducto());
-                            }
+                            out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
+                            
                         } else {
-                            out.print("<li  id=\"carrosid active\"><a href=><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
-
-                        }
+                            out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li></div>");
+                        }}else if (tipos.equals("VENTAS")) {
                     %>
-                </div>
+                    
+                    <li class="">
+                        <a  class="" href="index.jsp">Captura Pedidos</a>
+                    </li>
+                    <li class="dropdown active">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
+                            Pedidos<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="#90" role="menu">
+                            <li class="active"><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../Cierresesion">Salir</a></li>
+                    </ul>
+                    <div id="" class="nav navbar-nav" style="float:right">
+                    <%if (!cor.isEmpty()) {
+                            out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
+                        } else {
+                            out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
+                           
+                        }%>
+                        </div>
+                        <% }else if(tipos.equals("USUARIO")) {
+                    %>
+                    <li class=""><a href="productos.jsp">Productos</a></li>
+                    <li class="dropdown">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
+                            Pedidos<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="#90" role="menu">
+                            <li class="active"><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a  class="" href="consultas.jsp">Consultas</a></li>
+                    <li><a href="../Cierresesion">Salir</a></li>
+                    <%}%>
             </nav>
             <div class="row" >
 
@@ -245,7 +291,7 @@
             <div class="row espaciobtn">
                 <%if (!dis.isEmpty()) { %>
                 <div align="center">
-                    <button style=" " class="btn btn-warning" onclick="mostrarVentanas()">Continuar</button>
+                    <button style=" " class="btn btn-warning" onclick="mostrarVentanas()">Guardar Pedido</button>
                 </div>
                 <% }%>
             </div>
@@ -314,8 +360,6 @@
                         }
                     });
                 }
-
-
             </script>
             <!-- modal de cuantos productos al hacer clic -->
             <div id="miVentana" style="position: fixed; width: 70%; height: 30%; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; background-color: #FAFAFA; color: white; display:none;">
@@ -324,9 +368,8 @@
                     <div class="espacio1"> <!-- Cliente -->
                         <div class="col-md-10 espas col-md-offset-1" id="get_catalogo" align="center">
                             <div class="col-md-offset-2">
-                                <div class="col-md-3" align="center"><label class="">Cliente:</label><select class="form-control" id="cliente"><option value="1" class="form-control">Mostrador</option></select></div>
-                                <div class="col-md-3"><label>Fecha Pedido :</label><div class=""><input class="form-control" type="text" id="fp" value="<%=fechac%>" disabled="disable"></div></div>
-                                <div class="col-md-3"><label>Fecha Entrega:</label><div class=""><input class="form-control" type="text" id="fe" value="<%=fechac%>"></div></div>
+                                <div class="col-md-5"><label>Fecha Pedido :</label><div class=""><input class="form-control" type="text" id="fp" value="<%=fechac%>" disabled="disable"></div></div>
+                                <div class="col-md-5"><label>Fecha Entrega:</label><div class=""><input class="form-control" type="text" id="fe" value="<%=fechac%>"></div></div>
                             </div>
                             <div class="" style="padding-top: 10%">
                                 <div class="col-md-4"><label>Nombre Cliente :</label><div class=""><input class="form-control" type="text" id="nc" ></div></div>
@@ -338,7 +381,7 @@
                                 <div class="col-md-8"><label>Email</label><div class=""><input class="form-control" type="text" id="email" ></div></div>
                             </div>
                             <div style="padding-top: 10%">
-                                <button class="btn btn-danger" onclick="dopedido()">Realizar Venta</button>
+                                <button class="btn btn-danger" onclick="dopedido()">Finalizar Pedido</button>
                             </div>
                         </div> 
                     </div>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7158ed34-39f2-49a8-8cfa-b673779eabcf">
+	<property name="ireport.zoom" value="2.143588810000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="desc" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select distinct dp.estilo,c.descripcion,SUM(dp.totalprod) as 'total' from Dpedidos dp 
+join Combinaciones c on c.combinacion=dp.combinacion
+join Pedidos p on dp.clave_pedido = p.clave_pedido
+where p.nombrecliente = $P{desc}
+group by dp.estilo,c.descripcion
+order by total desc]]>
+	</queryString>
+	<field name="estilo" class="java.lang.Integer"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="total" class="java.lang.Integer"/>
+	<variable name="total_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="148" y="0" width="76" height="14" uuid="7b6c8082-c363-4228-be6c-4e81d6419a5c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="14" width="224" height="1" uuid="3707cc11-1cfa-4b98-ab47-7c2c606389eb"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="48" height="14" uuid="dbc6a7ed-b038-4938-a23a-1fd5138876e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estilo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="0" width="100" height="14" uuid="447f1b63-2632-49a1-acfc-56ae074dbde4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

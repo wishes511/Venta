@@ -46,19 +46,29 @@ public class Carrito extends HttpServlet {
     }
 
     private ArrayList<String> getdis(String dato, ArrayList<String> arr) {
+         System.out.println("getdis");
         String aux = "";
         for (int i = 0; i < dato.length(); i++) {
-            int var = dato.charAt(i);
-            if (var >= 46 && var <= 57) {
-                aux += (char)var + "";
-            } else {
-                if(var>=60 && var <=63 || var==98 || var ==114){
-                }else{
-               // System.out.println(i+" "+aux);
-                arr.add(aux);
-                aux = "";
+            try{
+                int var = dato.charAt(i);
+                if (var >= 46 && var <= 57) {
+                    aux += (char)var + "";
+                } else {
+                    if(var>=60 && var <=63 || var==98 || var ==114){
+                    }else{
+                        if(var==108){
+                        aux+=0+"";
+                        }
+                        arr.add(aux);
+                        aux = "";
+                    }
                 }
+            }catch(Exception e){
+                i=dato.length();
+                arr.clear();
+                break;
             }
+            
         }
         return arr;
     }
@@ -96,8 +106,10 @@ public class Carrito extends HttpServlet {
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
         ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
         ArrayList<Corrida> corrida = (ArrayList<Corrida>) objSesion.getAttribute("corrida");
-        if (usuario != null && tipos != null && (tipos.equals("ADMIN"))) {
-
+        if (usuario != null && tipos != null && (tipos.equals("ADMIN")|| tipos.equals("VENTAS")|| tipos.equals("USUARIO")|| tipos.equals("ALTAS"))) {
+            if(tipos.equals("ALTAS")){
+                response.sendRedirect("usuario/productos.jsp");
+            }
         } else {
             response.sendRedirect("../index.jsp");
         }
@@ -109,12 +121,19 @@ public class Carrito extends HttpServlet {
             DAO_Producto dprod = new DAO_Producto();
             DAO_Corrida dcor = new DAO_Corrida();
             if(cor.isEmpty()){
+                ArrayList<String> distcar= new ArrayList<String>();
+                distcar=getdis(dato,dis);
+                if(!distcar.isEmpty()){
                 cor.add(dprod.getprodwithID_nochar(Integer.parseInt(prod)));
-                corrida.add(dcor.getcorridawithID(Integer.parseInt(prod)));
-                objSesion.setAttribute("distribucion", getdis(dato, dis));
-                objSesion.setAttribute("producto", cor);
-                objSesion.setAttribute("corrida", corrida);
-                out.print(cor.size());
+                    corrida.add(dcor.getcorridawithID(Integer.parseInt(prod)));
+                    objSesion.setAttribute("distribucion", getdis(dato, dis));
+                    objSesion.setAttribute("producto", cor);
+                    objSesion.setAttribute("corrida", corrida);
+                    out.print(cor.size());
+                }else{
+                    out.print("<script>alert('Error al procesar datos de distribucion Intentelo de nuevo');</script>");
+                }
+                
             }else{
                 ArrayList<String> distcar= new ArrayList<String>();
                 distcar=getdis(dato,distcar);
@@ -259,7 +278,7 @@ public class Carrito extends HttpServlet {
             dis.clear();
             cor.clear();
             corrida.clear();
-            out.print("PEDIDO REALIZADO EXITOSAMENTE NUMERO DE FOLIO: "+p.getPedido()+"");
+            out.print("PEDIDO ALMACENADO EXITOSAMENTE !!! ");
             
         }else if(uso.equals("fechas")){
             ArrayList<Pedido> arr= new ArrayList<>();

@@ -113,5 +113,18 @@ public class DAO_Producto extends VS implements Int_producto{
             Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public ArrayList<Producto> getprod_consulta() {
+        ArrayList<Producto> arr = new ArrayList<Producto>();
+        try {
+            arr=buscarall_consulta();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arr;
+        }
     
 }

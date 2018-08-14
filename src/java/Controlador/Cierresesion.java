@@ -6,6 +6,7 @@
 package Controlador;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -18,8 +19,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author gateway1
  */
-@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
-public class Logout extends HttpServlet {
+@WebServlet(name = "Cierresesion", urlPatterns = {"/Cierresesion"})
+public class Cierresesion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,7 +34,18 @@ public class Logout extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+PrintWriter out=  response.getWriter();
+        try {
+            HttpSession objSesion = request.getSession(false);
+            objSesion.invalidate();
+            out.println("<script type=\"text/javascript\">");
+                    out.println("location='index.jsp';");
+                    out.println("</script>");
+        } catch (Exception e) {
+            out.println("<script type=\"text/javascript\">");
+                    out.println("location='index.jsp';");
+                    out.println("</script>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -49,22 +61,17 @@ public class Logout extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+         PrintWriter out=  response.getWriter();
         try {
-            HttpSession objSesion = request.getSession(true);
+            HttpSession objSesion = request.getSession(false);
             objSesion.invalidate();
-            Cookie galle_nombre = new Cookie("user", "");
-            Cookie tipo = new Cookie("tipo", "");
-            Cookie empresa = new Cookie("empresa", "");
-            galle_nombre.setMaxAge(0);
-            tipo.setMaxAge(0);
-            empresa.setMaxAge(0);
-            response.addCookie(tipo);
-            response.addCookie(galle_nombre);
-            response.addCookie(empresa);            
-            response.sendRedirect("index.jsp");
+            out.println("<script type=\"text/javascript\">");
+                    out.println("location='index.jsp';");
+                    out.println("</script>");
         } catch (Exception e) {
-            response.sendRedirect("index.jsp");
-
+            out.println("<script type=\"text/javascript\">");
+                    out.println("location='index.jsp';");
+                    out.println("</script>");
         }
     }
 

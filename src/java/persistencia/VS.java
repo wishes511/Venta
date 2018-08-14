@@ -5,6 +5,7 @@
  */
 package persistencia;
 
+import Modelo.Linea;
 import Modelo.Producto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,6 +26,7 @@ public class VS extends conBD {
     // Busquedas--------------
     public Producto buscarprodID(int clave) throws ClassNotFoundException, SQLException {
         Producto p = new Producto();
+        p.setEstilo(0);
         String query = "select p.estilo as 'estilo',com.descripcion as 'combinacion',c.Descripcion as 'corrida' from Productos p \n"
                 + "join Corridas c on p.Corrida=c.Corrida\n"
                 + "join Combinaciones com on p.Combinacion=com.Combinacion\n"
@@ -40,7 +42,7 @@ public class VS extends conBD {
             p.setCombinacionchar(df.getString("combinacion"));
             p.setCorridachar(df.getString("corrida"));
         }
-        System.out.println(query + "\n " + p.getCombinacionchar() + " " + p.getCorridachar());
+        //System.out.println(query + "\n " + p.getCombinacionchar() + " " + p.getCorridachar());
         df.close();
         smt.close();
         return p;
@@ -321,4 +323,26 @@ public class VS extends conBD {
     }
 
 
+            public ArrayList<Producto> buscarall_consulta() throws ClassNotFoundException, SQLException {
+        ArrayList<Producto> arr = new ArrayList<Producto>();
+        String query="";
+        
+        query = "select distinct p.submarca as 'submarca' from productos p join dpedidos dp on dp.producto = p.producto\n" +
+        "group by submarca\n" +
+        "order by submarca";
+        Statement smt;
+        ResultSet df;
+        abrirs();
+        Connection conect = getConexions();
+        smt = conect.createStatement();
+        df = smt.executeQuery(query);
+        while (df.next()) {
+            Producto p = new Producto();
+            p.setMarca(df.getString("submarca"));
+            arr.add(p);
+        }
+        df.close();
+        smt.close();
+        return arr;
+    }
 }

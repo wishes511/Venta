@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7158ed34-39f2-49a8-8cfa-b673779eabcf">
+	<property name="ireport.zoom" value="1.4641000000000015"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="desc" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select distinct p.submarca,sum(dp.totalprod) as 'total' from DPedidos dp join Productos p on dp.producto=p.producto
+join Lineas l on dp.linea = l.linea 
+where l.descripcion like '%$P!{desc}%'
+group by p.submarca 
+order by total desc]]>
+	</queryString>
+	<field name="submarca" class="java.lang.String"/>
+	<field name="total" class="java.lang.Integer"/>
+	<variable name="total_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="115" y="0" width="100" height="17" uuid="7b6c8082-c363-4228-be6c-4e81d6419a5c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="16" width="215" height="1" uuid="3707cc11-1cfa-4b98-ab47-7c2c606389eb"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="115" height="17" uuid="25b7c9d6-9d6f-41a9-9188-0b1126115fbc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{submarca}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

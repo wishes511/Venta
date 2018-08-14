@@ -75,11 +75,34 @@ padding-left: 10%
     border-radius: 10px
 }
 .boldtabla{
+    border-radius: 6px;
     font-style: italic;
-    background-color:cyan
+    color:white;
+   background-color: rgb(2, 117, 234);
+}
+.boldtabla_noitalic{
+    border-radius: 6px;
+    font-style: italic;
+    color:white;
+   background-color: rgb(2, 117, 234);
+}
+.boldtabla_noitalicV2{
+    background-image: linear-gradient(rgb(2, 117, 234), rgb(255, 255, 255));
+    background-repeat: no-repeat
+}
+/* consultas*/
+.cuadromenu{
+    padding: 2%;
+    background-color: ghostwhite;
+    border-radius: 8px
+}
+.letracuadro_menu{
+    font-size: 15px
 }
  @media screen and (max-width: 720px) {
-
+.letracuadro_menu{
+    font-size: 13px
+}
      hr{
          visibility: visible
      }

@@ -76,6 +76,19 @@ public class DAO_Pedido extends VS_Pedido implements Int_pedido{
         return arr; //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public ArrayList<Pedido> getcliente_consulta() {
+        ArrayList<Pedido> arr= new ArrayList<Pedido>();
+        try {
+            arr=buscarcliente_consultas();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO_Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return arr;   
+    }
+
 
     
 }

@@ -10,14 +10,14 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Calendar"%>
 <% HttpSession objSesion = request.getSession(false);
-//i_d
 try{
-    boolean estado;
     String usuario = (String) objSesion.getAttribute("usuario");
     String tipos = (String) objSesion.getAttribute("tipo");
     String ids = String.valueOf(objSesion.getAttribute("i_d"));
-    if (usuario != null && tipos != null && tipos.equals("ADMIN")) {
-
+    if (usuario != null && tipos != null && (tipos.equals("ADMIN")|| tipos.equals("VENTAS")|| tipos.equals("USUARIO")|| tipos.equals("ALTAS"))) {
+            if(tipos.equals("ALTAS")){
+                response.sendRedirect("productos.jsp");
+            }
     } else {
         response.sendRedirect("../index.jsp");
     }
@@ -52,7 +52,7 @@ if(dia<10){
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ver Pedidos</title>
-        <link rel="icon" sizes="32x32" href="../images/aff.png" />
+        <link rel="icon" sizes="32x32" href="../images/aff.png" >
         <link rel='stylesheet' type="text/css" href="../css/bootstrap.min.css">
         <link rel='stylesheet' type="text/css" href="../css/responsive.css">
         <link rel='stylesheet' type="text/css" href="../css/opcional.css">
@@ -61,9 +61,7 @@ if(dia<10){
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/userscrip.js"></script>
         <script type="text/javascript" src="../js/dhtmlgoodies_calendar.js?random=20171118"></script>
-        <link type="text/css" rel="stylesheet" href="../css/dhtmlgoodies_calendar.css?random=20171118" media="screen"></link>
-		
-
+        <link type="text/css" rel="stylesheet" href="../css/dhtmlgoodies_calendar.css?random=20171118" media="screen">
     </head>
     <body class="body1">
         <script type="text/javascript">
@@ -91,20 +89,43 @@ if(dia<10){
         </script>
 
         <div class="container-fluid">
-                        <nav class="navbar navbar-default navbar-inverse">
+                  <nav class="navbar navbar-default navbar-inverse">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.jsp"><img src="../images/home.png" class="" width="25"></a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <%                        if (tipos.equals("ADMIN") || tipos.equals("AMECANICA")) {
+                    <%if (tipos.equals("ADMIN")) {
                     %>
                     <li class="">
                         <a  class="" href="index.jsp">Captura Pedidos</a>
                     </li>
-                    <li class="">
-                        <a  class="" href="productos.jsp">
-                            Productos
+                    
+                    <li class=""><a href="productos.jsp">Productos</a></li>
+                            <
+                    <li class="dropdown active">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
+                            Pedidos<span class="caret"></span>
                         </a>
+                        <ul class="dropdown-menu" id="#90" role="menu">
+                            <li class="active"><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a  class="" href="consultas.jsp">Consultas</a></li>
+                    <li><a href="../Cierresesion">Salir</a></li>
+                </ul>
+                <div id="" class="nav navbar-nav" style="float:right">
+                    <%
+                       
+                        if (!cor.isEmpty()) {
+                            out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
+                            
+                        } else {
+                            out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li></div>");
+                        }}else if (tipos.equals("VENTAS")) {
+                    %>
+                    
+                    <li class="">
+                        <a  class="" href="index.jsp">Captura Pedidos</a>
                     </li>
                     <li class="dropdown active">
                         <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
@@ -115,19 +136,29 @@ if(dia<10){
                         </ul>
                     </li>
                     <li><a href="../Cierresesion">Salir</a></li>
-                </ul>
-                <div id="" class="nav navbar-nav" style="float:right">
-                    <%
-                        }
-                        if (!cor.isEmpty()) {
+                    </ul>
+                    <div id="" class="nav navbar-nav" style="float:right">
+                    <%if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
-                            
                         } else {
                             out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
-
-                        }
+                           
+                        }%>
+                        </div>
+                        <% }else if(tipos.equals("USUARIO")) {
                     %>
-                </div>
+                    <li class=""><a href="productos.jsp">Productos</a></li>
+                    <li class="dropdown active">
+                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
+                            Pedidos<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" id="#90" role="menu">
+                            <li class="active"><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a  class="" href="consultas.jsp">Consultas</a></li>
+                    <li><a href="../Cierresesion">Salir</a></li>
+                    <%}%>
             </nav>
             <div class="container">
                 <div class="row">
@@ -225,100 +256,7 @@ if(dia<10){
                 location.href="reportevta.jsp?f1="+f1+"&f2="+f2+"&peds="+peds;
             
             }
-            
-             function okas1() {
-                var valor = $('#f1').val();
-                var valor1 = $('#f2').val();
-                if (!(/^\d{2}|\d{1}\-\d{2}\-\d{4}\$/i.test(valor)) && !(/^\d{2}|\d{1}\-\d{2}\-\d{4}\$/i.test(valor1))) {
-                    alert("fecha invalida invalido");
-                    //document.forma.f1.focus();
-                    document.getElementById("f1").value = "<%=fechac%>";
-                    document.getElementById("f2").value = "<%=fechac%>";
-                    return 0;
-                } else {
-                    var pro = $('#f1').val();
-                    var pro1 = $('#f2').val();
-                    var maq=$('#maq').val();
-                    var uso = "completo";
-                    $.ajax({
-                        type: 'post',
-                        data: {f1: pro, f2: pro1,maq:maq, uso: uso},
-                        url: '../Getregspares',
-                        success: function (result1) {
-                            document.getElementById("contener").innerHTML=result1;
-                            //$('#contener').html(result1);
-                        }
-                    });
-                }
-            }
-
-            function avances() {
-                var f1 = $('#f1').val();
-                var f2 = $('#f2').val();
-                var d=$('#detallado').val();
-                if(document.getElementById("detallado").checked){
-                    d="detalle";
-                }else{
-                    d="vacio";
-                }
-                
-                var maq=$('#maq').val();
-                location = 'avancespares.jsp?f1=' + f1 + '&f2=' + f2+'&maq='+maq;
-            }
-            
-            function mostrarVentanas(dep)
-            {
-                var depo=dep;
-                var f1 = $('#f1').val();
-                var f2 = $('#f2').val();
-                var maq= $('#maq').val();
-                var ventana = document.getElementById("miVentana");
-                //ventana.style.marginTop = "100px";
-                //ventana.style.left = ((document.body.clientWidth) / 2) +  "px";
-                ventana.style.display = "block";
-                ventana.style.left = 10 + "%";
-                var uso="detalle";
-                $.ajax({
-                    type: 'post',
-                    data: {f1: f1, f2: f2,uso:uso,dep:depo,maq:maq},
-                    url: '../Getregspares',
-                    success: function (result) {
-                        $('#llenadodetalle').html(result);
-                    }
-                });
-            }
-                   
-            function ocultarVentanas()
-            {
-                var ventana = document.getElementById("miVentana");
-                ventana.style.display = "none";
-            }
         </script>
-        <div class="container" style="">
-           <div id="miVentana" style="width: 80%;height: 100%; position: fixed;top: 0%; left: 10%; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; color: black; display:none;overflow: scroll;background-color:rgb(248,191,22);">
-            <div class=" " style="">
-                <a class="btn" onclick="ocultarVentanas()"><img src="../images/right.png" width="50" height="50"></a>
-                <h4 class="h4">Detalle de Departamento</h4>
-                <table  id="tablesorter-demo" class="table table-hover table-responsive table-condensed table-bordered" style="overflow: scroll">
-                    <thead class="redondeado" style="background-color:white; ">
-                        <tr >
-                            <td>Programa</td>
-                            <td>Lote</td>
-                            <td>Estilo</td>
-                            <td>Pares</td>
-                            <td>Corrida</td>
-                            <td>Mes</td>
-                            <td>Combinacion</td>
-                            <td>Status</td>
-                        </tr>
-                    </thead>
-                    <tbody id="llenadodetalle">
-                       
-                    </tbody> 
-                </table>
-        </div>
-    </div>
-        </div>
     </body>
 </html>
 <%

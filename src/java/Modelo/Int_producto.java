@@ -20,6 +20,7 @@ public interface Int_producto {
     public Producto getprodwithID_nochar(int clave);
     public ArrayList<Producto> getall();
     public boolean isexist(int estilo, int combinacion, int corrida);
+    public ArrayList<Producto> getprod_consulta();
     public Connection conexionbd();
     public void closebd();
 }
