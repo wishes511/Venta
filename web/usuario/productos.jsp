@@ -127,26 +127,32 @@
     </head>
     <body class="body1">
         <div class="container-fluid">
-            <nav class="navbar navbar-default navbar-inverse">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.jsp"><img src="../images/home.png" class="" width="25"></a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <%if (tipos.equals("ADMIN")) {
-                    %>
-                    <li class="">
-                        <a  class="" href="index.jsp">Captura Pedidos</a>
-                    </li>
-                    
+<nav class="navbar navbar-default navbar-inverse">
+               <div class="navbar-header" >
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                    <%if (tipos.equals("ADMIN") || tipos.equals("VENTAS")) {%>
+                    <li class=""><a  class="" href="index.jsp" >Captura Pedidos</a> </li>
+                    <%}%>
+                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")||tipos.equals("ALTAS")) {%>
                     <li class="dropdown active">
                         <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
                             Productos<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" id="#90" role="menu">
                             <li class="active"><a>Productos Generales</a></li>
-                            <li><a class="btn" onclick="etiquetas()">Etiquetas</a></li>
+                            <li><a class="" onclick="etiquetas()">Etiquetas</a></li>
                         </ul>
                     </li>
+                    <%}%>
+                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")||tipos.equals("VENTAS")) {%>
                     <li class="dropdown">
                         <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
                             Pedidos<span class="caret"></span>
@@ -155,13 +161,15 @@
                             <li class=""><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
                         </ul>
                     </li>
-                    <li class="">
-                        <a  class="" href="consultas.jsp">Consultas</a>
-                    </li>
+                    <%}%>
+                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")){%>
+                    <li class=""><a  class="" href="consultas.jsp">Consultas</a></li>
+                    <%}%>
                     <li><a href="../Cierresesion">Salir</a></li>
                 </ul>
-                <div id="" class="nav navbar-nav" style="float:right">
-                    <%  if (!cor.isEmpty()) {
+                <div id="" class="nav navbar-nav" style="float:right" >
+             <%if (tipos.equals("ADMIN")||tipos.equals("VENTAS")) {
+                        if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
                             for (int i = 0; i < cor.size(); i++) {
                                 System.out.println(dis.size()+" "+cor.size() + " -" + i + " " + cor.get(i).getProducto());
@@ -169,44 +177,12 @@
                         } else {
                             out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
                         }}
-                       if (tipos.equals("USUARIO")) {
-                    %>                    
-                    <li class="dropdown active">
-                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
-                            Productos<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" id="#90" role="menu">
-                            <li class="active"><a>Productos Generales</a></li>
-                            <li><a class="btn" onclick="etiquetas()">Etiquetas</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
-                            Pedidos<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" id="#90" role="menu">
-                            <li class=""><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
-                        </ul>
-                    </li>
-                    <li class="">
-                        <a  class="" href="consultas.jsp">Consultas</a>
-                    </li>
-                    <li><a href="../Cierresesion">Salir</a></li>
-                
-                    <%}else if (tipos.equals("ALTAS")){ %>
-                    <li class="dropdown active">
-                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
-                            Productos<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" id="#90" role="menu">
-                            <li class="active"><a>Productos Generales</a></li>
-                            <li><a class="btn" onclick="etiquetas()">Etiquetas</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li><a href="../Cierresesion">Salir</a></li>
-                    <%}%>
+                    %>
+                </div>
+                </div>
             </nav>
+                    
+                    
             <div class="row">
                 <div class="col-md-4 ">
                     <%if (!tipos.equals("USUARIO")){%>

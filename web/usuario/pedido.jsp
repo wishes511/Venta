@@ -11,10 +11,8 @@
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%int id_produc = 0;
-    String usuarios = "";
+<%
     HttpSession objSesion = request.getSession(false);
-    boolean estado;
     try {
 
         String usuario = (String) objSesion.getAttribute("usuario");
@@ -88,13 +86,6 @@
                 } else
                     return true;
             }
-            function validacion() {
-                if (valida_nom() == true && valida_calle() == true) {
-                    return true;
-                } else
-                    response.sendRedirect("../index.jsp");
-                return false;
-            }
         </script>
         <script>
 
@@ -103,115 +94,52 @@
     <body>
         <div class="container-fluid">
             <!--<button onclick="nuevomostrar()">lolo</button>--> 
-            <nav class="navbar navbar-default navbar-inverse">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.jsp"><img src="../images/home.png" class="" width="25"></a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <%if (tipos.equals("ADMIN")) {
-                    %>
-                    <li class="">
-                        <a  class="" href="index.jsp">Captura Pedidos</a>
-                    </li>
-                    
-                    <li class=""><a href="productos.jsp">Productos</a></li>
-                            <
+<nav class="navbar navbar-default navbar-inverse">
+               <div class="navbar-header" >
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                    <%if (tipos.equals("ADMIN") || tipos.equals("VENTAS")) {%>
+                    <li class=""><a href="index.jsp" >Captura Pedidos</a> </li>
+                    <%}%>
+                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")||tipos.equals("ALTAS")) {%>
+                    <li class=""><a  class="" href="productos.jsp">Productos</a> </li>
+                    <%}%>
+                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")||tipos.equals("VENTAS")) {%>
                     <li class="dropdown">
                         <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
                             Pedidos<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" id="#90" role="menu">
-                            <li class="active"><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
+                            <li class=""><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
                         </ul>
                     </li>
+                    <%}%>
+                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")){%>
                     <li class=""><a  class="" href="consultas.jsp">Consultas</a></li>
+                    <%}%>
                     <li><a href="../Cierresesion">Salir</a></li>
                 </ul>
-                <div id="" class="nav navbar-nav" style="float:right">
-                    <%
-                       
+                <div id="" class="nav navbar-nav" style="float:right" >
+             <%if (tipos.equals("ADMIN")||tipos.equals("VENTAS")) {
                         if (!cor.isEmpty()) {
-                            out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
-                            
+                            out.print("<li  id=\"carrosid active\" s><a style='color:white'><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
+                            for (int i = 0; i < cor.size(); i++) {
+                                System.out.println(dis.size()+" "+cor.size() + " -" + i + " " + cor.get(i).getProducto());
+                            }
                         } else {
-                            out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li></div>");
-                        }}else if (tipos.equals("VENTAS")) {
+                            out.print("<li  id=\"carrosid active\"><a><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
+                        }}
                     %>
-                    
-                    <li class="">
-                        <a  class="" href="index.jsp">Captura Pedidos</a>
-                    </li>
-                    <li class="dropdown active">
-                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
-                            Pedidos<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" id="#90" role="menu">
-                            <li class="active"><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="../Cierresesion">Salir</a></li>
-                    </ul>
-                    <div id="" class="nav navbar-nav" style="float:right">
-                    <%if (!cor.isEmpty()) {
-                            out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
-                        } else {
-                            out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
-                           
-                        }%>
-                        </div>
-                        <% }else if(tipos.equals("USUARIO")) {
-                    %>
-                    <li class=""><a href="productos.jsp">Productos</a></li>
-                    <li class="dropdown">
-                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
-                            Pedidos<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" id="#90" role="menu">
-                            <li class="active"><a href="verpedidos.jsp">Visualizar Pedidos</a></li>
-                        </ul>
-                    </li>
-                    <li class=""><a  class="" href="consultas.jsp">Consultas</a></li>
-                    <li><a href="../Cierresesion">Salir</a></li>
-                    <%}%>
+                </div>
+                </div>
             </nav>
-            <div class="row" >
-
-                <!--   <div class=" col-md-offset-6"  id="get_catalogo" align="center">
-                    <div style=" overflow: auto"  class="col-md-12" style="background-color: blueviolet" align="center">
-                        <table border="1" width="5" class="table table-bordered table-condensed table-hover table-striped" style="overflow: auto" align="center">
-                            <thead align="center" >
-                            <th width="10">25</th>
-                            <th width="10">25.5</th>
-                            <th  width="10">26</th>
-                            <th  width="10">26.5</th>
-                            <th  width="10">27</th>
-                            <th  width="10">27.5</th>
-                            <th  width="10">28</th>
-                            <th  width="10">28.5</th>
-                            <th  width="10">29</th>
-                            <th  width="10">29.5</th>
-                            <th  width="10">30</th>
-                            <th width="10">30.5</th>
-                            </thead>
-                            <tr align="center" contenteditable="true">
-                                <td width="10">0</td>
-                                <td width="10">1</td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td  width="10"></td>
-                                <td width="10" onclick="averdato()"></td>
-                                <td  width="10"><img class="imagentabla" src="../images/ok.png" alt=""></td>
-                            </tr>
-                        </table>
-                    </div>
-                    </div> --> 
-            </div>
                 <div class="container-fluid" align="center" id="desplieguepedido">
                 <div class="col-md-5" align="center" id="desc-ped">
                     <%
@@ -329,36 +257,6 @@
                 }
                 function saltoref() {
                     document.getElementById("ref").focus();
-                }
-                function tomaralcarro() {
-                    if (!(/^([1-9]+)([0-9]*)$/.test($('#cantis').val()))) {
-                        document.formas.cantis.focus();
-                        alert("Porfavor coloca la cantidad de productos que deseas agregar");
-                        return false;
-                    } else {
-                        var ids = $("#benviar0").val();
-                        var pro = $('#cantis').val();
-                        var uso1 = "NUEVO";
-                        $.ajax({
-                            type: 'post',
-                            data: {ids: ids, cant: pro, uso: uso1},
-                            url: '../CProveedor',
-                            success: function () {
-                                location.reload(true);
-                            }
-                        });
-                    }
-                }
-                function erase(id) {
-                    var uso1 = "BORRAR";
-                    $.ajax({
-                        type: 'post',
-                        data: {ids: id, uso: uso1},
-                        url: '../CProveedor',
-                        success: function () {
-                            location.reload(true);
-                        }
-                    });
                 }
             </script>
             <!-- modal de cuantos productos al hacer clic -->

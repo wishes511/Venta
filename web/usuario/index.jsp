@@ -11,7 +11,7 @@
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
         ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
         ArrayList<Corrida> corrida = (ArrayList<Corrida>) objSesion.getAttribute("corrida");
-        System.out.println(usuario + " " + tipos);
+        //System.out.println(usuario + " " + tipos);
         if (usuario != null && tipos != null && (tipos.equals("ADMIN")|| tipos.equals("VENTAS")|| tipos.equals("USUARIO")|| tipos.equals("ALTAS"))) {
             if(tipos.equals("USUARIO")){
                 response.sendRedirect("productos.jsp");
@@ -25,13 +25,23 @@
         int año = fecha.get(Calendar.YEAR);
         int mes = fecha.get(Calendar.MONTH) + 1;
         int dia = fecha.get(Calendar.DAY_OF_MONTH);
-        String fechac = dia+"-"+mes+"-"+año;
+        String fechac = "";
+        if(dia<10){
+         fechac = "0" + dia;    
+    }else{
+         fechac  = dia+"";    
+    }
+        if(mes<10){
+     fechac =fechac + "-0" + mes+"-"+año;    
+    }else {
+        fechac =fechac + "-" + mes+"-"+año;    
+    }
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Catalogo de Productos</title>
+        <title>Captura de Pedido</title>
         <link rel="icon" sizes="32x32" href="../images/aff.png" />
         <link rel='stylesheet' type="text/css" href="../css/bootstrap.min.css">
         <link rel='stylesheet' type="text/css" href="../css/responsive.css">
@@ -40,6 +50,8 @@
         <script src="../js/jquery-3.1.1.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/userscrip.js"></script>
+        <script type="text/javascript" src="../js/dhtmlgoodies_calendar.js?random=20171118"></script>
+        <link type="text/css" rel="stylesheet" href="../css/dhtmlgoodies_calendar.css?random=20171118" media="screen">
         <script type="text/javascript">
             $(document).ready(function () {
                 document.getElementById('catalogo').focus();
@@ -76,13 +88,19 @@
         </script>
     </head>
     <body>
-        <div class="container-fluid" style="">
+        <div class="container-fluid" >
             <!--<button onclick="nuevomostrar()">lolo</button>--> 
             <nav class="navbar navbar-default navbar-inverse">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.jsp"><img src="../images/home.png" class="" width="25"></a>
-                </div>
-                <ul class="nav navbar-nav">
+               <div class="navbar-header" >
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
                     <%if (tipos.equals("ADMIN") || tipos.equals("VENTAS")) {%>
                     <li class="active"><a  class="" >Captura Pedidos</a> </li>
                     <%}%>
@@ -104,7 +122,7 @@
                     <%}%>
                     <li><a href="../Cierresesion">Salir</a></li>
                 </ul>
-                <div id="" class="nav navbar-nav" style="float:right">
+                <div id="" class="nav navbar-nav" style="float:right" >
              <%if (tipos.equals("ADMIN")||tipos.equals("VENTAS")) {
                         if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
@@ -116,9 +134,10 @@
                         }}
                     %>
                 </div>
+                </div>
             </nav>
                 <%if (!dis.isEmpty()) { %>
-            <div class="container-fluid" align="center" id="desplieguepedido" style="">
+            <div class="container-fluid" align="center" id="desplieguepedido" 
                 
                 <div class="row" align="center">
                           <label class="letraprod">Productos Ingresados al Pedido</label><hr>
@@ -161,9 +180,8 @@
                                     + "</div>");
                         %>
                 </div>
-            </div>
                 <% }%>
-            <div class="row"  style="">
+            <div class="row">
                 <div class="col-md-8 col-lg-offset-2" id="get_catalogo" align="center" style="padding: 2%">
                     <div class="row espas-search-prods">
                         <div class="col-sm-4">
@@ -217,14 +235,14 @@
                 }
             </script>
             <!-- modal de cuantos productos al hacer clic -->
-            <div id="miVentana" style="position: fixed; width: 70%; height: 30%; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; background-color: #FAFAFA; color: white; display:none;">
+            <div id="miVentana" style="position: fixed; width: 70%; height: 30%; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; background-color: #FAFAFA; color: white; display:none;background-color:violet">
                 <div class="row " style="background-color: #616185;padding-left: 2%;padding-right: 2%;border-radius: 10px;">
                     <a class="btn" onclick="ocultarVentanas()"><img src="../images/right.png" width="50" height="50"></a>
                     <div class="espacio1"> <!-- Cliente -->
                         <div class="col-md-10 espas col-md-offset-1" id="get_catalogo" align="center">
                             <div class="col-md-offset-2">
                                 <div class="col-md-5"><label>Fecha Pedido :</label><div class=""><input class="form-control" type="text" id="fp" value="<%=fechac%>" disabled="disable"></div></div>
-                                <div class="col-md-5"><label>Fecha Entrega:</label><div class=""><input class="form-control" type="text" id="fe" value="<%=fechac%>"></div></div>
+                                <div class="col-md-5"><label>Fecha Entrega:</label><div class=""><input class="form-control" type="text" id="fe" value="<%=fechac%>" onclick="displayCalendar(document.getElementById('fe'), 'dd-mm-yyyy', this)"></div></div>
                             </div>
                             <div class="" style="padding-top: 10%">
                                 <div class="col-md-4"><label>Nombre Cliente :</label><div class=""><input class="form-control" type="text" id="nc" ></div></div>
@@ -244,7 +262,6 @@
             </div>
             </div>
         </div>
-                            
     </body>
 </html>
 <%

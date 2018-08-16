@@ -13,7 +13,7 @@
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
         ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
         ArrayList<Corrida> corrida = (ArrayList<Corrida>) objSesion.getAttribute("corrida");
-        System.out.println(usuario + " " + tipos);
+        //System.out.println(usuario + " " + tipos);
             if (usuario != null && tipos != null && (tipos.equals("USUARIO") || tipos.equals("VENTAS") || tipos.equals("ADMIN")|| tipos.equals("ALTAS"))) {
             if(tipos.equals("ALTAS")){
                 response.sendRedirect("usuario/productos.jsp");
@@ -41,35 +41,6 @@
             $(document).ready(function () {
                 document.getElementById('catalogo').focus();
             });
-            function valida_nom() {
-                var texto = document.form1.names.value;
-                if (!(/^([A-Z\a-z]+)$/i.test(texto))) {
-                    alert("nombre invalido! ");
-                    response.sendRedirect("../index.jsp");
-                    document.form1.names.focus();
-                    return false;
-                } else
-                    return true;
-            }
-            function valida_calle() {
-                valor = document.form1.apes.value;
-                if (!(/^([A-Z\a-z]+)$/i.test(valor))) {
-                    alert("nombresdf invalido! ");
-                    document.form1.apes.focus();
-                    return false;
-                } else
-                    return true;
-            }
-            function validacion() {
-                if (valida_nom() == true && valida_calle() == true) {
-                    return true;
-                } else
-                    response.sendRedirect("../index.jsp");
-                return false;
-            }
-        </script>
-        <script>
-
         </script>
     </head>
     <body class="boldtabla_noitalicV2">
@@ -77,17 +48,23 @@
             <!--<label class="">Ingrese Codigo de Producto:</label>
                             <input type="password" id="catalogo" placeholder="Busqueda de productos" class="form-control" onchange="to_searchprod()"> --> 
             <nav class="navbar navbar-default navbar-inverse">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.jsp"><img src="../images/home.png" class="" width="25"></a>
-                </div>
-                <ul class="nav navbar-nav">
-                    <%if (tipos.equals("ADMIN")) {%>
-                    <li class=""><a  class="" >Captura Pedidos</a> </li>
+               <div class="navbar-header" >
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                    <%if (tipos.equals("ADMIN") || tipos.equals("VENTAS")) {%>
+                    <li class=""><a  class="" href="index.jsp" >Captura Pedidos</a> </li>
                     <%}%>
-                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")) {%>
+                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")||tipos.equals("ALTAS")) {%>
                     <li class=""><a  class="" href="productos.jsp">Productos</a> </li>
                     <%}%>
-                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")) {%>
+                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")||tipos.equals("VENTAS")) {%>
                     <li class="dropdown">
                         <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
                             Pedidos<span class="caret"></span>
@@ -98,12 +75,12 @@
                     </li>
                     <%}%>
                     <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")){%>
-                    <li class="class"><a  class="" href="consultas.jsp">Consultas</a></li>
+                    <li class="active"><a  class="">Consultas</a></li>
                     <%}%>
                     <li><a href="../Cierresesion">Salir</a></li>
                 </ul>
-                <div id="" class="nav navbar-nav" style="float:right">
-             <%if (tipos.equals("ADMIN")) {
+                <div id="" class="nav navbar-nav" style="float:right" >
+             <%if (tipos.equals("ADMIN")||tipos.equals("VENTAS")) {
                         if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
                             for (int i = 0; i < cor.size(); i++) {
@@ -113,6 +90,7 @@
                             out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
                         }}
                     %>
+                </div>
                 </div>
             </nav>
                 <div class="">

@@ -5,11 +5,9 @@
  */
 package Controlador;
 
-import DAO.DAO_Corrida;
 import DAO.DAO_Linea;
 import DAO.DAO_Pedido;
 import DAO.DAO_Producto;
-import Modelo.Corrida;
 import Modelo.Linea;
 import Modelo.Pedido;
 import Modelo.Producto;
@@ -88,7 +86,7 @@ public class Consultas extends HttpServlet {
         String tipos = (String) objSesion.getAttribute("tipo");
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
         ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("corrida");
-        System.out.println(usuario + " " + tipos);
+        //System.out.println(usuario + " " + tipos);
         if (usuario != null && tipos != null && (tipos.equals("ADMIN")|| tipos.equals("VENTAS")|| tipos.equals("USUARIO")|| tipos.equals("ALTAS"))) {
             if(tipos.equals("VENTAS")){
                 response.sendRedirect("usuario/index.jsp");
@@ -100,7 +98,6 @@ public class Consultas extends HttpServlet {
         }
         try{
         String uso = (String)request.getParameter("uso");
-        
         PrintWriter out = response.getWriter();
         String tipo = (String)request.getParameter("tipo");
             ArrayList<Linea> arrlinea= new ArrayList<Linea>();
