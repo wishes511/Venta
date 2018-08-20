@@ -56,7 +56,7 @@ public class VS extends conBD {
                 + "join Corridas c on p.Corrida=c.Corrida \n"
                 + "join Combinaciones com on p.Combinacion=com.Combinacion \n"
                 +" where producto=" + clave + "";
-        System.out.println(query);
+//        System.out.println(query);
         Statement smt;
         ResultSet df;
         abrirs();
@@ -259,7 +259,7 @@ public class VS extends conBD {
         while (df.next()) {
             comb=df.getInt("combinacion");
         }
-        System.out.println(comb);
+       // System.out.println(comb);
         df.close();
         smt.close();
         return comb;
@@ -269,7 +269,7 @@ public class VS extends conBD {
     String query = "select c.combinacion as 'combinacion' from Combinaciones c "
             + " join Productos p on p.combinacion=c.combinacion"
             + " where  p.corrida="+p.getClave_corrida()+" and p.estilo="+p.getEstilo()+" and c.combinacion like '%"+p.getCombinacionchar()+"%'";
-    System.out.println(query+"-"+comb);
+//    System.out.println(query+"-"+comb);
     Statement smt;
     ResultSet df;
     abrir();
@@ -287,7 +287,7 @@ public class VS extends conBD {
      private int getcombequal(Producto p) throws ClassNotFoundException, SQLException{
     int comb=0;
     String query = "select combinacion from Combinaciones  where descripcion like '%"+p.getCombinacionchar()+"%'";
-    System.out.println(query+"-"+comb);
+//    System.out.println(query+"-"+comb);
     Statement smt;
     ResultSet df;
     abrirs();
@@ -306,7 +306,7 @@ public class VS extends conBD {
     int comb=0;
     String query = "select linea from lineas"
             + " where  descripcion like '%"+p.getLineachar()+"%'";
-    System.out.println(query);
+//    System.out.println(query);
     Statement smt;
     ResultSet df;
     abrirs();
@@ -327,9 +327,8 @@ public class VS extends conBD {
         ArrayList<Producto> arr = new ArrayList<Producto>();
         String query="";
         
-        query = "select distinct p.submarca as 'submarca' from productos p join dpedidos dp on dp.producto = p.producto\n" +
-        "group by submarca\n" +
-        "order by submarca";
+        query = "select distinct l.descripcion as 'descripcion' from DPedidos p join Lineas l on p.linea=l.linea\n" +
+        "group by descripcion";
         Statement smt;
         ResultSet df;
         abrirs();
@@ -338,7 +337,7 @@ public class VS extends conBD {
         df = smt.executeQuery(query);
         while (df.next()) {
             Producto p = new Producto();
-            p.setMarca(df.getString("submarca"));
+            p.setMarca(df.getString("descripcion"));
             arr.add(p);
         }
         df.close();

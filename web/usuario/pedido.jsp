@@ -20,7 +20,7 @@
         ArrayList<String> dis = (ArrayList<String>) objSesion.getAttribute("distribucion");
         ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
         ArrayList<Corrida> corrida = (ArrayList<Corrida>) objSesion.getAttribute("corrida");
-        System.out.println(usuario + " " + tipos);
+        //System.out.println(usuario + " " + tipos);
     if (usuario != null && tipos != null && (tipos.equals("ADMIN")|| tipos.equals("VENTAS")|| tipos.equals("USUARIO")|| tipos.equals("ALTAS"))) {
             if(tipos.equals("ALTAS")){
                 response.sendRedirect("productos.jsp");
@@ -53,6 +53,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Desc. de pedido</title>
         <link rel="icon" sizes="32x32" href="../images/aff.png" />
@@ -130,9 +131,7 @@
              <%if (tipos.equals("ADMIN")||tipos.equals("VENTAS")) {
                         if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid active\" s><a style='color:white'><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
-                            for (int i = 0; i < cor.size(); i++) {
-                                System.out.println(dis.size()+" "+cor.size() + " -" + i + " " + cor.get(i).getProducto());
-                            }
+                            
                         } else {
                             out.print("<li  id=\"carrosid active\"><a><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
                         }}

@@ -38,11 +38,11 @@ order by total desc]]>
 				<text><![CDATA[Fecha:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="92" y="42" width="401" height="20" uuid="3fe6a935-61ec-40d7-9a8c-76ca253f2f0a"/>
+				<reportElement x="141" y="42" width="314" height="20" uuid="3fe6a935-61ec-40d7-9a8c-76ca253f2f0a"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<text><![CDATA[REPORTE DETALLADO DE PARES POR CLASIFICACION]]></text>
+				<text><![CDATA[REPORTE DETALLADO DE PARES POR LINEA]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -50,7 +50,7 @@ order by total desc]]>
 		<band height="4" splitType="Stretch"/>
 	</pageHeader>
 	<detail>
-		<band height="38" splitType="Stretch">
+		<band height="32" splitType="Stretch">
 			<rectangle>
 				<reportElement x="168" y="0" width="100" height="16" backcolor="#CCCCFF" uuid="f2348be2-9b84-42a1-872d-bed181c5116b"/>
 				<graphicElement>
@@ -58,7 +58,7 @@ order by total desc]]>
 				</graphicElement>
 			</rectangle>
 			<subreport>
-				<reportElement x="168" y="16" width="215" height="19" uuid="a313c064-82f9-4ea4-8f09-8f62df602242"/>
+				<reportElement x="168" y="16" width="215" height="15" uuid="a313c064-82f9-4ea4-8f09-8f62df602242"/>
 				<subreportParameter name="desc">
 					<subreportParameterExpression><![CDATA[$F{descripcion}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -88,16 +88,24 @@ order by total desc]]>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="28" splitType="Stretch">
-			<textField>
-				<reportElement x="283" y="0" width="100" height="20" uuid="94328d07-73f8-429e-ab8b-20ea28bfd074"/>
-				<textElement textAlignment="Center"/>
+		<band height="48" splitType="Stretch">
+			<textField pattern="#,##0">
+				<reportElement x="325" y="28" width="58" height="20" uuid="94328d07-73f8-429e-ab8b-20ea28bfd074"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="168" y="0" width="117" height="20" uuid="5e08a9d0-6ea3-4acb-806a-23429c045b5d"/>
+				<reportElement x="168" y="28" width="157" height="20" uuid="5e08a9d0-6ea3-4acb-806a-23429c045b5d"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[TOTAL DE PARES: ]]></text>
 			</staticText>
+			<line>
+				<reportElement x="168" y="28" width="215" height="1" uuid="183c851d-28fd-4a98-a5d8-e6cffcccd22e"/>
+			</line>
 		</band>
 	</summary>
 </jasperReport>

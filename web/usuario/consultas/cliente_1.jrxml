@@ -75,18 +75,21 @@ order by total desc]]>
 		</band>
 	</detail>
 	<summary>
-		<band height="28" splitType="Stretch">
-			<textField>
-				<reportElement x="283" y="0" width="100" height="20" uuid="94328d07-73f8-429e-ab8b-20ea28bfd074"/>
-				<textElement textAlignment="Center"/>
+		<band height="50" splitType="Stretch">
+			<textField pattern="#,##0">
+				<reportElement x="331" y="30" width="52" height="20" uuid="94328d07-73f8-429e-ab8b-20ea28bfd074"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="168" y="0" width="117" height="20" uuid="5e08a9d0-6ea3-4acb-806a-23429c045b5d"/>
+				<reportElement x="214" y="30" width="117" height="20" uuid="5e08a9d0-6ea3-4acb-806a-23429c045b5d"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[TOTAL DE PARES: ]]></text>
 			</staticText>
 			<line>
-				<reportElement x="159" y="0" width="224" height="1" uuid="b4bb1c7e-f6a5-41d5-8f30-e9c21e4203c0"/>
+				<reportElement x="159" y="30" width="224" height="1" uuid="b4bb1c7e-f6a5-41d5-8f30-e9c21e4203c0"/>
 			</line>
 		</band>
 	</summary>

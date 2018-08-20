@@ -44,6 +44,7 @@
 <html>
     <head>
         <title>Productos</title>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" sizes="32x32" href="../images/aff.png" />
         <link rel='stylesheet' type="text/css" href="../css/bootstrap.min.css">
@@ -171,9 +172,7 @@
              <%if (tipos.equals("ADMIN")||tipos.equals("VENTAS")) {
                         if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
-                            for (int i = 0; i < cor.size(); i++) {
-                                System.out.println(dis.size()+" "+cor.size() + " -" + i + " " + cor.get(i).getProducto());
-                            }
+                            
                         } else {
                             out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
                         }}
@@ -239,10 +238,10 @@
                         Marca <select onchange="" class="form-control" name="marca" id="marca" required>
                             <option>Traffic</option>
                             <option>Red Traffic</option>
-                            <option>Omar Castell</option>
+                            <option>OCastell</option>
                             <option>Duty Gear</option>
                             <option>OC Tactical</option>
-                            <option>Duraland</option>
+                            <option>OCastell Seguridad</option>
                         </select><br>
                         <input type="submit" class="btn btn-success" value="Aceptar" name="benviar" id="benviar" />
                         <br><br>

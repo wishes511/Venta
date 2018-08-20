@@ -18,7 +18,7 @@
 	<queryString>
 		<![CDATA[select distinct p.pedido as 'pedido',convert(date,fechapedido) as 'fecha',convert(date,fechaentrega) as 'fechae',nombrecliente,telefono,totalpares,importe,iva,total 
 from pedidos p join DPedidos dp on dp.clave_pedido=p.clave_pedido 
-join Productos prod on dp.producto=prod.producto join Combinaciones c on dp.combinacion = c.combinacion where (dp.estilo like '%$P!{search}%' or c.descripcion like '%$P!{search}%' or  p.pedido like '%$P!{search}%' or p.nombrecliente like '%$P!{search}%') and convert(date,fechapedido) between $P{f1} and $P{f2} order by pedido DESC]]>
+join Productos prod on dp.producto=prod.producto join Combinaciones c on dp.combinacion = c.combinacion where (dp.estilo like '%$P!{search}%' or c.descripcion like '%$P!{search}%' or  p.pedido like '%$P!{search}%' or p.nombrecliente like '%$P!{search}%') and convert(date,fechapedido) between $P{f1} and $P{f2} order by pedido]]>
 	</queryString>
 	<field name="pedido" class="java.lang.Integer"/>
 	<field name="fecha" class="java.lang.String"/>
@@ -52,9 +52,9 @@ join Productos prod on dp.producto=prod.producto join Combinaciones c on dp.comb
 		</band>
 	</title>
 	<detail>
-		<band height="131" splitType="Stretch">
+		<band height="93" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="802" height="20" backcolor="#CCCCFF" uuid="bbbc546a-2075-4a81-a87b-7c498c5cde98"/>
+				<reportElement x="0" y="0" width="802" height="20" backcolor="#0275EA" uuid="bbbc546a-2075-4a81-a87b-7c498c5cde98"/>
 				<graphicElement>
 					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#FFFFFF"/>
 				</graphicElement>
@@ -77,58 +77,58 @@ join Productos prod on dp.producto=prod.producto join Combinaciones c on dp.comb
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Detalleventa.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement x="158" y="0" width="157" height="20" uuid="4c278469-e74c-4704-9ac1-dc59a0e3e131"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="158" y="0" width="157" height="20" forecolor="#FFFFFF" uuid="4c278469-e74c-4704-9ac1-dc59a0e3e131"/>
+				<textElement verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombrecliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="315" y="0" width="100" height="20" uuid="511d405f-e392-4d5b-9efd-0a1a0fceb563"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="315" y="0" width="100" height="20" forecolor="#FFFFFF" uuid="511d405f-e392-4d5b-9efd-0a1a0fceb563"/>
+				<textElement verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="78" y="0" width="80" height="20" uuid="858999b9-c587-48f2-b12d-646f432e179a"/>
+				<reportElement x="78" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="858999b9-c587-48f2-b12d-646f432e179a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Nombre cliente]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="0" width="67" height="20" uuid="66e7bede-0f23-4d56-a8d5-3583f46dfe9c"/>
+				<reportElement x="0" y="0" width="67" height="20" forecolor="#FFFFFF" uuid="66e7bede-0f23-4d56-a8d5-3583f46dfe9c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pedido}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="415" y="0" width="72" height="20" uuid="33290fb4-1587-42d8-945b-739495a0391a"/>
+				<reportElement x="415" y="0" width="72" height="20" forecolor="#FFFFFF" uuid="33290fb4-1587-42d8-945b-739495a0391a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Fecha Pedido: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="487" y="0" width="73" height="20" uuid="ba65b715-30f7-4b71-b6ca-9edc814d833c"/>
+				<reportElement x="487" y="0" width="73" height="20" forecolor="#FFFFFF" uuid="ba65b715-30f7-4b71-b6ca-9edc814d833c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="572" y="0" width="80" height="20" uuid="02af1a41-33fc-4f2c-9b70-492494fbc5d1"/>
+				<reportElement x="572" y="0" width="80" height="20" forecolor="#FFFFFF" uuid="02af1a41-33fc-4f2c-9b70-492494fbc5d1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Fecha Entrega]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="652" y="0" width="62" height="20" uuid="6a84c1dd-fe74-4874-a74d-a184cc95c520"/>
+				<reportElement x="652" y="0" width="62" height="20" forecolor="#FFFFFF" uuid="6a84c1dd-fe74-4874-a74d-a184cc95c520"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{fechae}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="756" y="0" width="46" height="20" uuid="74e1abe2-aa5f-4e44-b2e0-e5bb6a8d79f0"/>
+				<reportElement x="756" y="0" width="46" height="20" forecolor="#FFFFFF" uuid="74e1abe2-aa5f-4e44-b2e0-e5bb6a8d79f0"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{totalpares}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="714" y="0" width="42" height="20" uuid="f09d9323-faab-47b7-b199-56ea988c12fe"/>
+				<reportElement x="714" y="0" width="42" height="20" forecolor="#FFFFFF" uuid="f09d9323-faab-47b7-b199-56ea988c12fe"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<text><![CDATA[Pares:]]></text>
 			</staticText>

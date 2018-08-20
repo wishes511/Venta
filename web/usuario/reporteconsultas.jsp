@@ -39,16 +39,17 @@
             try {
                String s="" ;
                if(select==null || select.equals("undefined")){select="";}
-               System.out.println(tipo+" -"+uso+" -"+select);
+               //System.out.println(tipo+" -"+uso+" -"+select);
             if(uso.equals("clasificacion")){
                 if(tipo.equals("concentrado")){
-                    System.out.println("Aqui debo de ");
-                s="usuario/consultas/clasificacion.jasper";
-                }else s="usuario/consultas/clasificacion_1.jasper";
+                   // System.out.println("Aqui debo de ");
+                ;s="usuario/consultas/marca.jasper";
+                }else s="usuario/consultas/marca_1.jasper";
             }else if(uso.equals("linea")){
                 if(tipo.equals("concentrado")){
-                s="usuario/consultas/marca.jasper";
-                }else s="usuario/consultas/marca_1.jasper";
+                
+                    s="usuario/consultas/clasificacion.jasper";
+                }else s="usuario/consultas/clasificacion_1.jasper";
             }else if(uso.equals("cliente")){
                 if(tipo.equals("concentrado")){
                 s="usuario/consultas/cliente.jasper";

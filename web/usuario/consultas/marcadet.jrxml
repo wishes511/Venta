@@ -7,14 +7,13 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select dp.estilo,c.descripcion,SUM(totalprod) as 'total' from dpedidos dp 
-join Combinaciones c on dp.combinacion = c.combinacion
+		<![CDATA[select l.descripcion,SUM(totalprod) as 'total' from dpedidos dp 
 join Productos p on dp.producto=p.producto
+join Lineas l on p.linea=l.linea
 where submarca like '%$P!{desc}%'
-group by dp.estilo,c.descripcion
+group by l.descripcion
 order by total desc]]>
 	</queryString>
-	<field name="estilo" class="java.lang.Integer"/>
 	<field name="descripcion" class="java.lang.String"/>
 	<field name="total" class="java.lang.Integer"/>
 	<variable name="total_1" class="java.lang.Integer" calculation="Sum">
@@ -22,23 +21,15 @@ order by total desc]]>
 	</variable>
 	<detail>
 		<band height="17" splitType="Stretch">
-			<textField>
-				<reportElement x="160" y="0" width="66" height="17" uuid="7b6c8082-c363-4228-be6c-4e81d6419a5c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="2" y="16" width="224" height="1" uuid="3707cc11-1cfa-4b98-ab47-7c2c606389eb"/>
-			</line>
-			<textField>
-				<reportElement x="0" y="0" width="50" height="17" uuid="67f94486-dee6-4d53-853f-d31ccf47031a"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+			<textField pattern="#,##0">
+				<reportElement x="161" y="0" width="59" height="17" uuid="7b6c8082-c363-4228-be6c-4e81d6419a5c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{estilo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="50" y="0" width="110" height="17" uuid="ba1c9196-7dfd-4b7c-9189-a4f549eae860"/>
+				<reportElement x="27" y="0" width="96" height="17" uuid="1da5af0f-e5c2-4a15-9296-95682e8bca17"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>

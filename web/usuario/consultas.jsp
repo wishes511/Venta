@@ -27,6 +27,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Catalogo de Productos</title>
         <link rel="icon" sizes="32x32" href="../images/aff.png" />
@@ -83,9 +84,7 @@
              <%if (tipos.equals("ADMIN")||tipos.equals("VENTAS")) {
                         if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
-                            for (int i = 0; i < cor.size(); i++) {
-                                System.out.println(dis.size()+" "+cor.size() + " -" + i + " " + cor.get(i).getProducto());
-                            }
+                            
                         } else {
                             out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
                         }}
@@ -98,12 +97,12 @@
                 <div class="col-md-8 col-lg-offset-2 cuadromenu" id="get_catalogo" align="center" style="">
                     <div class="row espas-search-prods letracuadro_menu">
                         <div class="col-xs-4">
-                            <div class="col-xs-8"><label class="">Clasificación</label></div>
-                            <div class="col-xs-4"><input type="radio" name="report" id="report" value="clasificacion" checked="checked" onclick="getfields()"/></div>
+                            <div class="col-xs-8"><label class="">Linea</label></div>
+                            <div class="col-xs-4"><input type="radio" name="report" id="report" value="linea" checked="checked" onclick="getfields()"/></div>
                         </div>
                         <div class="col-xs-4">
-                            <div class="col-xs-4"><label>Linea</label></div>
-                            <div class="col-xs-8"><input type="radio" name="report" id="report" value="linea"  onclick="getfields()"/></div>
+                            <div class="col-xs-4"><label>Clasificación</label></div>
+                            <div class="col-xs-8"><input type="radio" name="report" id="report" value="clasificacion"  onclick="getfields()"/></div>
                         </div>
                         <div class="col-xs-4">
                             <div class="col-xs-4"><label>Cliente</label></div>

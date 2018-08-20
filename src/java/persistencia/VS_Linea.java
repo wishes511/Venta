@@ -63,7 +63,7 @@ public class VS_Linea extends conBD {
         PreparedStatement st = null;
         getConexions().setAutoCommit(false);
             String s = "insert into Lineas values("+l+",'"+p.getLineachar()+"')";
-            System.out.println(s);
+//            System.out.println(s);
             st = getConexions().prepareStatement(s);
             st.executeUpdate();
             st.close();
@@ -102,8 +102,8 @@ public class VS_Linea extends conBD {
         ArrayList<Linea> arr = new ArrayList<Linea>();
         String query="";
         
-        query = "select distinct l.descripcion as 'descripcion' from DPedidos p join Lineas l on p.linea=l.linea\n" +
-        "group by descripcion";
+        query = "select distinct p.submarca as 'submarca' from DPedidos dp join Productos p on dp.producto=p.producto\n" +
+        "group by submarca";
         Statement smt;
         ResultSet df;
         abrirs();
@@ -112,7 +112,7 @@ public class VS_Linea extends conBD {
         df = smt.executeQuery(query);
         while (df.next()) {
             Linea l = new Linea();
-            l.setDescripcion(df.getString("descripcion"));
+            l.setDescripcion(df.getString("submarca"));
             arr.add(l);
         }
         df.close();

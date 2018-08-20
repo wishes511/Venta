@@ -40,6 +40,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Captura de Pedido</title>
         <link rel="icon" sizes="32x32" href="../images/aff.png" />
@@ -126,9 +127,7 @@
              <%if (tipos.equals("ADMIN")||tipos.equals("VENTAS")) {
                         if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
-                            for (int i = 0; i < cor.size(); i++) {
-                                System.out.println(dis.size()+" "+cor.size() + " -" + i + " " + cor.get(i).getProducto());
-                            }
+                            
                         } else {
                             out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
                         }}
@@ -137,7 +136,7 @@
                 </div>
             </nav>
                 <%if (!dis.isEmpty()) { %>
-            <div class="container-fluid" align="center" id="desplieguepedido" 
+            <div class="container-fluid" align="center" id="desplieguepedido">
                 
                 <div class="row" align="center">
                           <label class="letraprod">Productos Ingresados al Pedido</label><hr>
@@ -180,8 +179,9 @@
                                     + "</div>");
                         %>
                 </div>
+                </div>
                 <% }%>
-            <div class="row">
+            <div class="container-fluid row">
                 <div class="col-md-8 col-lg-offset-2" id="get_catalogo" align="center" style="padding: 2%">
                     <div class="row espas-search-prods">
                         <div class="col-sm-4">
@@ -196,9 +196,7 @@
                     </div>
                 </div>
             </div>
-                    <div id="distribucion">
-                        
-                    </div>
+                    <div id="distribucion"></div>
             <div class="row espaciobtn">
                 <%if (!dis.isEmpty()) { %>
                 <div align="center">

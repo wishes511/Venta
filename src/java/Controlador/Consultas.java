@@ -106,7 +106,7 @@ public class Consultas extends HttpServlet {
            
             DAO_Linea l=new DAO_Linea();
             DAO_Pedido p = new DAO_Pedido();
-            System.out.println(uso+" "+tipo);
+            //System.out.println(uso+" "+tipo);
         if(uso.equals("clasificacion")){
             arrlinea=l.getLinea(uso);
             out.print("<label>Clasificacion:</label><select class=\"form-control\"  id=\"selectbuscar\" onchange=\"salto()\"><option></option>");
@@ -124,9 +124,9 @@ public class Consultas extends HttpServlet {
         }else if(uso.equals("linea")){
              DAO_Producto prod= new DAO_Producto();
             arrproducto=prod.getprod_consulta();
-            out.print("<label>Marcas:</label><select class=\"form-control\"  id=\"selectbuscar\" onchange=\"salto()\"><option></option>");
+            out.print("<label>Lineas:</label><select class=\"form-control\"  id=\"selectbuscar\" onchange=\"salto()\"><option></option>");
             for(int i = 0;i<arrproducto.size();i++){
-                out.print("<option class=\"form-control\" value="+arrproducto.get(i).getMarca()+">"+arrproducto.get(i).getMarca()+"</option>");
+                out.print("<option class=\"form-control\" value='"+arrproducto.get(i).getMarca()+"'>"+arrproducto.get(i).getMarca()+"</option>");
             }
             out.print("</select>");
         }

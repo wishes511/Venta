@@ -209,7 +209,7 @@ public class Carrito extends HttpServlet {
                 if (cor.get(i).getProducto() != Integer.parseInt(producto)) {
 
                     while (pi < pf) {
-                        System.out.println("cont:" + cont + " " + dis.get(cont));
+//                        System.out.println("cont:" + cont + " " + dis.get(cont));
                         arraux.add(dis.get(cont));
                         pi += 0.5;
                         cont++;
@@ -243,7 +243,7 @@ public class Carrito extends HttpServlet {
             String fe = (String) request.getParameter("fe");
             String nc = (String) request.getParameter("nc").toUpperCase();
             String dir = (String) request.getParameter("dir").toUpperCase();
-            String rfc = (String) request.getParameter("rfc").toUpperCase();
+            //String rfc = (String) request.getParameter("rfc").toUpperCase();
             String tel = (String) request.getParameter("tel");
             String email = (String) request.getParameter("email");
             int cont = 0;
@@ -255,7 +255,7 @@ public class Carrito extends HttpServlet {
                 float pf = corrida.get(i).getPf() + 1;
                 while (pi < pf) {
                     totalpares += Integer.parseInt(dis.get(cont));
-                    System.out.println(dis.get(cont));
+//                    System.out.println(dis.get(cont));
                     pi += 0.5;
                     cont++;
                 }
@@ -273,7 +273,7 @@ public class Carrito extends HttpServlet {
             p.setFechapedido(fp + " " + hour + ":" + min + ":00.000");
             p.setFechaentrega(fe + " 00:00:00.000");
             p.setNombrecliente(nc);
-            p.setRfc(rfc);
+            p.setRfc("");
             p.setDireccion(dir);
             p.setTelefono(tel);
             p.setEmail(email);

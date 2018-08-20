@@ -52,7 +52,8 @@ function averdato() {
             url: '../Carrito',
             success: function (result) {
                 //('#distribucion').html(result);
-                document.location.reload();                                                 
+                location="index.jsp";
+               // document.location.reload();                                                 
                 //$('#carrosid').html("<div class='container-fluid'><ul class=nav navbar-nav><li ><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\">("+result+")</a></li></ul></div>");
             }
         });
