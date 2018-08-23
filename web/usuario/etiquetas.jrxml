@@ -10,7 +10,7 @@
 		<![CDATA[select p.producto,p.estilo,c.descripcion,cor.descripcion as 'corrida' from productos p 
 join Combinaciones c on p.combinacion=c.combinacion
 join Corridas cor on p.corrida=cor.corrida
-where p.estilo like '%$P!{param}%'
+where p.estilo like '%$P!{param}%' or p.submarca like '%$P!{param}%' or p.linea like '%$P!{param}%'
 order by p.estilo]]>
 	</queryString>
 	<field name="producto" class="java.lang.Integer"/>

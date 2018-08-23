@@ -268,8 +268,8 @@ public class VS extends conBD {
     int comb=0;
     String query = "select c.combinacion as 'combinacion' from Combinaciones c "
             + " join Productos p on p.combinacion=c.combinacion"
-            + " where  p.corrida="+p.getClave_corrida()+" and p.estilo="+p.getEstilo()+" and c.combinacion like '%"+p.getCombinacionchar()+"%'";
-//    System.out.println(query+"-"+comb);
+            + " where  p.corrida="+p.getClave_corrida()+" and p.estilo="+p.getEstilo()+" and c.combinacion like '"+p.getCombinacionchar()+"'";
+    System.out.println(query+"-"+comb);
     Statement smt;
     ResultSet df;
     abrir();
@@ -286,7 +286,7 @@ public class VS extends conBD {
     }
      private int getcombequal(Producto p) throws ClassNotFoundException, SQLException{
     int comb=0;
-    String query = "select combinacion from Combinaciones  where descripcion like '%"+p.getCombinacionchar()+"%'";
+    String query = "select combinacion from Combinaciones  where descripcion like '"+p.getCombinacionchar()+"'";
 //    System.out.println(query+"-"+comb);
     Statement smt;
     ResultSet df;
@@ -305,7 +305,7 @@ public class VS extends conBD {
     private int getlinean(Producto p) throws ClassNotFoundException, SQLException{
     int comb=0;
     String query = "select linea from lineas"
-            + " where  descripcion like '%"+p.getLineachar()+"%'";
+            + " where  descripcion like '"+p.getLineachar()+"'";
 //    System.out.println(query);
     Statement smt;
     ResultSet df;

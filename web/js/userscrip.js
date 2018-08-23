@@ -105,7 +105,8 @@ function dopedido(){
         url: '../Carrito',
         success: function (result) {
             alert(result);
-          document.location.reload();
+             location="reportevta_pedido?peds="+result;
+          //document.location.reload();
         }
     });
 }

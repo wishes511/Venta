@@ -132,6 +132,8 @@ public class Carrito extends HttpServlet {
                 ArrayList<String> distcar = new ArrayList<String>();
                 distcar = getdis(dato, dis);
                 if (!distcar.isEmpty()) {
+                    dis.clear();
+                    dis=distcar;
                     cor.add(dprod.getprodwithID_nochar(Integer.parseInt(prod)));
                     corrida.add(dcor.getcorridawithID(Integer.parseInt(prod)));
                     objSesion.setAttribute("distribucion", getdis(dato, dis));
@@ -288,7 +290,7 @@ public class Carrito extends HttpServlet {
             dis.clear();
             cor.clear();
             corrida.clear();
-            out.print("PEDIDO ALMACENADO EXITOSAMENTE !!! ");
+            out.print(p.getPedido());
 
         } else if (uso.equals("fechas")) {
             ArrayList<Pedido> arr = new ArrayList<>();

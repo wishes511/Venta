@@ -235,7 +235,7 @@
                         </div><br><br>
                          Costo<input class="form-control input-sm chat-input" type="text" name="costo" id="costo" value=""  required/><br>
                         Tipo <input class="form-control input-sm chat-input" type="text" name="tipo" id="tipo" value=""  required/><br>
-                        Marca <select onchange="" class="form-control" name="marca" id="marca" required>
+                        Categoria <select onchange="" class="form-control" name="marca" id="marca" required>
                             <option>Traffic</option>
                             <option>Red Traffic</option>
                             <option>OCastell</option>
@@ -265,7 +265,7 @@
                                 <th>Costo</th>
                                 <th>Tipo</th>
                                 <!--<td>Borrar</td>--> 
-                                <th>Submarca</th>
+                                <th>Categoria</th>
                             </thead>
                         <%       try {
                                     DAO_Producto dp = new DAO_Producto();

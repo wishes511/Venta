@@ -1,4 +1,7 @@
 
+<%@page import="java.util.GregorianCalendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.Date"%>
 <%@page import="Modelo.Corrida"%>
 <%@page import="Modelo.Producto"%>
 <%@page import="java.util.Calendar"%>
@@ -36,6 +39,11 @@
     }else {
         fechac =fechac + "-" + mes+"-"+año;    
     }
+         Date ahora = new Date(dia,mes,año);
+        Calendar cal = new GregorianCalendar();
+        cal.add(Calendar.DATE, +60);
+        System.out.println(cal.get(Calendar.DATE)+" * "+cal.get(Calendar.DAY_OF_MONTH));
+        
 %>
 <!DOCTYPE html>
 <html>
@@ -127,7 +135,7 @@
              <%if (tipos.equals("ADMIN")||tipos.equals("VENTAS")) {
                         if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
-                            
+                            System.out.println(cor.size()+"-"+dis.size());
                         } else {
                             out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
                         }}

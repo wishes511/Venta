@@ -44,7 +44,7 @@ public class VS_Combinacion extends conBD {
             public ArrayList<Combinacion> buscarall() throws ClassNotFoundException, SQLException {
         ArrayList<Combinacion> arr = new ArrayList<Combinacion>();
         
-        String query = "select distinct descripcion,combinacion from Combinaciones";
+        String query = "select distinct descripcion,combinacion from Combinaciones order by descripcion";
         Statement smt;
         ResultSet df;
         abrirs();

@@ -81,7 +81,7 @@ public class VS_Linea extends conBD {
         public ArrayList<Linea> buscarall() throws ClassNotFoundException, SQLException {
         ArrayList<Linea> arr = new ArrayList<Linea>();
         
-        String query = "select linea,descripcion from Lineas";
+        String query = "select linea,descripcion from Lineas order by descripcion";
         Statement smt;
         ResultSet df;
         abrirs();

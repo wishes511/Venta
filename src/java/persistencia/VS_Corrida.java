@@ -50,7 +50,7 @@ public class VS_Corrida extends conBD {
         public ArrayList<Corrida> buscarall() throws ClassNotFoundException, SQLException {
         ArrayList<Corrida> arr = new ArrayList<Corrida>();
         
-        String query = "select corrida,descripcion from Corridas";
+        String query = "select corrida,descripcion from Corridas order by descripcion";
         Statement smt;
         ResultSet df;
         abrirs();
