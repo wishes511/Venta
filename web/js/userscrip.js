@@ -104,12 +104,67 @@ function dopedido(){
         data: {uso: uso,fp:fp,fe:fe,nc:nc,dir:dir,rfc:rfc,tel:tel,email:email},
         url: '../Carrito',
         success: function (result) {
-            alert(result);
-             location="reportevta_pedido?peds="+result;
+            //alert(result);
+             location="reportevta_pedido.jsp?peds="+result;
           //document.location.reload();
         }
     });
 }
+function baja(clave){
+    if (confirm("¿Realmente desea cancelar el pedido?")) {
+        var pro = $('#f1').val();
+    var pro1 = $('#f2').val();
+    var peds = $('#peds').val();
+    var report=$('input:radio[name=status]:checked').val();
+    var uso="baja";
+     $.ajax({
+        type: 'post',
+        data: {uso: uso,clave:clave},
+        url: '../Carrito',
+        success: function (result) {
+            verped(pro,pro1,peds,report);
+        }
+    });
+        
+    }
+    
+    
+}
+function alta(clave){
+    var pro = $('#f1').val();
+    var pro1 = $('#f2').val();
+    var peds = $('#peds').val();
+    var report=$('input:radio[name=status]:checked').val();
+    var uso="alta";
+     $.ajax({
+        type: 'post',
+        data: {uso: uso,clave:clave},
+        url: '../Carrito',
+        success: function (result) {
+          verped(pro,pro1,peds,report);
+        }
+    });
+    
+}
+function verped(valor,valor1,peds,report) {
+                if (!(/^\d{2}|\d{2}\-\d{2}\-\d{4}\$/i.test(valor)) && !(/^\d{2}|\d{2}\-\d{2}\-\d{4}\$/i.test(valor1))) {
+                    alert("fecha invalida invalido");
+                    //document.forma.f1.focus();
+                    document.getElementById("f1").value = "<%=fechac%>";
+                    document.getElementById("f2").value = "<%=fechac%>";
+                    return 0;
+                } else {
+                    var uso = "fechas";
+                    $.ajax({
+                        type: 'post',
+                        data: {f1: valor, f2: valor1, uso: uso, busqueda: peds,status:report},
+                        url: '../Carrito',
+                        success: function (result) {
+                            $('#llenar').html(result);
+                        }
+                    });
+                }
+            }
 //consultas
 function getfields(){
     var report=$('input:radio[name=report]:checked').val();

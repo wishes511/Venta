@@ -20,7 +20,7 @@
     </head>
     <body>
 
-        <% HttpSession objSesion = request.getSession(true);
+        <% HttpSession objSesion = request.getSession(false);
 //i_d
             boolean estado;
             String usuario = (String) objSesion.getAttribute("usuario");
@@ -37,6 +37,7 @@
             String p = (String)request.getParameter("peds");
             String f1 = (String)request.getParameter("f1");
             String f2 = (String)request.getParameter("f2");
+            String report = (String)request.getParameter("report").toUpperCase();
             DAO_Producto prod = new DAO_Producto();
 
             try {
@@ -46,6 +47,7 @@
                 para.put("search", new String(p));
                 para.put("f1", new String(f1));
                 para.put("f2", new String(f2));
+                para.put("status", new String(report));
                 byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), para, prod.conexionbd());
                 response.setContentType("application/pdf");
                 response.setContentLength(bytes.length);

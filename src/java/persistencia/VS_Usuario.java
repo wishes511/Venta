@@ -22,7 +22,7 @@ public class VS_Usuario extends conBD {
     public Usuario buscauser(Usuario u) throws ClassNotFoundException, SQLException{
         String query = "select p.descripcion as 'tipo' from usuarios u join privilegios p on u.clave_tipo=p.clave_tipo where "
                 + " usuario='"+u.getUsuario()+"' and contrasena='"+u.getPass()+"' ";
-        System.out.println(query);
+        //System.out.println(query);
         Statement smt;
         ResultSet df;
         abrirs();

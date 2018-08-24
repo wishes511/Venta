@@ -39,10 +39,23 @@
     }else {
         fechac =fechac + "-" + mes+"-"+año;    
     }
-         Date ahora = new Date(dia,mes,año);
         Calendar cal = new GregorianCalendar();
         cal.add(Calendar.DATE, +60);
-        System.out.println(cal.get(Calendar.DATE)+" * "+cal.get(Calendar.DAY_OF_MONTH));
+        //System.out.println(cal.get(Calendar.DATE)+" * "+cal.get(Calendar.DAY_OF_MONTH)+"/"+cal.get(Calendar.MONTH)+1);
+        int dia1=cal.get(Calendar.DAY_OF_MONTH);
+        int mes1=cal.get(Calendar.MONTH )+1;
+        int year1=cal.get(Calendar.YEAR);
+        String fechae="";
+        if(dia1<10){
+         fechae = "0" + dia1;    
+    }else{
+         fechae  = dia1+"";    
+    }
+        if(mes1<10){
+     fechae =fechae + "-0" + mes1+"-"+year1;    
+    }else {
+        fechae =fechae + "-" + mes1+"-"+year1;    
+    }
         
 %>
 <!DOCTYPE html>
@@ -248,7 +261,7 @@
                         <div class="col-md-10 espas col-md-offset-1" id="get_catalogo" align="center">
                             <div class="col-md-offset-2">
                                 <div class="col-md-5"><label>Fecha Pedido :</label><div class=""><input class="form-control" type="text" id="fp" value="<%=fechac%>" disabled="disable"></div></div>
-                                <div class="col-md-5"><label>Fecha Entrega:</label><div class=""><input class="form-control" type="text" id="fe" value="<%=fechac%>" onclick="displayCalendar(document.getElementById('fe'), 'dd-mm-yyyy', this)"></div></div>
+                                <div class="col-md-5"><label>Fecha Entrega:</label><div class=""><input class="form-control" type="text" id="fe" value="<%=fechae%>" onclick="displayCalendar(document.getElementById('fe'), 'dd-mm-yyyy', this)"></div></div>
                             </div>
                             <div class="" style="padding-top: 10%">
                                 <div class="col-md-4"><label>Nombre Cliente :</label><div class=""><input class="form-control" type="text" id="nc" ></div></div>
@@ -257,6 +270,9 @@
                             <div class="" style="padding-top: 10%">
                                 <div class="col-md-4"><label>Telefono</label><div class=""><input class="form-control" type="text" id="tel" ></div></div>
                                 <div class="col-md-8"><label>Email</label><div class=""><input class="form-control" type="text" id="email" ></div></div>
+                            </div>
+                                <div class="" style="padding-top: 10%">
+                                <div class="col-md-12"><label>Observaciones:</label><div class=""><input class="form-control" type="text" id="rfc" ></div></div>
                             </div>
                             <div style="padding-top: 10%">
                                 <button class="btn btn-danger" onclick="dopedido()">Finalizar Pedido</button>

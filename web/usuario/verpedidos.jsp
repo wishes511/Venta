@@ -10,40 +10,40 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Calendar"%>
 <% HttpSession objSesion = request.getSession(false);
-try{
-    
-    String usuario = (String) objSesion.getAttribute("usuario");
-    String tipos = (String) objSesion.getAttribute("tipo");
-    String ids = String.valueOf(objSesion.getAttribute("i_d"));
-    if (usuario != null && tipos != null && (tipos.equals("ADMIN")|| tipos.equals("VENTAS")|| tipos.equals("USUARIO")|| tipos.equals("ALTAS"))) {
-            if(tipos.equals("ALTAS")){
+    try {
+
+        String usuario = (String) objSesion.getAttribute("usuario");
+        String tipos = (String) objSesion.getAttribute("tipo");
+        String ids = String.valueOf(objSesion.getAttribute("i_d"));
+        if (usuario != null && tipos != null && (tipos.equals("ADMIN") || tipos.equals("VENTAS") || tipos.equals("USUARIO") || tipos.equals("ALTAS"))) {
+            if (tipos.equals("ALTAS")) {
                 response.sendRedirect("productos.jsp");
             }
-    } else {
-        response.sendRedirect("../index.jsp");
-    }
-    
-    ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
-    Calendar fecha = Calendar.getInstance();
-    int año = fecha.get(Calendar.YEAR);
-    int mes = fecha.get(Calendar.MONTH) + 1;
-    int dia = fecha.get(Calendar.DAY_OF_MONTH);
-    String fechac = "" ;
-    String fechaca= "";
-if(dia<10){
-         fechac = "0" + dia;    
-         fechaca ="0" + (dia - 1);
-    }else{
-         fechac  = dia+"";    
-         fechaca = dia+"";
-    }
-        if(mes<10){
-     fechac =fechac + "-0" + mes+"-"+año;    
-     fechaca = fechaca+ "-0" + (mes)+"-"+año;
-    }else {
-        fechac =fechac + "-" + mes+"-"+año;    
-     fechaca = fechaca+ "-" + (mes)+"-"+año ;
-    }
+        } else {
+            response.sendRedirect("../index.jsp");
+        }
+
+        ArrayList<Producto> cor = (ArrayList<Producto>) objSesion.getAttribute("producto");
+        Calendar fecha = Calendar.getInstance();
+        int año = fecha.get(Calendar.YEAR);
+        int mes = fecha.get(Calendar.MONTH) + 1;
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        String fechac = "";
+        String fechaca = "";
+        if (dia < 10) {
+            fechac = "0" + dia;
+            fechaca = "0" + (dia - 1);
+        } else {
+            fechac = dia + "";
+            fechaca = dia + "";
+        }
+        if (mes < 10) {
+            fechac = fechac + "-0" + mes + "-" + año;
+            fechaca = fechaca + "-0" + (mes) + "-" + año;
+        } else {
+            fechac = fechac + "-" + mes + "-" + año;
+            fechaca = fechaca + "-" + (mes) + "-" + año;
+        }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -90,48 +90,49 @@ if(dia<10){
         </script>
 
         <div class="container-fluid">
-                <nav class="navbar navbar-default navbar-inverse">
-               <div class="navbar-header" >
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#"></a>
-        </div>
+            <nav class="navbar navbar-default navbar-inverse">
+                <div class="navbar-header" >
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"></a>
+                </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                    <%if (tipos.equals("ADMIN") || tipos.equals("VENTAS")) {%>
-                    <li class=""><a  class="" href="index.jsp">Captura Pedidos</a> </li>
-                    <%}%>
-                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")||tipos.equals("ALTAS")) {%>
-                    <li class=""><a  class="" href="productos.jsp">Productos</a> </li>
-                    <%}%>
-                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")||tipos.equals("VENTAS")) {%>
-                    <li class="dropdown active">
-                        <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
-                            Pedidos<span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" id="#90" role="menu">
-                            <li class="active"><a>Visualizar Pedidos</a></li>
-                        </ul>
-                    </li>
-                    <%}%>
-                    <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")){%>
-                    <li class=""><a  class="" href="consultas.jsp">Consultas</a></li>
-                    <%}%>
-                    <li><a href="../Cierresesion">Salir</a></li>
-                </ul>
-                <div id="" class="nav navbar-nav" style="float:right" >
-             <%if (tipos.equals("ADMIN")||tipos.equals("VENTAS")) {
-                        if (!cor.isEmpty()) {
-                            out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
-                            
-                        } else {
-                            out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
-                        }}
-                    %>
-                </div>
+                        <%if (tipos.equals("ADMIN") || tipos.equals("VENTAS")) {%>
+                        <li class=""><a  class="" href="index.jsp">Captura Pedidos</a> </li>
+                            <%}%>
+                            <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO") || tipos.equals("ALTAS")) {%>
+                        <li class=""><a  class="" href="productos.jsp">Productos</a> </li>
+                            <%}%>
+                            <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO") || tipos.equals("VENTAS")) {%>
+                        <li class="dropdown active">
+                            <a  class="dropdown-toggle" data-toggle="dropdown" href="#80">
+                                Pedidos<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" id="#90" role="menu">
+                                <li class="active"><a>Visualizar Pedidos</a></li>
+                            </ul>
+                        </li>
+                        <%}%>
+                        <%if (tipos.equals("ADMIN") || tipos.equals("USUARIO")) {%>
+                        <li class=""><a  class="" href="consultas.jsp">Consultas</a></li>
+                            <%}%>
+                        <li><a href="../Cierresesion">Salir</a></li>
+                    </ul>
+                    <div id="" class="nav navbar-nav" style="float:right" >
+                        <%if (tipos.equals("ADMIN") || tipos.equals("VENTAS")) {
+                                if (!cor.isEmpty()) {
+                                    out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
+
+                                } else {
+                                    out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
+                                }
+                            }
+                        %>
+                    </div>
                 </div>
             </nav>
             <div class="container">
@@ -153,19 +154,37 @@ if(dia<10){
                                     <br>
                                     <input type="button" value="Cal" class="btn btn-toolbar alert-success ln" onclick="displayCalendar(document.forms[0].f2, 'dd-mm-yyyy', this)"/>
                                 </div>
-                               
+
                             </form>
                         </div>
                     </div>
                 </div>
-                    <div class="row espas-search-prods">
-                        <div class="col-xs-3">
+               <div class="container-fluid">
+                        <div class="row" >
+                        <div class=" col-md-6 col-sm-6">
+                        <div class="col-md-5">
                             <br><input type="text" id="peds" placeholder="Busqueda de productos" class="form-control" onkeyup="verp()"> 
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-md-3">
                             <br><a target="_blank"><button onclick="getreport()" class="btn btn-success">Generar Reporte</button></a> 
                         </div>
                     </div>
+                    <div class="  col-md-6 col-xs-9" align="center">
+                        <div class="col-xs-5" align = center>
+                            <br>
+                        <label class="">Activo</label>
+                        <input type="radio" name="status" id="staus" value="a" checked="checked" onclick="verp()"/>
+                        </div>
+                        <div class="col-xs-5" align = center>
+                            <br>
+                        <label class="">Cancelada</label>
+                        <input type="radio" name="status" id="status" value="c" onclick="verp()"/>
+                        </div>
+                    </div>
+                    
+                    </div>
+                </div>
+
                 <!--<div class="row">
                         <div class="container">
                             <div class="col-sm-3">
@@ -176,24 +195,25 @@ if(dia<10){
                     </div> -->    
                 <div class="container-fluid" style="overflow: auto;">
                     <div class="  "  style="overflow: auto" >
-                    <div class="" style="overflow: auto;">
-                        <br><table  id="tablesorter-demo" class="table table-hover table-responsive" style="overflow: auto;">
-                            <thead class="enctabla " style="overflow: auto;" align="center">
-                            <th class="ln" align="center">Pedido</th>
-                            <th class="ln" align="center">Fecha Pedido</th>
-                            <th class="ln" align="center">Fecha Entrega</th>
-                            <th class="ln">Cliente</th>
-                            <th class="ln">Telefono</th>
-                            <th class="ln">Totalpar</th>
-                            <th class="ln">Importe</th>
-                            <th class="ln">IVA</th>
-                            <th class="ln">Total</th>
-                            </thead>
-                            <tbody id="llenar" class="" style="overflow: auto;">
-                            </tbody> 
-                        </table>
+                        <div class="" style="overflow: auto;">
+                            <br><table  id="tablesorter-demo" class="table table-hover table-responsive" style="overflow: auto;">
+                                <thead class="enctabla " style="overflow: auto;" align="center">
+                                <th class="ln" align="center">Pedido</th>
+                                <th class="ln" align="center">Fecha Pedido</th>
+                                <th class="ln" align="center">Fecha Entrega</th>
+                                <th class="ln">Cliente</th>
+                                <th class="ln">Telefono</th>
+                                <th class="ln">Totalpar</th>
+                                <th class="ln">Importe</th>
+                                <th class="ln">IVA</th>
+                                <th class="ln">Total</th>
+                                <th class="ln"></th>
+                                </thead>
+                                <tbody id="llenar" class="" style="overflow: auto;">
+                                </tbody> 
+                            </table>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -211,10 +231,11 @@ if(dia<10){
                     var pro = $('#f1').val();
                     var pro1 = $('#f2').val();
                     var peds = $('#peds').val();
+                    var report=$('input:radio[name=status]:checked').val();
                     var uso = "fechas";
                     $.ajax({
                         type: 'post',
-                        data: {f1: pro, f2: pro1,uso: uso,busqueda:peds},
+                        data: {f1: pro, f2: pro1, uso: uso, busqueda: peds,status:report},
                         url: '../Carrito',
                         success: function (result) {
                             $('#llenar').html(result);
@@ -222,19 +243,19 @@ if(dia<10){
                     });
                 }
             }
-            function getreport(){
+            function getreport() {
                 var f1 = $('#f1').val();
                 var f2 = $('#f2').val();
                 var peds = $('#peds').val();
-                
-                location.href="reportevta.jsp?f1="+f1+"&f2="+f2+"&peds="+peds;
-            
+                var report=$('input:radio[name=status]:checked').val();
+                location.href = "reportevta.jsp?f1=" + f1 + "&f2=" + f2 + "&peds=" + peds+"&report="+report;
+
             }
         </script>
     </body>
 </html>
 <%
-}catch(Exception e){
-    out.print("location = ../index.");
-}
+    } catch (Exception e) {
+        out.print("location = ../index.");
+    }
 %>

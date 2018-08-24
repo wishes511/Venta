@@ -11,7 +11,7 @@
 join Combinaciones c on c.combinacion=dp.combinacion
 join Pedidos p on dp.clave_pedido = p.clave_pedido
 join Corridas cor on dp.corrida=cor.corrida
-where p.nombrecliente = $P{desc}
+where p.nombrecliente = $P{desc} and p.statue='A'
 group by dp.estilo,c.descripcion,cor.descripcion
 order by total desc]]>
 	</queryString>

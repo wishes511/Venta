@@ -245,7 +245,7 @@ public class Carrito extends HttpServlet {
             String fe = (String) request.getParameter("fe");
             String nc = (String) request.getParameter("nc").toUpperCase();
             String dir = (String) request.getParameter("dir").toUpperCase();
-            //String rfc = (String) request.getParameter("rfc").toUpperCase();
+            String rfc = (String) request.getParameter("rfc").toUpperCase();
             String tel = (String) request.getParameter("tel");
             String email = (String) request.getParameter("email");
             int cont = 0;
@@ -275,7 +275,7 @@ public class Carrito extends HttpServlet {
             p.setFechapedido(fp + " " + hour + ":" + min + ":00.000");
             p.setFechaentrega(fe + " 00:00:00.000");
             p.setNombrecliente(nc);
-            p.setRfc("");
+            p.setRfc(rfc);
             p.setDireccion(dir);
             p.setTelefono(tel);
             p.setEmail(email);
@@ -297,8 +297,15 @@ public class Carrito extends HttpServlet {
             String f1 = (String) request.getParameter("f1");
             String f2 = (String) request.getParameter("f2");
             String b = (String) request.getParameter("busqueda").toUpperCase();
+            String status = (String) request.getParameter("status").toUpperCase();
             DAO_Pedido ped = new DAO_Pedido();
-            arr = ped.getall(f1, f2, b);
+            arr = ped.getall(f1, f2, b,status);
+            String modo="alta";
+            String imagen="up";
+            if(status.equals("A")){
+                modo="baja";
+                imagen="down";
+            }
             for (int i = 0; i < arr.size(); i++) {
                 out.print("<tr>");
                 out.print("<td>" + arr.get(i).getPedido() + "</td>");
@@ -310,9 +317,17 @@ public class Carrito extends HttpServlet {
                 out.print("<td>" + arr.get(i).getImporte() + "</td>");
                 out.print("<td>" + arr.get(i).getIva() + "</td>");
                 out.print("<td>" + arr.get(i).getTotal() + "</td>");
+                out.print("<td><img onclick="+modo+"("+arr.get(i).getClavepedido()+") class=\"imagentabla\" src=\"../images/"+imagen+".png\" ></td>");
                 out.print("</tr>");
             }
-
+        }else  if(uso.equals("baja")){
+            String clave = (String) request.getParameter("clave");
+            DAO_Pedido p = new DAO_Pedido();
+            p.baja(clave);
+        }else  if(uso.equals("alta")){
+            String clave = (String) request.getParameter("clave");
+            DAO_Pedido p = new DAO_Pedido();
+            p.alta(clave);
         }
 
     }

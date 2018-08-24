@@ -9,7 +9,8 @@
 	<queryString>
 		<![CDATA[select l.descripcion,SUM(dp.totalprod) as 'total' from productos p join dpedidos dp on dp.producto = p.producto
 join Lineas l on p.linea = l.linea
-where p.submarca like '%$P!{desc}%'
+join Pedidos ped on dp.clave_pedido=ped.clave_pedido
+where p.submarca like '%$P!{desc}%' and ped.statue='A'
 group by l.descripcion
 order by total desc]]>
 	</queryString>

@@ -8,7 +8,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[select distinct nombrecliente,sum(totalpares) as 'total' from Pedidos
-where nombrecliente like '%$P!{desc}%'
+where nombrecliente like '%$P!{desc}%' and statue='A'
 group by nombrecliente
 order by total desc]]>
 	</queryString>

@@ -64,10 +64,10 @@ public class DAO_Pedido extends VS_Pedido implements Int_pedido{
     }
 
     @Override
-    public ArrayList<Pedido> getall(String f1, String f2, String b) {
+    public ArrayList<Pedido> getall(String f1, String f2, String b,String s) {
        ArrayList<Pedido> arr = new ArrayList<Pedido>();
         try {
-            arr=getpeds(f1,f2,b);
+            arr=getpeds(f1,f2,b,s);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAO_Pedido.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -87,6 +87,28 @@ public class DAO_Pedido extends VS_Pedido implements Int_pedido{
             Logger.getLogger(DAO_Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     return arr;   
+    }
+
+    @Override
+    public void alta(String a) {
+        try {
+            modstatus("A", Integer.parseInt(a));
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO_Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void baja(String a) {
+        try {
+            modstatus("C", Integer.parseInt(a));
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAO_Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 

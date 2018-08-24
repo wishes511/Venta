@@ -58,6 +58,7 @@ public class VS_Pedido extends conBD {
             st.executeUpdate();// insercion de nuevo pedido en la bd
             st.close();
         String query = "select max(clave_pedido) as 'clave_pedido' from Pedidos"; // recuperar ultimo pedido realizado
+        System.out.println(query);
         Statement smt;
         ResultSet df;
         Connection conect = getConexions();
@@ -122,13 +123,13 @@ public class VS_Pedido extends conBD {
     }
         return clave_ped;
     }
-        public ArrayList<Pedido> getpeds(String f1, String f2,String b) throws ClassNotFoundException, SQLException{
+        public ArrayList<Pedido> getpeds(String f1, String f2,String b,String s) throws ClassNotFoundException, SQLException{
         ArrayList<Pedido> arr = new ArrayList<Pedido>();
         
-        String query = "select distinct p.pedido as 'pedido',convert(date,fechapedido) as 'fecha',convert(date,fechaentrega) as 'fechae',nombrecliente,telefono,totalpares,importe,iva,total\n" +
+        String query = "select distinct p.pedido as 'pedido',convert(date,fechapedido) as 'fecha',convert(date,fechaentrega) as 'fechae',p.clave_pedido as 'clave',nombrecliente,telefono,totalpares,importe,iva,total\n" +
 "from pedidos p join DPedidos dp on dp.clave_pedido=p.clave_pedido "
  + "join Productos prod on dp.producto=prod.producto join Combinaciones c on dp.combinacion = c.combinacion\n" +
-"where (dp.estilo like '%"+b+"%'or c.descripcion like '%"+b+"%' or  p.pedido like '%"+b+"%' or p.nombrecliente like '%"+b+"%') and convert(date,fechapedido) between '"+f1+"' and '"+f2+"'\n" +
+"where p.statue='"+s+"' and (dp.estilo like '%"+b+"%'or c.descripcion like '%"+b+"%' or  p.pedido like '%"+b+"%' or p.nombrecliente like '%"+b+"%') and convert(date,fechapedido) between '"+f1+"' and '"+f2+"'\n" +
 " order by pedido DESC";
         Statement smt;
         ResultSet df;
@@ -138,6 +139,7 @@ public class VS_Pedido extends conBD {
         df = smt.executeQuery(query);
         while (df.next()) {
             Pedido p = new Pedido();
+            p.setClavepedido(df.getInt("clave"));
             p.setPedido(df.getInt("pedido"));
             p.setFechapedido(df.getString("fecha"));
             p.setFechaentrega(df.getString("fechae")); 
@@ -190,4 +192,24 @@ public class VS_Pedido extends conBD {
         smt.close();
         return arr;
     }
+                public void modstatus(String s, int clave) throws ClassNotFoundException, SQLException{
+                    PreparedStatement st = null;
+                  try{
+                    abrirs();
+        getConexions().setAutoCommit(false);
+                   String str ="update pedidos set statue='"+s+"' where clave_pedido="+clave;
+                   //System.out.println(str);
+                st = getConexions().prepareStatement(str);
+                st.executeUpdate();// Actualizar numero de pedido en +1
+                st.close();
+                getConexions().commit();
+                  } catch (Exception e) {
+            Logger.getLogger(VS.class.getName()).log(Level.SEVERE, null, e);
+            try {
+                getConexions().rollback();
+            } catch (Exception o) {
+                System.out.println(o.getMessage());
+            }   
+    }
+                }
 }

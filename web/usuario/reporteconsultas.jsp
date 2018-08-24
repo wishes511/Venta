@@ -44,7 +44,7 @@
                 
                 if(tipo.equals("concentrado")){
                    // System.out.println("Aqui debo de ");
-                ;s="usuario/marca.jasper";
+                s="usuario/marca.jasper";
                 }else s="usuario/marca_1.jasper";
             }else if(uso.equals("linea")){
                 if(tipo.equals("concentrado")){

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : depcosto
-    Created on : Sep 15, 2017, 9:51:16 AM
-    Author     : gateway1
---%>
 
 <%@page import="DAO.DAO_Producto"%>
 <%@page import="persistencia.VS"%>
@@ -20,7 +15,7 @@
     </head>
     <body>
 
-        <% HttpSession objSesion = request.getSession(true);
+        <% HttpSession objSesion = request.getSession(false);
 //i_d
             boolean estado;
             String usuario = (String) objSesion.getAttribute("usuario");
@@ -41,7 +36,7 @@
                 // reporte de etiquetas
                 File reportfile = new File(application.getRealPath("usuario/Ventas_pedido.jasper"));
                 Map para = new HashMap();
-                para.put("ped", new String(p));
+                para.put("search", new String(p));
                 byte[] bytes = JasperRunManager.runReportToPdf(reportfile.getPath(), para, prod.conexionbd());
                 response.setContentType("application/pdf");
                 response.setContentLength(bytes.length);
@@ -53,7 +48,7 @@
                 
             } catch (Exception e) {
                 e.printStackTrace();
-
+                System.out.println(e);
                 //  response.sendRedirect("verpares.jsp");
             } finally {
                 if (prod.conexionbd() != null) {

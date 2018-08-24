@@ -11,7 +11,8 @@
 join Lineas l on dp.linea = l.linea
 join combinaciones c on c.combinacion = p.combinacion
 join corridas cor on cor.corrida=p.corrida 
-where l.descripcion like '%$P!{desc}%'
+join pedidos ped on dp.clave_pedido = ped.clave_pedido
+where l.descripcion = $P{desc} and ped.statue='A'
 group by p.estilo,cor.descripcion,c.descripcion,p.submarca 
 order by total desc]]>
 	</queryString>

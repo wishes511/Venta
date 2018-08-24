@@ -3,12 +3,6 @@
 	<property name="ireport.zoom" value="1.2100000000000002"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="f1" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="f2" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<parameter name="search" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -16,9 +10,10 @@
 		<defaultValueExpression><![CDATA["C:\\Users\\gateway1\\Documents\\NetBeansProjects\\Venta\\web\\usuario\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select distinct p.pedido as 'pedido',convert(date,fechapedido) as 'fecha',convert(date,fechaentrega) as 'fechae',nombrecliente,telefono,totalpares,importe,iva,total 
+		<![CDATA[select distinct p.pedido as 'pedido',convert(date,fechapedido) as 'fecha',convert(date,fechaentrega) as 'fechae',nombrecliente,telefono,totalpares,importe,iva,total,p.usuario,rfc,u.nombre
 from pedidos p join DPedidos dp on dp.clave_pedido=p.clave_pedido 
-join Productos prod on dp.producto=prod.producto join Combinaciones c on dp.combinacion = c.combinacion where (dp.estilo like '%$P!{search}%' or c.descripcion like '%$P!{search}%' or  p.pedido like '%$P!{search}%' or p.nombrecliente like '%$P!{search}%') and convert(date,fechapedido) between $P{f1} and $P{f2} order by pedido]]>
+join Productos prod on dp.producto=prod.producto join Combinaciones c on dp.combinacion = c.combinacion
+join usuarios u on p.usuario=u.usuario where  p.pedido = $P{search} order by pedido]]>
 	</queryString>
 	<field name="pedido" class="java.lang.Integer"/>
 	<field name="fecha" class="java.lang.String"/>
@@ -29,6 +24,9 @@ join Productos prod on dp.producto=prod.producto join Combinaciones c on dp.comb
 	<field name="importe" class="java.math.BigDecimal"/>
 	<field name="iva" class="java.math.BigDecimal"/>
 	<field name="total" class="java.math.BigDecimal"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="rfc" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -59,23 +57,6 @@ join Productos prod on dp.producto=prod.producto join Combinaciones c on dp.comb
 					<pen lineWidth="0.0" lineStyle="Solid" lineColor="#FFFFFF"/>
 				</graphicElement>
 			</rectangle>
-			<subreport>
-				<reportElement x="0" y="20" width="802" height="55" uuid="6443c662-d7b7-4910-ac51-69d6c242eee4"/>
-				<subreportParameter name="search">
-					<subreportParameterExpression><![CDATA[$P{search}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="f1">
-					<subreportParameterExpression><![CDATA[$P{f1}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="f2">
-					<subreportParameterExpression><![CDATA[$P{f2}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="pedido">
-					<subreportParameterExpression><![CDATA[$F{pedido}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Detalleventa_pedido.jasper"]]></subreportExpression>
-			</subreport>
 			<textField>
 				<reportElement x="158" y="0" width="157" height="20" forecolor="#FFFFFF" uuid="4c278469-e74c-4704-9ac1-dc59a0e3e131"/>
 				<textElement verticalAlignment="Middle">
@@ -132,31 +113,62 @@ join Productos prod on dp.producto=prod.producto join Combinaciones c on dp.comb
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<text><![CDATA[Pares:]]></text>
 			</staticText>
+			<subreport>
+				<reportElement x="0" y="20" width="802" height="52" uuid="727b3be8-68f7-4463-976f-1c86ab5738dc"/>
+				<subreportParameter name="search">
+					<subreportParameterExpression><![CDATA[$P{search}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="pedido">
+					<subreportParameterExpression><![CDATA[$F{pedido}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "Detalleventa_pedido.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="20" splitType="Stretch">
-			<textField>
-				<reportElement x="352" y="0" width="63" height="17" uuid="72d76cab-de82-4745-a1db-ee8508d15107"/>
-				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
-			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="415" y="0" width="40" height="17" uuid="d1a39b2d-ace8-463a-9068-e16ea21a57f6"/>
-				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="20" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="129" splitType="Stretch">
+		<band height="109" splitType="Stretch">
 			<line>
-				<reportElement x="315" y="75" width="172" height="1" uuid="1e04ecb6-aa3c-400e-95b7-dfbe2f0fcd5f"/>
+				<reportElement x="512" y="75" width="172" height="1" uuid="1e04ecb6-aa3c-400e-95b7-dfbe2f0fcd5f"/>
 			</line>
 			<textField>
-				<reportElement x="355" y="76" width="100" height="20" uuid="87e85cf0-04df-43a8-afd7-f02003c79b0d"/>
+				<reportElement x="512" y="76" width="172" height="15" uuid="87e85cf0-04df-43a8-afd7-f02003c79b0d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nombrecliente}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="85" y="76" width="172" height="1" uuid="ff460699-c5bc-436b-9599-0821a0513b6e"/>
+			</line>
+			<textField>
+				<reportElement x="85" y="77" width="172" height="14" uuid="a955eeef-f92e-4ed7-a40f-5e8193524f62"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="702" height="20" uuid="8a07daf1-c5cd-4952-b87f-8ccca2515bb7"/>
+				<textFieldExpression><![CDATA[$F{rfc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="89c28312-b188-43e5-86cc-40ea6fc56b63"/>
+				<text><![CDATA[Observaciones: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="89" width="172" height="20" uuid="fe574cad-19b0-4449-a023-321ff2eb3f12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[VENDEDOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="512" y="89" width="172" height="20" uuid="b2f6f99d-a306-42e1-a11a-e8bc295c6f91"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>
