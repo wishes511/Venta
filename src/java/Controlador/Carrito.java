@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
@@ -52,16 +53,17 @@ public class Carrito extends HttpServlet {
         String patt = "[0-9\\,\\<br>]*";
         Pattern pat = Pattern.compile(patt);
         Matcher match = pat.matcher(dato);
-        if (match.matches()) {
+        if (match.matches()) {// verifica si es algo de acuerdo al patron
             String aux = "";
-            for (int i = 0; i < dato.length(); i++) {
+            for (int i = 0; i < dato.length(); i++) { // for por el tamaño de la cadena
                 try {
-                    int var = dato.charAt(i);
-                    if (var >= 46 && var <= 57) {
-                        aux += (char) var + "";
-                    } else {
+                    int var = dato.charAt(i); // tomamos el digito de la celda en i
+                    if (var >= 46 && var <= 57) {// comparamos si es numero o punto
+                        aux += (char) var + ""; // asignar a variable
+                    } else {// si no es algo referente a numeros
                         if (var >= 60 && var <= 63 || var == 98 || var == 114) {
-                        } else {
+                            //verifica si es algo con <br>
+                        } else {// sino la variable aux se almacenara en el arreglo
                             if (var == 108) {
                                 aux += 0 + "";
                             }
@@ -70,12 +72,13 @@ public class Carrito extends HttpServlet {
                         }
                     }
                 } catch (Exception e) {
+                    // si hay algo raro con la distribucion acabar el ciclo y vaciar arreglo
                     i = dato.length();
                     arr.clear();
                     break;
                 }
             }
-        } else {
+        } else {// si no cumple el patron vaciar lista
             arr.clear();
         }
         return arr;
@@ -143,10 +146,10 @@ public class Carrito extends HttpServlet {
                 } else {
                     out.print("<script>alert('Error al procesar datos de distribucion Intentelo de nuevo');</script>");
                 }
-            } else {
+            } else {// si la distribucion ya tiene pedidos
                 ArrayList<String> distcar = new ArrayList<String>();
                 distcar = getdis(dato, distcar);
-                if (!distcar.isEmpty()) {
+                if (!distcar.isEmpty()) {// si la distribucion no es vacia
                      int cont = 0;
                 boolean flag = true;
                 boolean flagtemp = false;
@@ -176,10 +179,8 @@ public class Carrito extends HttpServlet {
                         } else {
                             i = cor.size();
                         }
-
                     }
                 }
-                // System.out.println(flag);
                 if (flag) {
                     objSesion.setAttribute("distribucion", dis);
                 } else {
@@ -208,15 +209,14 @@ public class Carrito extends HttpServlet {
             for (int i = 0; i < tamano; i++) {
                 double pi = corrida.get(i).getPi();
                 double pf = corrida.get(i).getPf() + 1;
-                if (cor.get(i).getProducto() != Integer.parseInt(producto)) {
-
-                    while (pi < pf) {
+                if (cor.get(i).getProducto() != Integer.parseInt(producto)) {// comparar idproducto con el parametro del campo recibido
+                    while (pi < pf) {// ciclo para almacenar la distribucion
 //                        System.out.println("cont:" + cont + " " + dis.get(cont));
                         arraux.add(dis.get(cont));
                         pi += 0.5;
                         cont++;
                     }
-                } else {
+                } else { // para saber en que parte del producto se quedo y eliminar de laas otras estructuras
                     while (pi < pf) {
                         pi += 0.5;
                         cont++;
@@ -225,22 +225,23 @@ public class Carrito extends HttpServlet {
                 }
             }
             if (corrida.isEmpty()) {
-                dis.clear();
+                dis.clear();// limpiar todas las estructuras
                 cor.clear();
                 corrida.clear();
                 objSesion.setAttribute("distribucion", dis);
                 objSesion.setAttribute("producto", cor);
                 objSesion.setAttribute("corrida", corrida);
             } else {
-                dis.clear();
-                cor.remove(indice);
+                dis.clear();// limpiar 
+                cor.remove(indice); //borrar del indice el registro del producto
                 corrida.remove(indice);
-                dis = arraux;
+                dis = arraux;// actualizar estructura con el producto fuera
                 objSesion.setAttribute("producto", cor);
                 objSesion.setAttribute("corrida", corrida);
                 objSesion.setAttribute("distribucion", dis);
             }
         } else if (uso.equals("nuevopedido")) {
+            esperar();
             String fp = (String) request.getParameter("fp");
             String fe = (String) request.getParameter("fe");
             String nc = (String) request.getParameter("nc").toUpperCase();
@@ -300,13 +301,13 @@ public class Carrito extends HttpServlet {
             String status = (String) request.getParameter("status").toUpperCase();
             DAO_Pedido ped = new DAO_Pedido();
             arr = ped.getall(f1, f2, b,status);
-            String modo="alta";
+            String modo="alta"; // se utiliza para distinguir que tipo de imagen y funcion utilizar
             String imagen="up";
             if(status.equals("A")){
                 modo="baja";
                 imagen="down";
             }
-            for (int i = 0; i < arr.size(); i++) {
+            for (int i = 0; i < arr.size(); i++) { // despliegue informacion en filas
                 out.print("<tr>");
                 out.print("<td>" + arr.get(i).getPedido() + "</td>");
                 out.print("<td>" + arr.get(i).getFechapedido() + "</td>");
@@ -341,5 +342,16 @@ public class Carrito extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    private void esperar() {// metodo para evitar
+        Random rnd=new Random();
+        int seg=(int)(rnd.nextDouble()  * 5 + 1);
+        System.out.println(seg);
+		try {
+			Thread.sleep(seg * 1000);
+                       
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+	}
 
 }

@@ -6,13 +6,16 @@
 	<parameter name="desc" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="submarca" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select distinct p.estilo,cor.descripcion,c.descripcion as 'corrida',sum(dp.totalprod) as 'total' from DPedidos dp join Productos p on dp.producto=p.producto
 join Lineas l on dp.linea = l.linea
 join combinaciones c on c.combinacion = p.combinacion
 join corridas cor on cor.corrida=p.corrida 
 join pedidos ped on dp.clave_pedido = ped.clave_pedido
-where l.descripcion = $P{desc} and ped.statue='A'
+where l.descripcion = $P{desc} and ped.statue='A' and p.submarca=$P{submarca}
 group by p.estilo,cor.descripcion,c.descripcion,p.submarca 
 order by total desc]]>
 	</queryString>

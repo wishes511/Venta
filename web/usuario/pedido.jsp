@@ -277,6 +277,9 @@
                                 <div class="col-md-4"><label>Telefono</label><div class=""><input class="form-control" type="text" id="tel" ></div></div>
                                 <div class="col-md-8"><label>Email</label><div class=""><input class="form-control" type="text" id="email" ></div></div>
                             </div>
+                            <div class="" style="padding-top: 10%">
+                                <div class="col-md-12"><label>Observaciones:</label><div class=""><input class="form-control" type="text" id="rfc" ></div></div>
+                            </div>
                             <div style="padding-top: 10%">
                                 <button class="btn btn-danger" onclick="dopedido()">Finalizar Pedido</button>
                             </div>

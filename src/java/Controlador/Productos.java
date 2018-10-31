@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import persistencia.VS;
 
 /**
  *
@@ -100,9 +101,9 @@ public class Productos extends HttpServlet {
                 DAO_Producto dprod = new DAO_Producto();
                 DAO_Corrida dcor = new DAO_Corrida();
                 Producto p = new Producto();
-                p = dprod.getprodwithID(Integer.parseInt(clave));
+                p = dprod.getprodwithID(Integer.parseInt(clave));// obtener producto desde campo HTML
                 Corrida c = new Corrida();
-                c = dcor.getcorridawithID(Integer.parseInt(clave));
+                c = dcor.getcorridawithID(Integer.parseInt(clave)); // obtener corrida y puntos desde campo HTML
                 if (p.getEstilo() != 0) {
                     out.print("<div class=\"container-fluid\"><div class=\"col-md-4\" style=\"padding-top: 2%\" align=\"center\">\n"
                             + "                        <div class=\"    row\"><label class=\"prodbusqeuda\">Estilo</label><label class=\"prodbusqeuda\">Combinacion</label><label class=\"prodbusqeuda\">Corrida</label></div>\n"
@@ -183,7 +184,7 @@ public class Productos extends HttpServlet {
                 if (!lista.isEmpty()) {
                     for (int i = 0; i < lista.size(); i++) {
                         out.print("<tr>"
-                                + "<td>" + lista.get(i).getEstilo() + "</td>"
+                                + "<td onclick=domod("+lista.get(i).getProducto()+")>" + lista.get(i).getEstilo() + "</td>"
                                 + "<td>" + lista.get(i).getCombinacionchar() + "</td>"
                                 + "<td>" + lista.get(i).getCorridachar() + "</td>"
                                 + "<td>" + lista.get(i).getLineachar() + "</td>"
@@ -194,6 +195,26 @@ public class Productos extends HttpServlet {
                     }
                 }
                 out.print("</table>");
+            }else if(uso.equals("update")){
+                int estilo = Integer.parseInt((String) request.getParameter("estilo"));
+                String combinacion = ((String) request.getParameter("combinacion"));
+                int corrida = Integer.parseInt((String) request.getParameter("corrida"));
+                String linea = (String) request.getParameter("linea");
+                String tipo = ((String) request.getParameter("tipo").toUpperCase());
+                String marca = ((String) request.getParameter("marca").toUpperCase());
+                int prod = Integer.parseInt((String) request.getParameter("prod"));
+                Producto p = new Producto();
+                p.setProducto(prod);
+                p.setEstilo(estilo);
+                p.setClave_combinacion(Integer.parseInt(combinacion));
+                p.setClave_corrida(corrida);
+                p.setClave_linea(Integer.parseInt(linea));
+                p.setTipo(tipo);
+                p.setMarca(marca);
+                VS v = new VS();
+                String msg="";
+                msg=v.actualizarprod(p);
+                out.print(msg);
             }
 
         }catch(NumberFormatException a){

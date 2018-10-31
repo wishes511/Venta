@@ -24,6 +24,33 @@ import java.util.logging.Logger;
 public class VS extends conBD {
 
     // Busquedas--------------
+    public Producto buscarprodID_mod(int clave) throws ClassNotFoundException, SQLException {
+        Producto p = new Producto();
+        String query = "select p.corrida as 'corrida',p.estilo as 'estilo',p.Producto as 'producto',p.tipo as 'desc', "
+                + "c.descripcion as 'corridac',com.descripcion as 'combinacionchar', l.descripcion as 'linea' from Productos p \n"
+                + "join Corridas c on p.Corrida=c.Corrida \n"
+                + "join Combinaciones com on p.Combinacion=com.Combinacion join lineas l on p.linea=l.linea \n"
+                +" where producto=" + clave + "";
+        //System.out.println(query);
+        Statement smt;
+        ResultSet df;
+        abrirs();
+        Connection conect = getConexions();
+        smt = conect.createStatement();
+        df = smt.executeQuery(query);
+        while (df.next()) {
+            p.setClave_corrida(df.getInt("corrida"));
+            p.setEstilo(df.getInt("estilo"));
+            p.setProducto(df.getInt("producto"));
+            p.setLineachar(df.getString("linea"));
+            p.setTipo(df.getString("desc"));
+            p.setCombinacionchar(df.getString("combinacionchar"));
+        }
+        df.close();
+        smt.close();
+        return p;
+    }
+    
     public Producto buscarprodID(int clave) throws ClassNotFoundException, SQLException {
         Producto p = new Producto();
         p.setEstilo(0);
@@ -86,7 +113,7 @@ public class VS extends conBD {
                 + "from Productos p \n"
                 + "join Corridas c on p.Corrida=c.Corrida \n"
                 + "join Lineas l on p.linea=l.linea \n"
-                + "join Combinaciones com on p.Combinacion=com.Combinacion where p.statue='A'";
+                + "join Combinaciones com on p.Combinacion=com.Combinacion where p.statue='A' order by p.estilo";
         Statement smt;
         ResultSet df;
         abrirs();
@@ -344,4 +371,26 @@ public class VS extends conBD {
         smt.close();
         return arr;
     }
+    public String actualizarprod(Producto p) throws SQLException {
+String msj="";
+PreparedStatement st = null;
+        try{
+            abrirs();
+        getConexions().setAutoCommit(false);
+    String str ="update productos set estilo="+p.getEstilo()+", combinacion="+p.getClave_combinacion()+
+            ", corrida="+p.getClave_corrida()+", linea="+p.getClave_linea()+", tipo='"+p.getTipo()+"', submarca='"+p.getMarca()+"' "
+            + "where producto ="+p.getProducto();
+   // System.out.println(str);
+                st = getConexions().prepareStatement(str);
+                st.executeUpdate();// Actualizar numero de pedido en +1
+                st.close(); 
+                getConexions().commit();
+                msj="Modificacion completa!";
+        }catch(Exception e){
+            System.out.println(e);
+             msj="Verifique sus datos!";
+        getConexions().rollback();
+        }
+return msj;
+}
 }

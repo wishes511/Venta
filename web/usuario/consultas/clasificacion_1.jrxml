@@ -66,12 +66,15 @@ order by total desc]]>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="168" y="16" width="215" height="14" uuid="8f4e8ec1-3a3f-4edf-97b4-ffc51fbf7edf"/>
+				<reportElement x="168" y="16" width="215" height="20" uuid="ef0290b3-3861-4aa9-9a27-7acb1e01c1e7"/>
 				<subreportParameter name="desc">
 					<subreportParameterExpression><![CDATA[$F{descripcion}]]></subreportParameterExpression>
 				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "clasificaciondet.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "clasificaciondet_cat.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

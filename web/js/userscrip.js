@@ -3,6 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+function domod(prod){
+    location="modprod.jsp?prod="+prod;   
+}
+function doupdate(){
+    var estilo=$("#estilo").val();
+    var combinacion=$("#combinacion").val();
+    var corrida=$("#corrida").val();
+    var linea=$("#linea").val();
+    var marca=$("#marca").val();
+    var prod=$("#prod").val();
+    var tipo=$("#tipo").val();
+    //alert(estilo+"-"+combinacion+"-"+corrida+"-"+linea+"-"+marca+"-"+prod);
+    var uso="update";
+    $.ajax({
+            type: 'post',
+            data: {uso: uso,prod:prod,estilo:estilo,combinacion:combinacion,corrida:corrida,linea:linea,marca:marca,tipo:tipo},
+            url: '../Productos',
+            success: function (result) {
+                //('#distribucion').html(result);
+                alert(result);
+                location="productos.jsp";
+               // document.location.reload();                                                 
+                //$('#carrosid').html("<div class='container-fluid'><ul class=nav navbar-nav><li ><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\">("+result+")</a></li></ul></div>");
+            }
+        });
+}
 function to_searchprod() {
     var catalogo = $('#catalogo').val();
     var uso = "buscar";
@@ -17,7 +43,7 @@ function to_searchprod() {
         }
     });
 }
-function to_searchprod_cata() {
+function to_searchprod_cata() {// busqueda de producto
     var catalogo = $('#catalogo').val();
                 var uso = "searchprod_cata";
                 $.ajax({
@@ -61,8 +87,14 @@ function averdato() {
         
    // $('#distribucion').html("<div class=\"container-fluid\"><div class=\"col-md-offset-5\"><label>Estilo Agregado al pedido exitosamente</label></div></div>");
 }
+
+function tomod(prod){
+    location="modped.jsp?prod="+prod;
+    
+}
 function vaciar() {
-    var uso = "vaciar";
+    if (confirm("¿Realmente desea vaciar el pedido?")) {
+        var uso = "vaciar";
     $.ajax({
         type: 'post',
         data: {uso: uso},
@@ -72,6 +104,8 @@ function vaciar() {
         }
     });
     document.location.reload();
+    }
+    
   //  document.getElementById("carrosid").innerHTML = "<div class='container-fluid'><li style='background-color:none'><a href=Utilidades_Donacionest.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li></div></nav>";
   //  $('#distribucion').html("<div class=\"container-fluid\"><div class=\"col-md-offset-5\"><label>Vaciado de pedido completo</label></div></div>");
   //  $('#desc-ped').html("");

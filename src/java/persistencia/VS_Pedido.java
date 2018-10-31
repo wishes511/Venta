@@ -58,7 +58,7 @@ public class VS_Pedido extends conBD {
             st.executeUpdate();// insercion de nuevo pedido en la bd
             st.close();
         String query = "select max(clave_pedido) as 'clave_pedido' from Pedidos"; // recuperar ultimo pedido realizado
-        System.out.println(query);
+        //System.out.println(query);
         Statement smt;
         ResultSet df;
         Connection conect = getConexions();
@@ -107,11 +107,12 @@ public class VS_Pedido extends conBD {
                 flag=true;
                 cant=1;
                 cantxprod=0;
-                str ="update empresa set pedido=pedido+1";
+                       
+        }
+        str ="update empresa set pedido=pedido+1";
                 st = getConexions().prepareStatement(str);
                 st.executeUpdate();// Actualizar numero de pedido en +1
-                st.close();       
-        }
+                st.close();
         getConexions().commit();
         } catch (Exception e) {
             Logger.getLogger(VS.class.getName()).log(Level.SEVERE, null, e);

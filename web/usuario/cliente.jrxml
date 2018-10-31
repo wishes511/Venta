@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7158ed34-39f2-49a8-8cfa-b673779eabcf">
-	<property name="ireport.zoom" value="1.771561000000003"/>
+	<property name="ireport.zoom" value="1.7715610000000048"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="desc" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\gateway1\\Documents\\NetBeansProjects\\Venta\\web\\usuario\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select distinct nombrecliente,sum(totalpares) as 'total' from Pedidos
@@ -44,45 +47,62 @@ order by total desc]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="4" splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="28" splitType="Stretch">
+		<band height="21" splitType="Stretch">
+			<line>
+				<reportElement x="155" y="18" width="228" height="1" uuid="b4bb1c7e-f6a5-41d5-8f30-e9c21e4203c0"/>
+			</line>
 			<staticText>
-				<reportElement x="157" y="7" width="126" height="20" uuid="1969b96a-447e-4c17-ad96-744eb86ff2f0"/>
-				<textElement textAlignment="Center">
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Cliente]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="283" y="7" width="100" height="20" uuid="f0f7b7b3-74fa-4a86-94d6-f279fc4e9fca"/>
+				<reportElement x="281" y="0" width="100" height="20" uuid="f0f7b7b3-74fa-4a86-94d6-f279fc4e9fca"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Pares]]></text>
 			</staticText>
-			<line>
-				<reportElement x="159" y="27" width="224" height="1" uuid="b4bb1c7e-f6a5-41d5-8f30-e9c21e4203c0"/>
-			</line>
+			<staticText>
+				<reportElement x="155" y="0" width="126" height="20" uuid="1969b96a-447e-4c17-ad96-744eb86ff2f0"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
 		</band>
-	</columnHeader>
+	</pageHeader>
 	<detail>
-		<band height="14" splitType="Stretch">
+		<band height="25" splitType="Stretch">
+			<rectangle>
+				<reportElement x="155" y="1" width="224" height="12" backcolor="#99CCFF" uuid="90c9cda2-744e-468c-970f-b631509014b4"/>
+				<graphicElement>
+					<pen lineWidth="0.0" lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
 			<textField pattern="#,##0">
-				<reportElement x="283" y="0" width="100" height="12" uuid="7b6c8082-c363-4228-be6c-4e81d6419a5c"/>
+				<reportElement x="279" y="1" width="100" height="12" uuid="7b6c8082-c363-4228-be6c-4e81d6419a5c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="159" y="0" width="124" height="12" uuid="53f8f058-cdee-47b9-bdc6-2522bf1b12b3"/>
+				<reportElement x="155" y="1" width="124" height="12" uuid="53f8f058-cdee-47b9-bdc6-2522bf1b12b3"/>
 				<textElement verticalAlignment="Middle">
-					<font size="8"/>
+					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombrecliente}]]></textFieldExpression>
 			</textField>
+			<subreport>
+				<reportElement x="155" y="14" width="224" height="11" uuid="6412be9a-58d7-41aa-ba8b-17d22ee8d906"/>
+				<subreportParameter name="desc">
+					<subreportParameterExpression><![CDATA[$P{IS_IGNORE_PAGINATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cliente">
+					<subreportParameterExpression><![CDATA[$F{nombrecliente}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "catxmarca_1.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<pageFooter>

@@ -1,4 +1,5 @@
 
+<%@page import="persistencia.VS"%>
 <%@page import="DAO.DAO_Linea"%>
 <%@page import="Modelo.Linea"%>
 <%@page import="DAO.DAO_Corrida"%>
@@ -37,13 +38,17 @@
         linlist=alin.getall();
         corlist=acor.getall();
         comb=acomb.getall();
+        int prod= Integer.parseInt(request.getParameter("prod"));
+        Producto p = new Producto();
+        VS v = new VS();
+        p=v.buscarprodID_mod(prod);
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Productos</title>
+        <title>Productos(Modificacion)</title>
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" sizes="32x32" href="../images/aff.png" />
@@ -149,7 +154,6 @@
                         </a>
                         <ul class="dropdown-menu" id="#90" role="menu">
                             <li class="active"><a>Productos Generales</a></li>
-                            <li><a class="" onclick="etiquetas()">Etiquetas</a></li>
                         </ul>
                     </li>
                     <%}%>
@@ -185,18 +189,18 @@
             <div class="row">
                 <div class="col-md-4 ">
                     <%if (!tipos.equals("USUARIO")){%>
-                    <h3 class="h3" align="center">Nuevo producto</h3>
-                    <form name="form2" action="../Productos" method="post" class="form-login esp1" style="overflow: auto">
-                        Estilo<input class="form-control input-sm chat-input" type="text" name="estilo" id="estilo" value="" maxlength="20"  required/><br>
+                    <h3 class="h3" align="center">Modificacion de Producto</h3>
+                    <div>
+                        Estilo<input class="form-control input-sm chat-input" type="text" name="estilo" id="estilo" value="<%=p.getEstilo() %>" maxlength="20"  required/><br>
                         <div class="col-xs-12">
                             <div class="col-xs-12">Combinacion</div>
                             <div class="col-xs-12">
-                                <div class="col-xs-8"><input class="form-control input-sm chat-input" type="text" name="combinacion" id="combinacion" value="" maxlength="20"  required/></div>
-                                <div class="col-xs-4"><select class="form-control" id="selectcom" onchange="getcombi()"><option></option>
+                                <!--<div class="col-xs-8"><input class="form-control input-sm chat-input" type="text" name="combinacion" id="combinacion" value="<%=p.getCombinacionchar()%>" maxlength="20"  required/></div>-->
+                                <div class="col-xs-8"><select class="form-control" id="combinacion" ><option></option>
                                     <%
                                     if(!comb.isEmpty()){
                                         for(int i=0;i<comb.size();i++){
-                                            out.print("<option class=\"form-control\" value=\""+comb.get(i).getDescripcion()+"\">"+comb.get(i).getDescripcion()+"</option>");
+                                            out.print("<option class=\"form-control\" value=\""+comb.get(i).getClave()+"\">"+comb.get(i).getDescripcion()+"</option>");
                                         }
                                     }else System.out.println("Vacio");
                                     %>
@@ -206,8 +210,8 @@
                         <div class="col-xs-12">
                             <div class="col-xs-12">Corrida</div>
                             <div class="col-xs-12">
-                                <div class="col-xs-8"><input class="form-control input-sm chat-input" type="text" name="corrida" id="corrida" value="" maxlength="20"  required/></div>
-                                <div class="col-xs-4"><select class="form-control" id="selectcor" onchange="getcorri()"><option></option>
+                                <!--<div class="col-xs-8"><input class="form-control input-sm chat-input" type="text" name="corrida" id="corrida" value="<%=p.getClave_corrida() %>" maxlength="20"  required/></div>-->
+                                <div class="col-xs-8"><select class="form-control" id="corrida" ><option></option>
                                     <%
                                     if(!corlist.isEmpty()){
                                         for(int i=0;i<corlist.size();i++){
@@ -221,20 +225,19 @@
                         <div class="col-xs-12">
                             <div class="col-xs-12">Linea</div>
                             <div class="col-xs-12">
-                                <div class="col-xs-8"><input class="form-control input-sm chat-input" type="text" name="linea" id="linea" value="" maxlength="20"  required/></div>
-                                <div class="col-xs-4"><select class="form-control" id="selectlin" onchange="getlinea()"><option></option>
+                                <!--<div class="col-xs-8"><input class="form-control input-sm chat-input" type="text" name="linea" id="linea" value="<%=p.getLineachar() %>" maxlength="20"  required/></div><div class="col-xs-8"><input class="form-control input-sm chat-input" type="text" name="linea" id="linea" value="<%=p.getLineachar() %>" maxlength="20"  required/></div>-->
+                                <div class="col-xs-8"><select class="form-control" id="linea"><option></option>
                                     <%
                                     if(!linlist.isEmpty()){
                                         for(int i=0;i<linlist.size();i++){
-                                            out.print("<option class=\"form-control\" value=\""+linlist.get(i).getDescripcion()+"\">"+linlist.get(i).getDescripcion()+"</option>");
+                                            out.print("<option class=\"form-control\" value=\""+linlist.get(i).getClave()+"\">"+linlist.get(i).getDescripcion()+"</option>");
                                         }
                                     }else System.out.println("Vacio");
                                     %>
                                     </select></div>
                             </div>
                         </div><br><br>
-                         Costo<input class="form-control input-sm chat-input" type="text" name="costo" id="costo" value=""  required/><br>
-                        Tipo <input class="form-control input-sm chat-input" type="text" name="tipo" id="tipo" value=""  required/><br>
+                        Tipo <input class="form-control input-sm chat-input" type="text" name="tipo" id="tipo" value="<%=p.getTipo() %>"  required/><br>
                         Categoria <select onchange="" class="form-control" name="marca" id="marca" required>
                             <option>Traffic</option>
                             <option>Red Traffic</option>
@@ -243,10 +246,10 @@
                             <option>OC Tactical</option>
                             <option>OCastell Seguridad</option>
                         </select><br>
-                        <input type="submit" class="btn btn-success" value="Aceptar" name="benviar" id="benviar" />
+                        <input type="submit" onclick="doupdate()" class="btn btn-success" value="Aceptar" name="benviar" id="benviar" />
                         <br><br>
-                        <input style="display: none" class="form-control input-sm chat-input" type="text" name="uso" id="uso" value="nuevo"/><br>
-                    </form><%}%>
+                        <input style="display: none" class="form-control input-sm chat-input" type="text" name="prod" id="prod" value="<%=p.getProducto() %>"/><br>
+                    </div><%}%>
                 </div>
                 <div class="col-md-8">
                     <h3 class="h3" align="center">Vista general de productos</h3>
@@ -261,9 +264,6 @@
                                 <th>Estilo</th>
                                 <th>Combinacion</th>
                                 <th>Corrida</th>
-                                <th>Linea</th>
-                                <th>Costo</th>
-                                <th>Tipo</th>
                                 <!--<td>Borrar</td>--> 
                                 <th>Categoria</th>
                             </thead>
@@ -273,12 +273,9 @@
                                     arr = dp.buscarall();
                                     for(int i =0;i<arr.size();i++){
                                     out.print("<tr>");
-                                    out.print("<td onclick=domod("+arr.get(i).getProducto()+")>"+arr.get(i).getEstilo()+"</td>");
+                                    out.print("<td onclick="+arr.get(i).getProducto()+">"+arr.get(i).getEstilo()+"</td>");
                                     out.print("<td>" + arr.get(i).getCombinacionchar() + "</td>");
                                     out.print("<td>" + arr.get(i).getCorridachar()+"</td>");
-                                    out.print("<td>" + arr.get(i).getLineachar()+ "</td>");
-                                    out.print("<td>" + arr.get(i).getCostof()+ "</td>");
-                                    out.print("<td>" + arr.get(i).getTipo()+ "</td>");
                                     out.print("<td>" + arr.get(i).getMarca()+ "</td>");
                                     //out.print("<td><a name=mod value=" + arr.get(i).getProducto() +" class=btn onclick=modi(" + arr.get(i).getProducto() + ")><img src=\"../images/modificar.png\" width=30 height=30></a></td>");
                                     out.print("</tr>");
