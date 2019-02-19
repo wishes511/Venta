@@ -9,10 +9,10 @@ import java.io.Serializable;
 
 /**
  *
- * @author gateway1
+ * @author GATEWAY1-
  */
 public class Producto implements Serializable{
-    private int producto, clave_combinacion,clave_corrida,clave_linea,clave_clasificacion,estilo;
+  private int producto, clave_combinacion,clave_corrida,clave_linea,clave_clasificacion,estilo;
 
     public int getEstilo() {
         return this.estilo;
@@ -127,4 +127,6 @@ public class Producto implements Serializable{
     public void setCombinacionchar(String combinacionchar) {
         this.combinacionchar = combinacionchar;
     }
+    // Add business logic below. (Right-click in editor and choose
+    // "Insert Code > Add Business Method")
 }

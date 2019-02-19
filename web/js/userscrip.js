@@ -55,6 +55,38 @@ function to_searchprod_cata() {// busqueda de producto
                     }
                 });
 }
+function modpedido() {//funcion modificar pedido
+    var total = document.getElementsByTagName("td").length;
+    var prod=$('#catalogo').val();
+    var cadena = "";
+    var flag=0;
+    var pares=0;
+    var uso = "modificar";
+    for (var i = 0; i < total; i++) {
+        var variable = document.getElementsByTagName("td")[i].innerHTML;
+        if(variable == "<br>" || variable==" " || variable== "" || variable=="&nbsp;" || variable =="</p>"){
+            cadena = cadena + "0" + ",";
+        }
+        else{
+            cadena = cadena + variable + ",";
+        }
+    }
+    if(flag==0){
+        $.ajax({
+            type: 'post',
+            data: {p: cadena, uso: uso,prod:prod},
+            url: '../Carrito',
+            success: function (result) {
+                //('#distribucion').html(result);
+                location="index.jsp";
+               // document.location.reload();                                                 
+                //$('#carrosid').html("<div class='container-fluid'><ul class=nav navbar-nav><li ><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\">("+result+")</a></li></ul></div>");
+            }
+        });
+    }
+        
+   // $('#distribucion').html("<div class=\"container-fluid\"><div class=\"col-md-offset-5\"><label>Estilo Agregado al pedido exitosamente</label></div></div>");
+}
 function averdato() {
     var total = document.getElementsByTagName("td").length;
     var prod=$('#catalogo').val();
@@ -88,6 +120,45 @@ function averdato() {
    // $('#distribucion').html("<div class=\"container-fluid\"><div class=\"col-md-offset-5\"><label>Estilo Agregado al pedido exitosamente</label></div></div>");
 }
 
+function datoprepack() {
+    var total = document.getElementsByTagName("td").length;
+    var prod=$('#catalogo').val();
+    var cadena = "";
+    var flag=0;
+    var pares=$('#nprepack').val();
+    var uso = "anadir";
+    if(pares===''){
+        alert("EL campo de numero de pares no puede ir vacio.");
+        document.getElementById('nprepack').focus();
+        
+    }else {
+            for (var i = 0; i < total; i++) {
+        var variable = document.getElementsByTagName("td")[i].innerHTML;
+        if(variable == "<br>" || variable==" " || variable== "" || variable=="&nbsp;"){
+            cadena = cadena + pares + ",";
+        }
+        else{
+            cadena = cadena + variable + ",";
+        }
+    }
+    //alert(cadena);
+   if(flag==0){
+        $.ajax({
+            type: 'post',
+            data: {p: cadena, uso: uso,prod:prod},
+            url: '../Carrito',
+            success: function (result) {
+                //('#distribucion').html(result);
+                location="index.jsp";
+               // document.location.reload();                                                 
+                //$('#carrosid').html("<div class='container-fluid'><ul class=nav navbar-nav><li ><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\">("+result+")</a></li></ul></div>");
+            }
+        });
+    }
+        
+    }
+
+ }
 function tomod(prod){
     location="modped.jsp?prod="+prod;
     

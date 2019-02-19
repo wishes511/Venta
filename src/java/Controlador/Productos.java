@@ -106,13 +106,13 @@ public class Productos extends HttpServlet {
                 c = dcor.getcorridawithID(Integer.parseInt(clave)); // obtener corrida y puntos desde campo HTML
                 if (p.getEstilo() != 0) {
                     out.print("<div class=\"container-fluid\"><div class=\"col-md-4\" style=\"padding-top: 2%\" align=\"center\">\n"
-                            + "                        <div class=\"    row\"><label class=\"prodbusqeuda\">Estilo</label><label class=\"prodbusqeuda\">Combinacion</label><label class=\"prodbusqeuda\">Corrida</label></div>\n"
-                            + "                        <div class=\"row\"><label class=\"prodbusqeuda\">" + p.getEstilo() + "</label><label class=\"prodbusqeuda\">" + p.getCombinacionchar() + "</label><label class=\"prodbusqeuda\">" + p.getCorridachar() + "</label></div>\n"
-                            + "                    </div>"
-                            + "            <div class=\" col-md-offset-4\"  id=\"get_catalogo\" align=\"center\" style=\"padding-top: 2%\">\n"
-                            + "                <div style=\" overflow: auto\"  class=\"col-md-12\" align=\"center\" >\n"
-                            + "                    <table  border=\"1\" width=\"5\" class=\"table table-bordered table-condensed\" style=\"overflow: auto\" align=\"center\">\n"
-                            + "                        <thead align=\"center\" >");
+                            + " <div class=\"    row\"><label class=\"prodbusqeuda\">Estilo</label><label class=\"prodbusqeuda\">Combinacion</label><label class=\"prodbusqeuda\">Corrida</label></div>\n"
+                            + " <div class=\"row\"><label class=\"prodbusqeuda\">" + p.getEstilo() + "</label><label class=\"prodbusqeuda\">" + p.getCombinacionchar() + "</label><label class=\"prodbusqeuda\">" + p.getCorridachar() + "</label></div>\n"
+                            + " </div>"
+                            + " <div class=\" col-md-offset-4\"  id=\"get_catalogo\" align=\"center\" style=\"padding-top: 2%\">\n"
+                            + " <div style=\" overflow: auto\"  class=\"col-md-12\" align=\"center\" >\n"
+                            + " <table  border=\"1\" width=\"5\" class=\"table table-bordered table-condensed\" style=\"overflow: auto\" align=\"center\">\n"
+                            + " <thead align=\"center\" >");
                     float i = c.getPi();
                     float z = c.getPf() + 1;
                     while (i < z) {
@@ -135,8 +135,10 @@ public class Productos extends HttpServlet {
                         i += 0.50;
                     }
                     out.print("</tr></table></div></div>");
-                    out.print("<div class=\"row\"><div class=\"col-md-offset-6\">"
+                    out.print("<div class=\"row\"><div class=\"col-md-offset-5\">"
                             + "<label onclick=\"averdato()\">Agregar Al Pedido</label><a class=\"btn\"><img onclick=\"averdato()\" class=\"imagentabla\" src=\"../images/ok.png\" alt=\"\"></a>"
+                            +"<button type=\"button\" class=\"btn btn-primary btn-lg\" data-toggle=\"modal\" data-target=\"#miModal\">\n" 
+                            +"Iniciar Prepack</button>"
                             + "</div></div></div>");
                 }else{ out.print("<div class=\"container-fluid\">");
                        out.print("<div class=\" col-md-offset-1\"  id=\"get_catalogo\" align=\"center\" style=\"padding-top: 2%\">");
@@ -218,12 +220,15 @@ public class Productos extends HttpServlet {
             }
 
         }catch(NumberFormatException a){
+         System.out.println(a);
          PrintWriter out=  response.getWriter();
-         out.print("<label>Error al procesar Letras con numeros, Intentelo de nuevo</label>");
+         out.print("<script>alert('Error al procesar Letras con numeros, Intentelo de nuevo');");
+         out.print("location='usuario/productos.jsp';</script>");
         } catch (Exception e) {
             
         PrintWriter out=  response.getWriter();
-        out.print("location=../index");
+        out.print("<script>alert('Error al procesar Informacion');");
+         out.print("location='location=../index';</script>");
             System.out.println(e);
             //response.sendRedirect("../index.jsp");
         }

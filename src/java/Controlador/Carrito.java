@@ -329,6 +329,14 @@ public class Carrito extends HttpServlet {
             String clave = (String) request.getParameter("clave");
             DAO_Pedido p = new DAO_Pedido();
             p.alta(clave);
+        }else if(uso.equals("modificar")){
+            ArrayList <String> lista = new ArrayList<String>();
+            String dato = (String) request.getParameter("p");
+            String prod = (String) request.getParameter("prod");
+            lista=getdis(dato,dis);
+            for(int i =0;i<=lista.size();i++){
+                System.out.println(lista.get(i));
+            }
         }
 
     }

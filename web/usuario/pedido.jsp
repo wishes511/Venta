@@ -183,7 +183,7 @@
 "                    <table border=\"1\" width=\"5\" class=\"table table-bordered table-condensed table-hover\" style=\"overflow: auto\" align=\"center\">");
                             int cont = 0;
                             for (int i = 0; i < cor.size(); i++) {
-                                out.println("<tr align=\"center\" >");
+                                out.println("<tr align=\"center\" contenteditable=\"true\">");
                                 float pi = corrida.get(i).getPi();
                                 float pf = corrida.get(i).getPf()+1;
                                 while (pi < pf) {
@@ -219,6 +219,7 @@
                 <%if (!dis.isEmpty()) { %>
                 <div align="center">
                     <button style=" " class="btn btn-warning" onclick="mostrarVentanas()">Guardar Pedido</button>
+                    <button style=" " class="btn btn-default" onclick="modpedido()">Realizar modificación</button>
                 </div>
                 <% }%>
             </div>

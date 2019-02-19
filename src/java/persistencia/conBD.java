@@ -32,7 +32,7 @@ public class conBD {
         Class.forName(drive);
 //        conexion = DriverManager.getConnection(url, "mich", "mich");
         //System.out.println();
-        conexion = DriverManager.getConnection(url, "sa", "Prok2001");
+        //conexion = DriverManager.getConnection(url, "sa", "Prok2001");
     }
     public void cerrar() throws SQLException {
         conexion.close();
@@ -66,7 +66,7 @@ public class conBD {
         Class.forName(drive);
 //        conexioncpt = DriverManager.getConnection(urlcpt, "mich", "mich");
         //System.out.println();
-        conexioncpt = DriverManager.getConnection(urlcpt, "sa", "Prok2001");
+        //conexioncpt = DriverManager.getConnection(urlcpt, "sa", "Prok2001");
     }
     public void cerrarcpt() throws SQLException {
         conexioncpt.close();

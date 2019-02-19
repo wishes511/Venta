@@ -148,7 +148,7 @@
              <%if (tipos.equals("ADMIN")||tipos.equals("VENTAS")) {
                         if (!cor.isEmpty()) {
                             out.print("<li  id=\"carrosid\" s><a style='color:white' href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"> " + " (" + cor.size() + ")</a></li>");
-                            System.out.println(cor.size()+"-"+dis.size());
+                            //System.out.println(cor.size()+"-"+dis.size());
                         } else {
                             out.print("<li  id=\"carrosid\"><a href=pedido.jsp><img class=\"imagencesta\" src=\"../images/cesta.png\"></a></li>");
                         }}
@@ -284,6 +284,32 @@
             </div>
             </div>
         </div>
+ 	
+<div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4  class="modal-title" id="myModalLabel">Prepack</h4>
+			</div>
+			<div class="modal-body">
+                            <div class="container-fluid">
+                                <h4 align="center" class="modal-title" id="myModalLabel">Numero de pares por punto</h4>
+                                <br>
+                                <div class="col-md-offset-3 col-md-6">
+                                <input type="text" class="form-control" id="nprepack" onchange="datoprepack()"></input>
+                                <br>
+                                <label onclick="datoprepack()">Agregar Al Pedido</label><a class="btn"><img onclick="datoprepack()" class="imagentabla" src="../images/ok.png" alt=""></a>
+                            </div>
+                            </div>
+                            
+                            
+			</div>
+		</div>
+	</div>
+</div>                    
     </body>
 </html>
 <%

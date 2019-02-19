@@ -181,12 +181,10 @@ public class VS extends conBD {
                 VS_Linea vlinea = new VS_Linea();
                 linea=vlinea.nuevalinea(p);
             }else linea=getlinean(p);
-            
-            int clave=getlastprod()+1;
+            int clave=0;
             int comb=0;
             int buscacomb=getcombequal(p);
             if(buscacomb==0){
-            comb=getlastcomb()+1;
             }else comb=buscacomb;
             
         try {
@@ -203,52 +201,13 @@ public class VS extends conBD {
             //System.out.println(s);
             st = getConexions().prepareStatement(s);
             st.executeUpdate();
-            
-//        } catch (Exception e) { insert into Productos values(7172,5454,94,1054,2,'CHOCLITO',132.56,'A',0,'RED TRAFFIC')
-//            Logger.getLogger(VS.class.getName()).log(Level.SEVERE, null, e);
-//            try {
-//                getConexions().rollback();
-//            } catch (Exception o) {
-//                System.out.println(o.getMessage());
-//            }
-//            
-//        }
-//         try {
-            abrir();// BD RCPT
-            abrircpt();
-            getConexion().setAutoCommit(false);
-            getConexioncpt().setAutoCommit(false);
-            if(buscacomb==0){
-            s = "insert into Combinaciones(Combinacion,Material1,Color1) values("+comb+",1,1)";
-            //System.out.println(s);
-            st = getConexion().prepareStatement(s);
-            st.executeUpdate();
-            st.close();
-            s = "insert into Combinaciones(Combinacion,Material1,Color1) values("+comb+",1,1)";
-           // System.out.println(s);
-            st = getConexioncpt().prepareStatement(s);
-            st.executeUpdate();
-            st.close();
-            }
-            s = "insert into Productos(Producto,Estilo,Corrida,Combinacion,Linea) values("+clave+","+p.getEstilo()+","+p.getClave_corrida()+","+comb+",99)";
-            st = getConexion().prepareStatement(s);
-            st.executeUpdate();
-            st.close();
-            s = "insert into Productos(Producto,Estilo,Corrida,Combinacion,Linea) values("+clave+","+p.getEstilo()+","+p.getClave_corrida()+","+comb+",99)";
-            st = getConexioncpt().prepareStatement(s);
-            st.executeUpdate();
-            st.close();
-            getConexion().commit();
             getConexions().commit();
-            getConexioncpt().commit();
             mensaje="Estilo Completo";
         } catch (Exception e) {
             mensaje=e+"";
             Logger.getLogger(VS.class.getName()).log(Level.SEVERE, null, e);
             try {
                 getConexions().rollback();
-                getConexion().rollback();
-                getConexioncpt().rollback();
             } catch (Exception o) {
                 System.out.println(o.getMessage());
             }   
@@ -257,56 +216,22 @@ public class VS extends conBD {
             //System.out.println(mensaje);
      return mensaje;
     }
-    private int getlastprod() throws ClassNotFoundException, SQLException{
-        int prod=0;
-        String query = "select MAX(producto) as producto from Productos ";
-        Statement smt;
-        ResultSet df;
-        abrir();
-        Connection conect = getConexion();
-        smt = conect.createStatement();
-        df = smt.executeQuery(query);
-        while (df.next()) {
-            prod=df.getInt("producto");
-        }
-        //System.out.println(prod);
-        df.close();
-        smt.close();
-        return prod;
-    }
-    private int getlastcomb() throws ClassNotFoundException, SQLException{
-        int comb=0;
-        String query = "select MAX(combinacion) as combinacion from Combinaciones";
-        Statement smt;
-        ResultSet df;
-        abrir();
-        Connection conect = getConexion();
-        smt = conect.createStatement();
-        df = smt.executeQuery(query);
-        while (df.next()) {
-            comb=df.getInt("combinacion");
-        }
-       // System.out.println(comb);
-        df.close();
-        smt.close();
-        return comb;
-    }
+   
     private int getestcomb(Producto p) throws ClassNotFoundException, SQLException{
     int comb=0;
     String query = "select c.combinacion as 'combinacion' from Combinaciones c "
             + " join Productos p on p.combinacion=c.combinacion"
             + " where  p.corrida="+p.getClave_corrida()+" and p.estilo="+p.getEstilo()+" and c.combinacion like '"+p.getCombinacionchar()+"'";
-    System.out.println(query+"-"+comb);
+    //System.out.println(query+"-"+comb);
     Statement smt;
     ResultSet df;
-    abrir();
-    Connection conect = getConexion();
+    abrirs();
+    Connection conect = getConexions();
     smt = conect.createStatement();
     df = smt.executeQuery(query);
     while (df.next()) {
         comb=df.getInt("combinacion");
     }
-    
     df.close();
     smt.close();
     return comb;
@@ -324,7 +249,6 @@ public class VS extends conBD {
     while (df.next()) {
         comb=df.getInt("combinacion");
     }
-    
     df.close();
     smt.close();
     return comb;
@@ -343,7 +267,6 @@ public class VS extends conBD {
     while (df.next()) {
         comb=df.getInt("linea");
     }
-    
     df.close();
     smt.close();
     return comb;
