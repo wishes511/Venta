@@ -5,7 +5,6 @@
  */
 package persistencia;
 
-
 import Modelo.Combinacion;
 import Modelo.Corrida;
 import Modelo.Producto;
@@ -25,31 +24,35 @@ import java.util.logging.Logger;
  */
 public class VS_Corrida extends conBD {
 
-
     // Busquedas--------------
-        public Corrida buscarCorID(int clave) throws ClassNotFoundException, SQLException {
+    public Corrida buscarCorID(int clave) {
         Corrida p = new Corrida();
-        String query = "select PuntoInicial,PuntoFinal,c.Descripcion as Descripcion from Corridas c join Productos p on p.Corrida =c.Corrida"
-                + " where p.producto="+clave+"";
-        Statement smt;
-        ResultSet df;
-        abrirs();
-        Connection conect=getConexions();
-        smt = conect.createStatement();
-        df = smt.executeQuery(query);
-        while (df.next()) {
-            p.setCorrida(clave);
-            p.setPi(df.getInt("PuntoInicial"));
-            p.setPf(df.getInt("PuntoFinal"));
-            p.setDesc(df.getString("Descripcion"));
+        try {
+            String query = "select PuntoInicial,PuntoFinal,c.Descripcion as Descripcion from Corridas c join Productos p on p.Corrida =c.Corrida"
+                    + " where p.producto=" + clave + "";
+            Statement smt;
+            ResultSet df;
+            Connection conect = get68();
+            smt = conect.createStatement();
+            df = smt.executeQuery(query);
+            while (df.next()) {
+                p.setCorrida(clave);
+                p.setPi(df.getInt("PuntoInicial"));
+                p.setPf(df.getInt("PuntoFinal"));
+                p.setDesc(df.getString("Descripcion"));
+            }
+            df.close();
+            smt.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(VS_Corrida.class.getName()).log(Level.SEVERE, null, ex);
         }
-        df.close();
-        smt.close();
         return p;
     }
-        public ArrayList<Corrida> buscarall() throws ClassNotFoundException, SQLException {
+
+    public ArrayList<Corrida> buscarall() throws ClassNotFoundException, SQLException {
         ArrayList<Corrida> arr = new ArrayList<Corrida>();
-        
+
         String query = "select corrida,descripcion from Corridas order by descripcion";
         Statement smt;
         ResultSet df;

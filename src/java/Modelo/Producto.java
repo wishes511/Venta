@@ -6,13 +6,92 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
  * @author GATEWAY1-
  */
-public class Producto implements Serializable{
-  private int producto, clave_combinacion,clave_corrida,clave_linea,clave_clasificacion,estilo;
+public class Producto implements Serializable {
+
+    private int producto, clave_combinacion, clave_corrida, clave_linea, clave_clasificacion,
+            estilo, almacen, linea;
+    private ArrayList<String> arr = new ArrayList<>();
+    private Corrida cor;
+    private float costof, costom, precio, importe, total;
+    private String tipo, combinacionchar, corridachar, lineachar, status, marca, almchar, serie,stock;
+
+    public String getStock() {
+        return stock;
+    }
+
+    public void setStock(String stock) {
+        this.stock = stock;
+    }
+
+    public int getLinea() {
+        return linea;
+    }
+
+    public void setLinea(int linea) {
+        this.linea = linea;
+    }
+
+    public String getSerie() {
+        return serie;
+    }
+
+    public void setSerie(String serie) {
+        this.serie = serie;
+    }
+
+    public float getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public float getImporte() {
+        return importe;
+    }
+
+    public void setImporte(float importe) {
+        this.importe = importe;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
+    public Corrida getCor() {
+        return cor;
+    }
+
+    public void setCor(Corrida cor) {
+        this.cor = cor;
+    }
+
+    public ArrayList<String> getArr() {
+        return arr;
+    }
+
+    public void setArr(ArrayList<String> arr) {
+        this.arr = arr;
+    }
+
+    public int getAlmacen() {
+        return almacen;
+    }
+
+    public void setAlmacen(int almacen) {
+        this.almacen = almacen;
+    }
 
     public int getEstilo() {
         return this.estilo;
@@ -21,7 +100,6 @@ public class Producto implements Serializable{
     public void setEstilo(int estilo) {
         this.estilo = estilo;
     }
-    private float costof, costom;
 
     public int getProducto() {
         return this.producto;
@@ -86,7 +164,14 @@ public class Producto implements Serializable{
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    private String tipo,combinacionchar,corridachar,lineachar,status,marca;
+
+    public String getAlmchar() {
+        return almchar;
+    }
+
+    public void setAlmchar(String almchar) {
+        this.almchar = almchar;
+    }
 
     public String getMarca() {
         return this.marca;

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7158ed34-39f2-49a8-8cfa-b673779eabcf">
+	<property name="ireport.zoom" value="1.771561000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="desc" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\gateway1\\Documents\\NetBeansProjects\\Venta\\web\\usuario\\consultas\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select p.submarca,SUM(dp.totalprod) as 'total' from productos p join dpedidos dp on dp.producto = p.producto
+join pedidos ped on dp.clave_pedido=ped.clave_pedido
+where p.submarca like '%$P!{desc}%' and ped.statue='A'
+group by submarca
+order by total desc]]>
+	</queryString>
+	<field name="submarca" class="java.lang.String"/>
+	<field name="total" class="java.lang.Integer"/>
+	<variable name="total_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="77" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="103" height="27" uuid="80638520-21e3-4da1-afbe-f065b8a14877"/>
+				<imageExpression><![CDATA["C:\\Users\\gateway1\\Documents\\NetBeansProjects\\Venta\\web\\images\\AF.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="455" y="0" width="100" height="20" uuid="29bb7613-a84e-4253-a948-1d3c3511107f"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="421" y="0" width="34" height="20" uuid="0540f903-736b-484a-897e-cd3ea18dcdee"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="39" width="401" height="20" uuid="3fe6a935-61ec-40d7-9a8c-76ca253f2f0a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[REPORTE DETALLADO DE PARES POR CATEGORIA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="4" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<rectangle>
+				<reportElement x="157" y="1" width="126" height="19" backcolor="#CCCCFF" uuid="5af7e8e9-52ba-4d87-bc23-6509b8205578"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="157" y="1" width="126" height="20" uuid="b3ca63fb-72e6-40e7-8979-8bc5f098ebc8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{submarca}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="157" y="21" width="226" height="18" uuid="f372323c-3393-47f4-b7ce-0fddae1bff49"/>
+				<subreportParameter name="desc">
+					<subreportParameterExpression><![CDATA[$F{submarca}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "marcadet.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="18" splitType="Stretch">
+			<textField>
+				<reportElement x="205" y="0" width="80" height="18" uuid="5a4e4bd4-08b8-4931-982a-9f1b2575cb0d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="285" y="0" width="40" height="18" uuid="5b9adf49-d7ea-438f-93b6-c88568ede94a"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="49" splitType="Stretch">
+			<textField pattern="#,##0">
+				<reportElement x="325" y="29" width="58" height="20" uuid="94328d07-73f8-429e-ab8b-20ea28bfd074"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="197" y="29" width="128" height="20" uuid="5e08a9d0-6ea3-4acb-806a-23429c045b5d"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE PARES: ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="157" y="29" width="224" height="1" uuid="3707cc11-1cfa-4b98-ab47-7c2c606389eb"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

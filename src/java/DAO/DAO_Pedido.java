@@ -38,8 +38,8 @@ public class DAO_Pedido extends VS_Pedido implements Int_pedido{
     }
 // nuevo pedido desde carrito
     @Override
-    public int nuevoped(Pedido p,ArrayList<String> dis,ArrayList<Producto> cor, ArrayList<Corrida> corridas) {
-        int last_pedido=0;
+    public String nuevoped(Pedido p,ArrayList<String> dis,ArrayList<Producto> cor, ArrayList<Corrida> corridas) {
+        String last_pedido="";
         try {
             last_pedido=nuevopedido(p,dis,cor,corridas);
         } catch (ClassNotFoundException ex) {
@@ -49,18 +49,13 @@ public class DAO_Pedido extends VS_Pedido implements Int_pedido{
         }
         return last_pedido;
     }
-
+/**
+ * Se obtiene el ultimo registro del pedido
+ * @return 
+ */
     @Override
     public int max_pedemp() {// Carrito
-        int last =0;
-        try {
-            last=getlast();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAO_Pedido.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO_Pedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return last;
+        return getlast();
     }
 
     @Override

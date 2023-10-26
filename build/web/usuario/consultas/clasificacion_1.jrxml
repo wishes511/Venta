@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7158ed34-39f2-49a8-8cfa-b673779eabcf">
+	<property name="ireport.zoom" value="1.4641000000000015"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="desc" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\gateway1\\Documents\\NetBeansProjects\\Venta\\web\\usuario\\consultas\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select distinct l.descripcion,sum(p.totalprod) as 'total' from DPedidos p join Lineas l on p.linea=l.linea
+join pedidos ped on p.clave_pedido = ped.clave_pedido
+where l.descripcion like '%$P!{desc}%' and PED.statue='A'
+group by l.descripcion
+order by total desc]]>
+	</queryString>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="total" class="java.lang.Integer"/>
+	<variable name="total_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="77" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="103" height="27" uuid="80638520-21e3-4da1-afbe-f065b8a14877"/>
+				<imageExpression><![CDATA["C:\\Users\\gateway1\\Documents\\NetBeansProjects\\Venta\\web\\images\\AF.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="455" y="0" width="100" height="20" uuid="29bb7613-a84e-4253-a948-1d3c3511107f"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="421" y="0" width="34" height="20" uuid="0540f903-736b-484a-897e-cd3ea18dcdee"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="42" width="314" height="20" uuid="3fe6a935-61ec-40d7-9a8c-76ca253f2f0a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[REPORTE DETALLADO DE PARES POR LINEA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="4" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<rectangle>
+				<reportElement x="168" y="0" width="100" height="16" backcolor="#CCCCFF" uuid="f2348be2-9b84-42a1-872d-bed181c5116b"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement x="168" y="0" width="100" height="16" uuid="d0992f88-edee-4ba2-84ae-dd174e16ec51"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="168" y="16" width="215" height="20" uuid="ef0290b3-3861-4aa9-9a27-7acb1e01c1e7"/>
+				<subreportParameter name="desc">
+					<subreportParameterExpression><![CDATA[$F{descripcion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "clasificaciondet_cat.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="205" y="11" width="80" height="20" uuid="5a4e4bd4-08b8-4931-982a-9f1b2575cb0d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="285" y="11" width="40" height="20" uuid="5b9adf49-d7ea-438f-93b6-c88568ede94a"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="48" splitType="Stretch">
+			<textField pattern="#,##0">
+				<reportElement x="325" y="28" width="58" height="20" uuid="94328d07-73f8-429e-ab8b-20ea28bfd074"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="168" y="28" width="157" height="20" uuid="5e08a9d0-6ea3-4acb-806a-23429c045b5d"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE PARES: ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="168" y="28" width="215" height="1" uuid="183c851d-28fd-4a98-a5d8-e6cffcccd22e"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

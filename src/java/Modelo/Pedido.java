@@ -12,14 +12,66 @@ import java.util.ArrayList;
  *
  * @author gateway1
  */
-public class Pedido implements Serializable{
-    int clavepedido,pedido,totalpares;
-    float importe,total,iva;
-    String fechapedido,fechaentrega,nombrecliente,rfc,direccion,email,status,usuario,telefono;
-    ArrayList<Producto> arr= new ArrayList<Producto>();
-    ArrayList<Corrida> cor= new ArrayList<Corrida>();
-    ArrayList<String> dis= new ArrayList<String>();
-            ;
+public class Pedido implements Serializable {
+
+    private int clavepedido, pedido, totalpares,foliokardex;
+    private float importe, total, iva;
+    private String fechapedido, fechaentrega, nombrecliente, rfc, direccion, email, status, usuario, telefono,
+            obs, ped, serie;
+    private ArrayList<Producto> arr = new ArrayList<Producto>();
+    private ArrayList<Corrida> cor = new ArrayList<Corrida>();
+    private ArrayList<String> dis = new ArrayList<String>();
+    private Cliente c;
+    private ArrayList<DPedido> arrdp = new ArrayList<>();
+
+    public int getFoliokardex() {
+        return foliokardex;
+    }
+
+    public void setFoliokardex(int foliokardex) {
+        this.foliokardex = foliokardex;
+    }
+
+    public ArrayList<DPedido> getArrdp() {
+        return arrdp;
+    }
+
+    public void setArrdp(ArrayList<DPedido> arrdp) {
+        this.arrdp = arrdp;
+    }
+
+    public String getSerie() {
+        return serie;
+    }
+
+    public void setSerie(String serie) {
+        this.serie = serie;
+    }
+
+    public String getPed() {
+        return ped;
+    }
+
+    public void setPed(String ped) {
+        this.ped = ped;
+    }
+
+    public String getObs() {
+        return obs;
+    }
+
+    public void setObs(String obs) {
+        this.obs = obs;
+    }
+
+    public Cliente getC() {
+        return c;
+    }
+
+    public void setC(Cliente c) {
+        this.c = c;
+    }
+
     public int getClavepedido() {
         return this.clavepedido;
     }
@@ -164,5 +216,4 @@ public class Pedido implements Serializable{
         this.dis = dis;
     }
 
-    
 }

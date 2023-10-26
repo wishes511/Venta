@@ -17,7 +17,7 @@ public interface Int_pedido {
     public ArrayList<Pedido> getall(String f1,String f2,String b,String status);
     public Connection conexionbd();
     public void closebd();
-    public int nuevoped (Pedido p,ArrayList<String> dis,ArrayList<Producto> cor, ArrayList<Corrida> corridas);
+    public String nuevoped (Pedido p,ArrayList<String> dis,ArrayList<Producto> cor, ArrayList<Corrida> corridas);
     public int max_pedemp();
     public ArrayList<Pedido> getcliente_consulta();
     public void alta(String a);

@@ -6,8 +6,16 @@ package Modelo;
 public class Usuario  implements java.io.Serializable {
 
 
-     private int claveUsuario;
+     private int claveUsuario, agente;
      private String tipo;
+
+    public int getAgente() {
+        return agente;
+    }
+
+    public void setAgente(int agente) {
+        this.agente = agente;
+    }
 
     public String getTipo() {
         return this.tipo;

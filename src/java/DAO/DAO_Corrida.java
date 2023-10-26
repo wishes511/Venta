@@ -21,16 +21,7 @@ public class DAO_Corrida extends VS_Corrida implements Int_corrida {
 
     @Override
     public Corrida getcorridawithID(int clave) {
-    Corrida c = new Corrida();
-        try {
-            c=buscarCorID(clave);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAO_Corrida.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO_Corrida.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
-        return c;//To change body of generated methods, choose Tools | Templates.
+        return buscarCorID(clave);
     }
 
     @Override
@@ -50,9 +41,9 @@ public class DAO_Corrida extends VS_Corrida implements Int_corrida {
 
     @Override
     public ArrayList<Corrida> getall() {
-        ArrayList<Corrida> arr= new ArrayList<Corrida>();
+        ArrayList<Corrida> arr = new ArrayList<Corrida>();
         try {
-            arr=buscarall();
+            arr = buscarall();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAO_Corrida.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
@@ -61,5 +52,4 @@ public class DAO_Corrida extends VS_Corrida implements Int_corrida {
         return arr;
     }
 
-    
 }

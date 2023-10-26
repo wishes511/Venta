@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import persistencia.conBD;
 
 /**
  *
@@ -34,18 +35,19 @@ public class Cierresesion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-PrintWriter out=  response.getWriter();
+        PrintWriter out = response.getWriter();
         try {
             HttpSession objSesion = request.getSession(false);
             objSesion.invalidate();
-            out.println("<script type=\"text/javascript\">");
-                    out.println("location='index.jsp';");
-                    out.println("</script>");
+            conBD c = new conBD();
+            c.cerrar68();
+            c.cerrars();
         } catch (Exception e) {
-            out.println("<script type=\"text/javascript\">");
-                    out.println("location='index.jsp';");
-                    out.println("</script>");
+
         }
+        out.println("<script type=\"text/javascript\">");
+        out.println("location='index.jsp';");
+        out.println("</script>");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,17 +63,20 @@ PrintWriter out=  response.getWriter();
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-         PrintWriter out=  response.getWriter();
+        PrintWriter out = response.getWriter();
         try {
             HttpSession objSesion = request.getSession(false);
             objSesion.invalidate();
+            conBD c = new conBD();
+            c.cerrar68();
+            c.cerrars();
             out.println("<script type=\"text/javascript\">");
-                    out.println("location='index.jsp';");
-                    out.println("</script>");
+            out.println("location='index.jsp';");
+            out.println("</script>");
         } catch (Exception e) {
             out.println("<script type=\"text/javascript\">");
-                    out.println("location='index.jsp';");
-                    out.println("</script>");
+            out.println("location='index.jsp';");
+            out.println("</script>");
         }
     }
 
@@ -96,6 +101,9 @@ PrintWriter out=  response.getWriter();
             galle_nombre.setMaxAge(0);
             tipo.setMaxAge(0);
             empresa.setMaxAge(0);
+            conBD c = new conBD();
+            c.cerrar68();
+            c.cerrars();
             response.addCookie(tipo);
             response.addCookie(galle_nombre);
             response.addCookie(empresa);

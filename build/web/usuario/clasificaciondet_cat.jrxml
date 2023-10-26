@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7158ed34-39f2-49a8-8cfa-b673779eabcf">
+	<property name="ireport.zoom" value="2.593742460100007"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="desc" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\gateway1\\Documents\\NetBeansProjects\\Venta\\web\\usuario\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select distinct prod.submarca,SUM(dp.totalprod) as 'total' from Dpedidos dp 
+join Pedidos p on dp.clave_pedido = p.clave_pedido
+join productos prod on dp.producto=prod.producto
+where prod.submarca = $P{desc} and p.statue='A'
+group by prod.submarca
+order by total desc]]>
+	</queryString>
+	<field name="submarca" class="java.lang.String"/>
+	<field name="total" class="java.lang.Integer"/>
+	<variable name="total_1" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="total_2" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="16" uuid="c4384e10-1f39-467a-b687-37d56493378f"/>
+				<textFieldExpression><![CDATA[$F{submarca}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="16" width="224" height="15" uuid="5bfb828f-9422-4371-abbc-7b6036aa181d"/>
+				<subreportParameter name="desc">
+					<subreportParameterExpression><![CDATA[$P{desc}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="submarca">
+					<subreportParameterExpression><![CDATA[$F{submarca}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "clasificaciondet.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<textField pattern="#,##0">
+				<reportElement x="186" y="0" width="38" height="15" uuid="bc0a5f47-5239-4016-b193-a5cc5fde82d9"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="152" y="0" width="34" height="15" uuid="ff580d14-13ae-4a96-ae89-a00ef2856c7b"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="224" height="1" uuid="e5916816-7387-48eb-b033-e3b3e86271af"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

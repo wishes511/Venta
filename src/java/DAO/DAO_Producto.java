@@ -24,7 +24,6 @@ public class DAO_Producto extends VS implements Int_producto{
     public Producto getprodwithID(int clave) {
         Producto p =new Producto();
         try {
-            abrirs();
             p=buscarprodID(clave);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,7 +49,6 @@ public class DAO_Producto extends VS implements Int_producto{
         public Producto getprodwithID_nochar(int clave) {
         Producto p=new Producto();
         try {
-            abrir();
             p=buscarprodID_nochar(clave);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,7 +63,6 @@ public class DAO_Producto extends VS implements Int_producto{
     public ArrayList<Producto> getall() {
     ArrayList<Producto> arr= new ArrayList<>();
         try {
-            abrirs();
             arr=buscarall();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAO_Producto.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,5 +123,15 @@ public class DAO_Producto extends VS implements Int_producto{
         }
         return arr;
         }
+
+    @Override
+    public ArrayList<Producto> getprodxestilo(String estilo, String stock) {
+        return getest(estilo,stock);
+    }
+
+    @Override
+    public Producto getprodwithpuntos(int prod, int alm, String stock) {
+        return getxpuntoest(prod, alm, stock);
+    }
     
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="3" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="185" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2bafce89-32a9-4284-8a10-9eb181031bee">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="param" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select p.producto,p.estilo,c.descripcion,cor.descripcion as 'corrida' from productos p 
+join Combinaciones c on p.combinacion=c.combinacion
+join Corridas cor on p.corrida=cor.corrida
+where p.estilo like '%$P!{param}%' or p.submarca like '%$P!{param}%' or p.linea like '%$P!{param}%'
+order by p.estilo]]>
+	</queryString>
+	<field name="producto" class="java.lang.Integer"/>
+	<field name="estilo" class="java.lang.Integer"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="corrida" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="142" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="186" height="118" uuid="2b01e639-6897-423c-97a3-444590ad267c"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Dashed"/>
+				</graphicElement>
+			</rectangle>
+			<componentElement>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="21" y="51" width="175" height="43" isRemoveLineWhenBlank="true" uuid="a9fb283e-a8e9-4ff5-9935-2f8339c0a891"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39" drawText="true" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{producto}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="21" y="31" width="165" height="20" uuid="8ed7fd73-3fef-4bd5-a8c7-33383ebd78e5"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="53" y="11" width="74" height="20" uuid="bb77f8b6-4331-438a-a7b0-11ea10658596"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estilo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="11" width="32" height="20" uuid="39ca1926-8c1e-48f1-9c5a-ea8331164bdc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estilo:]]></text>
+			</staticText>
+			<ellipse>
+				<reportElement x="162" y="11" width="13" height="10" uuid="8bc6cb4f-d8da-44b9-a36f-2fd65b561836"/>
+			</ellipse>
+			<textField>
+				<reportElement x="127" y="11" width="35" height="20" uuid="9da79d1e-1797-44d7-ab03-142ec1fb63d9"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{corrida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="27" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
