@@ -31,8 +31,7 @@ public class VS_Combinacion extends conBD {
                 + " where p.producto="+clave+"";
         Statement smt;
         ResultSet df;
-        abrir();
-        Connection conect=getConexion();
+        Connection conect=get68();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
         while (df.next()) {
@@ -47,8 +46,7 @@ public class VS_Combinacion extends conBD {
         String query = "select distinct descripcion,combinacion from Combinaciones order by descripcion";
         Statement smt;
         ResultSet df;
-        abrirs();
-        Connection conect = getConexions();
+        Connection conect = get68();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
         while (df.next()) {

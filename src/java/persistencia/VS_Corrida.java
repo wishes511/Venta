@@ -56,7 +56,6 @@ public class VS_Corrida extends conBD {
         String query = "select corrida,descripcion from Corridas order by descripcion";
         Statement smt;
         ResultSet df;
-        abrirs();
         Connection conect = getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);

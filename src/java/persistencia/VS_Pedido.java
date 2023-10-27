@@ -177,7 +177,6 @@ public class VS_Pedido extends conBD {
         int last_ped = 0;
         Statement smt;
         ResultSet df;
-        abrirs();
         Connection conect = getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
@@ -197,7 +196,6 @@ public class VS_Pedido extends conBD {
 //        System.out.println(query);
         Statement smt;
         ResultSet df;
-        abrirs();
         Connection conect = getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
@@ -214,7 +212,6 @@ public class VS_Pedido extends conBD {
     public void modstatus(String s, int clave) throws ClassNotFoundException, SQLException {
         PreparedStatement st = null;
         try {
-            abrirs();
             getConexions().setAutoCommit(false);
             String str = "update pedidos set statue='" + s + "' where clave_pedido=" + clave;
             //System.out.println(str);

@@ -363,7 +363,8 @@ public class Carrito extends HttpServlet {
                     Crearpdf pdf = new Crearpdf();
                     pdf.createpdf(p.getPed(), cbd.get68());
 //                Generar y mandar email con el archivo adjunto
-                    String cuerpo = "Hola buenas tardes, \n Se le hace el envio del pedido recien realizado con el numero " + p.getPed();
+                    String cuerpo = "Hola buenas tardes, \n Se le hace el envio del documento del pedido recien realizado con el numero " + p.getPed()+"\n "
+                            + " Favor de no contestar ya que es un elemento auto gestionado.";
                     mail email = new mail(cuerpo, "Pedido Athletic Footwear", p.getC(), p.getPed());
                     email.sendmail();
                     pdf.deletepdf(p.getPed());

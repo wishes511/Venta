@@ -33,8 +33,7 @@ public class VS_Linea extends conBD {
         String query = "";
         Statement smt;
         ResultSet df;
-        abrir();
-        Connection conect=getConexion();
+        Connection conect=getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
         while (df.next()) {
@@ -50,7 +49,6 @@ public class VS_Linea extends conBD {
         String query = "select MAX(linea) as 'linea' from Lineas";
         Statement smt;
         ResultSet df;
-        abrirs();
         Connection conect=getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
@@ -84,7 +82,6 @@ public class VS_Linea extends conBD {
         String query = "select linea,descripcion from Lineas order by descripcion";
         Statement smt;
         ResultSet df;
-        abrirs();
         Connection conect = getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
@@ -106,7 +103,6 @@ public class VS_Linea extends conBD {
         "group by submarca";
         Statement smt;
         ResultSet df;
-        abrirs();
         Connection conect = getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);

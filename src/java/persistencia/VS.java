@@ -113,7 +113,6 @@ public class VS extends conBD {
                 + "join Combinaciones com on p.Combinacion=com.Combinacion where p.statue='A' order by p.estilo";
         Statement smt;
         ResultSet df;
-        abrirs();
         Connection conect = getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
@@ -145,7 +144,6 @@ public class VS extends conBD {
         //System.out.println("busca x cata "+query);
         Statement smt;
         ResultSet df;
-        abrirs();
         Connection conect = getConexions();
         smt = conect.createStatement();
         df = smt.executeQuery(query);
