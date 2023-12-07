@@ -25,6 +25,10 @@ and open the template in the editor.
     border-radius: 5px;    
 }
 
+.letraverde{
+    color:rgb(92,184,92);
+}
+
 .imagentabla{ /*tamano de la tabla*/
 max-width: 25px;
 max-height: 25px;

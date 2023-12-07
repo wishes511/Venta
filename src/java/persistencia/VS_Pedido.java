@@ -5,6 +5,7 @@
  */
 package persistencia;
 
+import Modelo.Cliente;
 import Modelo.Corrida;
 import Modelo.Pedido;
 import Modelo.Producto;
@@ -143,10 +144,11 @@ public class VS_Pedido extends conBD {
     public ArrayList<Pedido> getpeds(String f1, String f2, String b, String s) throws ClassNotFoundException, SQLException {
         ArrayList<Pedido> arr = new ArrayList<>();
 
-        String query = "select pedido,convert(date,Fechapedido) as fc,convert(date,FechaEntrega) as fe,\n"
+        String query = "select pedido,convert(date,Fechapedido) as fc,convert(date,FechaEntrega) as fe,correoe,c.numcliente,\n"
                 + "TotalPares,Importe,serie,nombre,isnull((select folio from kardex where npedido=pedido),'') as folio\n"
                 + "from pedidos p\n"
-                + "join ACobranza.dbo.Clientes c on p.NumCliente=c.NumCliente\n"
+                + "join ACobranzaFH.dbo.Clientes c on p.NumCliente=c.NumCliente\n"
+//                + "join ACobranza.dbo.Clientes c on p.NumCliente=c.NumCliente\n"
                 + "where convert(date,fechapedido) between '" + f1 + "' and '" + f2 + "' and marca=' V' and usuario='" + s + "' and nombre like '%" + b + "%'\n"
                 + "order by fechacaptura desc";
 //        System.out.println("Ver pedidos "+query);
@@ -157,6 +159,9 @@ public class VS_Pedido extends conBD {
         df = smt.executeQuery(query);
         while (df.next()) {
             Pedido p = new Pedido();
+            Cliente c = new Cliente();
+            c.setNumcliente(df.getInt("numcliente"));
+            c.setEmail(df.getString("correoe"));
             p.setPed(df.getString("pedido"));
             p.setFechapedido(df.getString("fc"));
             p.setFechaentrega(df.getString("fe"));
@@ -165,6 +170,7 @@ public class VS_Pedido extends conBD {
             p.setImporte(df.getFloat("importe"));
             p.setSerie(df.getString("serie"));
             p.setFoliokardex(df.getInt("folio"));
+            p.setC(c);
             arr.add(p);
         }
         df.close();

@@ -363,7 +363,7 @@ public class Carrito extends HttpServlet {
                     Crearpdf pdf = new Crearpdf();
                     pdf.createpdf(p.getPed(), cbd.get68());
 //                Generar y mandar email con el archivo adjunto
-                    String cuerpo = "Hola buenas tardes, \n Se le hace el envio del documento del pedido recien realizado con el numero " + p.getPed()+"\n "
+                    String cuerpo = "Hola buenas tardes, \n Se le hace el envio del documento del pedido recien realizado con el numero " + p.getPed() + "\n "
                             + " Favor de no contestar ya que es un elemento auto gestionado.";
                     mail email = new mail(cuerpo, "Pedido Athletic Footwear", p.getC(), p.getPed());
                     email.sendmail();
@@ -388,8 +388,12 @@ public class Carrito extends HttpServlet {
 //                imagen = "down";
 //            }
             for (int i = 0; i < arr.size(); i++) { // despliegue informacion en filas
+                String pedid = arr.get(i).getPed();
+                String correo = arr.get(i).getC().getEmail();
+                int nc = arr.get(i).getC().getNumcliente();
+                System.out.println("a " + pedid + " " + correo + " " + nc);
                 out.print("<tr>");
-                out.print("<td>" + arr.get(i).getPed() + "</td>");
+                out.print("<td>" + pedid + "</td>");
                 out.print("<td>" + arr.get(i).getFechapedido() + "</td>");
                 out.print("<td>" + arr.get(i).getFechaentrega() + "</td>");
                 out.print("<td>" + arr.get(i).getNombrecliente() + "</td>");
@@ -397,6 +401,8 @@ public class Carrito extends HttpServlet {
                 out.print("<td>" + arr.get(i).getImporte() + "</td>");
                 out.print("<td>" + arr.get(i).getSerie() + "</td>");
                 out.print("<td>" + arr.get(i).getFoliokardex() + "</td>");
+                out.print("<td><img src=\"../images/email_14410.png\"  width=\"24px\" height=\"24px\" onclick=\"sendemail('" + pedid + "','" + nc + "','" + correo + "')\"></td>");
+                out.print("<td id=idemail></td>");
                 // out.print("<td><img onclick=" + modo + "(" + arr.get(i).getClavepedido() + ") class=\"imagentabla\" src=\"../images/" + imagen + ".png\" ></td>");
                 out.print("</tr>");
             }
@@ -430,7 +436,22 @@ public class Carrito extends HttpServlet {
                 out.print("<option value=" + arr1.getNumcliente() + ">" + arr1.getNombre() + "</option>");
             }
             out.print("</select>");
-
+        } else if (uso.equals("email")) {
+//            Manda por email el pedido de acuerdo al cliente/pedido
+            conBD cbd = new conBD();
+            Cliente cli = new Cliente();
+            cli.setEmail((String) request.getParameter("email"));
+            String ped = (String) request.getParameter("pedido");
+//                Creacion y exportacion de pdf
+            Crearpdf pdf = new Crearpdf();
+            pdf.createpdf(ped, cbd.get68());
+//                Generar y mandar email con el archivo adjunto
+            String cuerpo = "Hola buenos dias/tardes, \n Se le hace el envio del documento del pedido con el numero " + ped + "\n "
+                    + " Favor de no contestar ya que es un elemento auto gestionado.";
+            mail email = new mail(cuerpo, "Pedido Athletic Footwear", cli, ped);
+            email.sendmail();
+            pdf.deletepdf(ped);
+            out.print("<label class=letraverde>Completo</label>");
         }
 
     }

@@ -135,7 +135,7 @@
                     </div>
                 </div>
             </nav>
-            <div class="container">
+            <div class="">
                 <div class="row">
                     <div class="col-md-12 " >
                         <div class="col-sm-offset-3" >
@@ -159,29 +159,29 @@
                         </div>
                     </div>
                 </div>
-               <div class="container-fluid">
-                        <div class="row" >
+                <div class="container-fluid">
+                    <div class="row" >
                         <div class=" col-md-6 col-sm-6">
-                        <div class="col-md-5">
-                            <br><input type="text" id="peds" placeholder="Busqueda de productos" class="form-control" onkeyup="verp()"> 
+                            <div class="col-md-5">
+                                <br><input type="text" id="peds" placeholder="Busqueda de productos" class="form-control" onkeyup="verp()"> 
+                            </div>
+                            <div class="col-md-3">
+                                <br><a target="_blank"><button onclick="getreport()" class="btn btn-success">Generar Reporte</button></a> 
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <br><a target="_blank"><button onclick="getreport()" class="btn btn-success">Generar Reporte</button></a> 
-                        </div>
-                    </div>
-                    <div class="  col-md-6 col-xs-9" align="center">
-                        <div class="col-xs-5" align = center>
-                            <br>
-                        <label class="">Activo</label>
-                        <input type="radio" name="status" id="staus" value="a" checked="checked" onclick="verp()"/>
-                        </div>
-                        <div class="col-xs-5" align = center>
-                            <br>
-                        <label class="">Cancelada</label>
-                        <input type="radio" name="status" id="status" value="c" onclick="verp()"/>
-                        </div>
-                    </div>
-                    
+                        <!--<div class="  col-md-6 col-xs-9" align="center">
+                            <div class="col-xs-5" align = center>
+                                <br>
+                                <label class="">Activo</label>
+                                <input type="radio" name="status" id="staus" value="a" checked="checked" onclick="verp()"/>
+                            </div>
+                            <div class="col-xs-5" align = center>
+                                <br>
+                                <label class="">Cancelada</label>
+                                <input type="radio" name="status" id="status" value="c" onclick="verp()"/>
+                            </div>
+                        </div>-->
+
                     </div>
                 </div>
 
@@ -206,6 +206,8 @@
                                 <th class="ln">Importe</th>
                                 <th class="ln">Serie</th>
                                 <th class="ln">folio</th>
+                                <th class="ln" ></th>
+                                <th class="ln" ></th>
                                 </thead>
                                 <tbody id="llenar" class="" style="overflow: auto;">
                                 </tbody> 
@@ -229,11 +231,11 @@
                     var pro = $('#f1').val();
                     var pro1 = $('#f2').val();
                     var peds = $('#peds').val();
-                    var report=$('input:radio[name=status]:checked').val();
+                    var report = $('input:radio[name=status]:checked').val();
                     var uso = "fechas";
                     $.ajax({
                         type: 'post',
-                        data: {f1: pro, f2: pro1, uso: uso, busqueda: peds,status:report},
+                        data: {f1: pro, f2: pro1, uso: uso, busqueda: peds, status: report},
                         url: '../Carrito',
                         success: function (result) {
                             $('#llenar').html(result);
@@ -241,14 +243,27 @@
                     });
                 }
             }
+            function sendemail(pedido, cliente, email) {
+                var uso = "email";
+                $.ajax({
+                    type: 'post',
+                    data: {uso: uso, pedido: pedido, cliente: cliente, email: email},
+                    url: '../Carrito',
+                    success: function (result) {
+                        $('#idemail').html(result);
+                    }
+                });
+            }
+
             function getreport() {
-                /*var f1 = $('#f1').val(); 
+                var f1 = $('#f1').val();
                 var f2 = $('#f2').val();
                 var peds = $('#peds').val();
-                var report=$('input:radio[name=status]:checked').val();
-                location.href = "reportevta.jsp?f1=" + f1 + "&f2=" + f2 + "&peds=" + peds+"&report="+report;*/
-               location = "reportevta_pedido.jsp?peds=11 V";
-               //location="pedido_1.jsp";
+                //var report=$('input:radio[name=status]:checked').val();
+                var report = "1";
+                location.href = "reportevta.jsp?f1=" + f1 + "&f2=" + f2 + "&peds=" + peds + "&report=" + report;
+                //location = "reportevta_pedido.jsp?peds=11 V";
+                //location="pedido_1.jsp";
             }
         </script>
     </body>
